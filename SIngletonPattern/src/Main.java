@@ -5,7 +5,7 @@ public class Main {
 
         Registry config1 = Registry.getInstance();
         config1.setPath("C:/ficheiros");
-        config1.setConnection("jdbc:mysql://localhost/mydb");
+        config1.setConnectionString("jdbc:mysql://localhost/mydb");
 
         Registry config2 = Registry.getInstance();
 

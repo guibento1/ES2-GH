@@ -17,9 +17,9 @@ public class Registry {
 
     public String getPath() { return path; }
 
-    public String getConnectionString() { return connectionString; }
-
     public void setPath(String path) { this.path = path; }
 
-    public void setConnection(String connectionString) { this.connectionString = connectionString; }
+    public String getConnectionString() { return connectionString; }
+
+    public void setConnectionString(String connectionString) { this.connectionString = connectionString; }
 }
