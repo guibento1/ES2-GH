@@ -8,7 +8,7 @@ public class Registry {
 
     private Registry () {}
 
-    public static Registry getInstance() {
+    public static synchronized Registry getInstance() {
         if (instance == null) {
             instance = new Registry();
         }
