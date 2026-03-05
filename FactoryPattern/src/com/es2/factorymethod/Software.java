@@ -1,16 +1,13 @@
 package com.es2.factorymethod;
 
-public class Software implements Product {
+public class Software implements Product{
 
     private String brand;
 
-    protected Software() {
-    }
+    protected Software (){}
 
     @Override
-    public String getBrand() {
-        return brand;
-    }
+    public String getBrand() { return brand; }
 
     @Override
     public void setBrand(String brand) {

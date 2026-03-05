@@ -4,13 +4,10 @@ public class Computer implements Product {
 
     private String brand;
 
-    protected Computer() {
-    }
+    protected Computer (){}
 
     @Override
-    public String getBrand() {
-        return brand;
-    }
+    public String getBrand() { return brand; }
 
     @Override
     public void setBrand(String brand) {

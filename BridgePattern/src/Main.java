@@ -1,13 +1,47 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import com.es2.bridge.APIMoodle;
+import com.es2.bridge.APIRequest;
+import com.es2.bridge.APIRequestContentAggregator;
+import com.es2.bridge.ServiceNotFoundException;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+public class Main {
+    public static void main(String[] args) {
+        // serviço concreto (implementação)
+        APIMoodle moodle = new APIMoodle();
+
+        // abstração normal
+        APIRequest request = new APIRequest();
+
+        // abstração especializada (agregador)
+        APIRequestContentAggregator aggregator = new APIRequestContentAggregator();
+
+        // registar o mesmo serviço nas duas abstrações
+        String serviceId1 = request.addService(moodle);
+        String serviceId2 = aggregator.addService(moodle);
+
+        // adicionar conteúdos através da APIRequest normal
+        try {
+            String c1 = request.setContent(serviceId1, "A");
+            String c2 = request.setContent(serviceId1, "B");
+            String c3 = request.setContent(serviceId1, "C");
+
+            System.out.println("IDs criados: " + c1 + ", " + c2 + ", " + c3);
+
+            // ler um conteúdo específico
+            String one = request.getContent(serviceId1, c2);
+            System.out.println("Conteúdo individual (c2): " + one);
+
+            // ler todos agregados via aggregator (deve imprimir ABC)
+            String all = aggregator.getContent(serviceId2, "ignored");
+            System.out.println("Conteúdo agregado: " + all);
+        } catch (ServiceNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // testar ServiceNotFoundException
+        try {
+            request.getContent("999", "1");
+        } catch (ServiceNotFoundException e) {
+            System.out.println("Apanhou ServiceNotFoundException para serviceId inexistente");
+        }
     }
 }
