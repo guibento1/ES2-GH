@@ -31,13 +31,14 @@ public class LogConfig {
         return destinations;
     }
 
+    public void setDestinations(List<String> destinations) {
+        this.destinations = destinations;
+    }
+
     public void addDestination(String destination) {
         this.destinations.add(destination);
     }
 
-    public void setDestinations(List<String> destinations) {
-        this.destinations = destinations;
-    }
 
     public String getFormatPatterns() {
         return formatPatterns;
