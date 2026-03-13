@@ -30,6 +30,11 @@ public class LogConfig {
     public List<String> getDestinations() {
         return destinations;
     }
+
+    public void addDestination(String destination) {
+        this.destinations.add(destination);
+    }
+
     public void setDestinations(List<String> destinations) {
         this.destinations = destinations;
     }

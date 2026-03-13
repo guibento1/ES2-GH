@@ -1,13 +1,27 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import tp.es2.logging.*;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+public class Main {
+    public static void main(String[] args) {
+        // M1: usar o Singleton de configuração
+        LogConfig config = LogConfig.getInstance();
+        config.setGlobalLevel(LogLevel.DEBUG);
+        config.setFormatPatterns("[%level][%time] %message");
+        config.addDestination("console");
+
+        System.out.println("Nível global: " + config.getGlobalLevel());
+        System.out.println("Destinos: " + config.getDestinations());
+        System.out.println("Formato: " + config.getFormatPatterns());
+
+        // M2: criar registos de log via Factory
+        LogEntry infoLog = LogEntryFactory.create(LogLevel.INFO, "Aplicação iniciada");
+        LogEntry errorLog = LogEntryFactory.create(LogLevel.ERROR, "Falha na base de dados");
+
+        System.out.println("INFO -> level=" + infoLog.getLevel()
+                + ", ts=" + infoLog.getTimestamp()
+                + ", msg=" + infoLog.getMessage());
+
+        System.out.println("ERROR -> level=" + errorLog.getLevel()
+                + ", ts=" + errorLog.getTimestamp()
+                + ", msg=" + errorLog.getMessage());
     }
 }
