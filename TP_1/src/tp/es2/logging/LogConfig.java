@@ -39,7 +39,6 @@ public class LogConfig {
         this.destinations.add(destination);
     }
 
-
     public String getFormatPatterns() {
         return formatPatterns;
     }
