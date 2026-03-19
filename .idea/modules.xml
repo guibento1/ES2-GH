@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Patterns/BridgePattern/BridgePattern.iml" filepath="$PROJECT_DIR$/Patterns/BridgePattern/BridgePattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Patterns/CompositePattern/CompositePattern.iml" filepath="$PROJECT_DIR$/Patterns/CompositePattern/CompositePattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Patterns/DecoratorPattern/DecoratorPattern.iml" filepath="$PROJECT_DIR$/Patterns/DecoratorPattern/DecoratorPattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ES2-GH.iml" filepath="$PROJECT_DIR$/.idea/ES2-GH.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Patterns/FactoryPattern/FactoryPattern.iml" filepath="$PROJECT_DIR$/Patterns/FactoryPattern/FactoryPattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Patterns/MementoPattern/MementoPattern.iml" filepath="$PROJECT_DIR$/Patterns/MementoPattern/MementoPattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Patterns/ObjectPoolPattern/ObjectPoolPattern.iml" filepath="$PROJECT_DIR$/Patterns/ObjectPoolPattern/ObjectPoolPattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Patterns/SingletonPattern/SingletonPattern.iml" filepath="$PROJECT_DIR$/Patterns/SingletonPattern/SingletonPattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TP_1/TP_1.iml" filepath="$PROJECT_DIR$/TP_1/TP_1.iml" />
+    </modules>
+  </component>
+</project>

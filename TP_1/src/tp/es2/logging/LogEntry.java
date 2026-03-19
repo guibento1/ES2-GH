@@ -1,6 +1,6 @@
 package tp.es2.logging;
 
-public class LogEntry {
+public abstract class LogEntry {
     private final LogLevel level;
     private final String message;
     private final long timestamp;
