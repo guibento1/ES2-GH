@@ -10,7 +10,7 @@ public class Main {
 
         // 2. Criar os destinos (Bridge)
         LogDestination console = new ConsoleDestination();
-        LogDestination file = new FileDestination("logs.txt");
+        LogDestination file = new FileDestination("src/logs.txt");
         LogDestination databaseUrl = new DatabaseDestination("jdbc:mysql://localhost:3306/logs");
 
         // 3. Criar o Logger com os destinos

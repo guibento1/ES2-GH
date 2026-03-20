@@ -1,0 +1,4 @@
+[INFO] 1774025579217 - Aplicação iniciada
+[DEBUG] 1774025579217 - A carregar configurações
+[WARNING] 1774025579217 - Memória a 80%
+[ERROR] 1774025579217 - Falha na ligação à BD
