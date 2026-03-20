@@ -6,7 +6,7 @@ import java.util.List;
 public class LogConfig {
     private static final LogConfig instance = new LogConfig();
     private LogLevel globalLevel;
-    private List<String> destinations;
+    private List<LogDestination> destinations;
     private String formatPatterns;
 
     private LogConfig() {
@@ -27,15 +27,15 @@ public class LogConfig {
         this.globalLevel = globalLevel;
     }
 
-    public List<String> getDestinations() {
+    public List<LogDestination> getDestinations() {
         return destinations;
     }
 
-    public void setDestinations(List<String> destinations) {
+    public void setDestinations(List<LogDestination> destinations) {
         this.destinations = destinations;
     }
 
-    public void addDestination(String destination) {
+    public void addDestination(LogDestination destination) {
         this.destinations.add(destination);
     }
 
