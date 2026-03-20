@@ -6,6 +6,11 @@ public class DatabaseDestination implements LogDestination {
     public DatabaseDestination(String databaseUrl) {
         this.databaseUrl = databaseUrl;
     }
+
+    public String getDatabaseUrl() {
+        return databaseUrl;
+    }
+
     @Override
     public void write(LogEntry entry, String formattedMessage) {
         System.out.println(formattedMessage);
