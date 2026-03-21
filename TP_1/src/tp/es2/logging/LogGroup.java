@@ -7,7 +7,7 @@ public class LogGroup implements LogComponent {
     private String category;
     private List<LogComponent> components = new ArrayList<>();
 
-    public LogGroup(){
+    public LogGroup(String category) {
         this.category = category;
     }
 
