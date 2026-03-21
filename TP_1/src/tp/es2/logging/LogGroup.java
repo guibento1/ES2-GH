@@ -24,6 +24,6 @@ public class LogGroup implements LogComponent {
 
     @Override
     public String getCategory() {
-        return "";
+        return Category;
     }
 }
