@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogGroup implements LogComponent {
-    private String Category;
+    private String category;
     private List<LogComponent> components = new ArrayList<>();
+
+    public LogGroup(){
+        this.category = category;
+    }
 
     public void add(LogComponent log) {
         components.add(log);
@@ -24,6 +28,6 @@ public class LogGroup implements LogComponent {
 
     @Override
     public String getCategory() {
-        return Category;
+        return category;
     }
 }
