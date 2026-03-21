@@ -1,3 +1,4 @@
+import jdk.jpackage.internal.Log;
 import tp.es2.logging.*;
 import java.util.Arrays;
 
@@ -27,5 +28,23 @@ public class Main {
         logger.log(debug);
         logger.log(warning);
         logger.log(error);
+
+        // ---------Composite--------------
+        // Criar groups
+        LogGroup autenticacao = new LogGroup();
+        LogGroup baseDeDados = new LogGroup();
+        LogGroup interfacee = new LogGroup();
+        LogGroup rede = new LogGroup();
+        // Folhas/leaf
+        autenticacao.add(LogEntryFactory.create(LogLevel.INFO, "Login com sucesso;"));
+        autenticacao.add(LogEntryFactory.create(LogLevel.WARNING, "Mude a pass de mes a mes"));
+        autenticacao.add(LogEntryFactory.create(LogLevel.ERROR, "Credenciais incorretas"));
+        autenticacao.add(LogEntryFactory.create(LogLevel.DEBUG, "Modo debug ativado"));
+        //Adicionar os grupos ao sistema
+        LogGroup sistema = new LogGroup();
+        sistema.add(autenticacao);
+        sistema.add(baseDeDados);
+        sistema.add(interfacee);
+        sistema.add(rede);
     }
 }

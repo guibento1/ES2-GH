@@ -1,6 +1,6 @@
 package tp.es2.logging;
 
-public abstract class LogEntry {
+public abstract class LogEntry implements LogComponent {
     private final LogLevel level;
     private final String message;
     private final long timestamp;
@@ -21,5 +21,15 @@ public abstract class LogEntry {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public void log(Logger logger) {
+        logger.log(this);
+    }
+
+    @Override
+    public String getCategory() {
+        return getLevel().name();
     }
 }
