@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="factory">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Patterns/FactoryPattern/out/artifacts/factory/factory.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
