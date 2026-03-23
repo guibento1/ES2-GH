@@ -1,0 +1,3 @@
+{
+    "terminal.integrated.shellArgs.windows": ["-noexit", "chcp 65001"]
+}
