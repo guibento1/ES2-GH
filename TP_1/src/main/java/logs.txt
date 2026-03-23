@@ -1,0 +1,36 @@
+[INFO] 1774261860745 - Aplicação iniciada
+[DEBUG] 1774261860745 - A carregar configurações
+[WARNING] 1774261860745 - Memória a 80%
+[ERROR] 1774261860745 - Falha na ligação à BD
+[INFO] 1774261933885 - Aplicação iniciada
+[DEBUG] 1774261933885 - A carregar configurações
+[WARNING] 1774261933885 - Memória a 80%
+[ERROR] 1774261933885 - Falha na ligação à BD
+[INFO] 1774261966095 - Aplicação iniciada
+[DEBUG] 1774261966095 - A carregar configurações
+[WARNING] 1774261966095 - Memória a 80%
+[ERROR] 1774261966095 - Falha na ligação à BD
+[INFO] 1774262027773 - Aplicação iniciada
+[DEBUG] 1774262027773 - A carregar configurações
+[WARNING] 1774262027773 - Memória a 80%
+[ERROR] 1774262027773 - Falha na ligação à BD
+[INFO] 1774262131624 - Aplicação iniciada
+[DEBUG] 1774262131624 - A carregar configurações
+[WARNING] 1774262131624 - Memória a 80%
+[ERROR] 1774262131624 - Falha na ligação à BD
+[INFO] 1774262240415 - Aplicação iniciada
+[DEBUG] 1774262240415 - A carregar configurações
+[WARNING] 1774262240415 - Memória a 80%
+[ERROR] 1774262240415 - Falha na ligação à BD
+[INFO] 1774262518049 - Aplicação iniciada
+[DEBUG] 1774262518049 - A carregar configurações
+[WARNING] 1774262518049 - Memória a 80%
+[ERROR] 1774262518049 - Falha na ligação à BD
+[INFO] 1774262805912 - Aplicação iniciada
+[DEBUG] 1774262805912 - A carregar configurações
+[WARNING] 1774262805912 - Memória a 80%
+[ERROR] 1774262805912 - Falha na ligação à BD
+[INFO] 1774262806316 - Aplicação iniciada
+[DEBUG] 1774262806316 - A carregar configurações
+[WARNING] 1774262806316 - Memória a 80%
+[ERROR] 1774262806316 - Falha na ligação à BD

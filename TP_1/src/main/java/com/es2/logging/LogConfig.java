@@ -1,4 +1,4 @@
-package tp.es2.logging;
+package com.es2.logging;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package tp.es2.logging;
+package com.es2.logging;
 
 public abstract class LogEntry {
     private final LogLevel level;
