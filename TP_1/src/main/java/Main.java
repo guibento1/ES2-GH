@@ -28,14 +28,14 @@ public class Main {
         logger.log(warning);
         logger.log(error);
 
-        // --------- Composite --------------
+        // --------- Composite -------------
         // Criar groups
         LogGroup autenticacao = new LogGroup("Autenticacao");
         LogGroup baseDeDados = new LogGroup("Base de Dados");
         LogGroup interfacee = new LogGroup("Interface");
         LogGroup rede = new LogGroup("Rede");
 
-        // Folhas/leaf
+        // Folhas/leafs
         autenticacao.add(LogEntryFactory.create(LogLevel.INFO, "Login com sucesso"));
         autenticacao.add(LogEntryFactory.create(LogLevel.WARNING, "Mude a pass de mes a mes"));
         autenticacao.add(LogEntryFactory.create(LogLevel.ERROR, "Credenciais incorretas"));
@@ -55,7 +55,7 @@ public class Main {
         // Logar — trata grupos e individuais de forma uniforme
         sistema.log(logger);
 
-        // --------- Object Pool --------------
+        // --------- Object Pool -------------
         LogDestinationPool pool = new LogDestinationPool(Arrays.asList(
             new FileDestination("src/main/java/pool_logs_1.txt"),
             new FileDestination("src/main/java/pool_logs_2.txt")
@@ -73,7 +73,7 @@ public class Main {
         pool.release(dest);
         System.out.println("Disponiveis: " + pool.availableCount()); // 2
 
-        // --------- Memento --------------
+        // --------- Memento -------------
         LogConfigCaretaker caretaker = new LogConfigCaretaker(config);
 
         // Tirar snapshot
@@ -85,5 +85,10 @@ public class Main {
 
         // Restaurar snapshot 0
         caretaker.restore(0);
+
+        // --------- Decorator -------------
+        LogComponent entry = LogEntryFactory.create(LogLevel.ERROR, "Falha critica");
+        LogComponent decorated = new MonitorDecorator(new AlertDecorator(entry));
+        decorated.log(logger);
     }
 }

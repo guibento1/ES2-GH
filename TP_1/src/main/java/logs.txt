@@ -1,22 +1,12 @@
-[INFO] 1774528782758 - Aplicação iniciada
-[DEBUG] 1774528782758 - A carregar configurações
-[WARNING] 1774528782758 - Memória a 80%
-[ERROR] 1774528782758 - Falha na ligação à BD
-[INFO] 1774528782764 - Login com sucesso
-[WARNING] 1774528782764 - Mude a pass de mes a mes
-[ERROR] 1774528782764 - Credenciais incorretas
-[DEBUG] 1774528782764 - Modo debug ativado
-[ERROR] 1774528782764 - Ligacao perdida
-[INFO] 1774528782764 - Interface carregada
-[WARNING] 1774528782764 - Latencia elevada
-[INFO] 1774528798484 - Aplicação iniciada
-[DEBUG] 1774528798484 - A carregar configurações
-[WARNING] 1774528798484 - Memória a 80%
-[ERROR] 1774528798484 - Falha na ligação à BD
-[INFO] 1774528798492 - Login com sucesso
-[WARNING] 1774528798492 - Mude a pass de mes a mes
-[ERROR] 1774528798492 - Credenciais incorretas
-[DEBUG] 1774528798492 - Modo debug ativado
-[ERROR] 1774528798492 - Ligacao perdida
-[INFO] 1774528798492 - Interface carregada
-[WARNING] 1774528798492 - Latencia elevada
+[INFO] 1774550724815 - Aplicação iniciada
+[DEBUG] 1774550724815 - A carregar configurações
+[WARNING] 1774550724815 - Memória a 80%
+[ERROR] 1774550724815 - Falha na ligação à BD
+[INFO] 1774550724819 - Login com sucesso
+[WARNING] 1774550724819 - Mude a pass de mes a mes
+[ERROR] 1774550724819 - Credenciais incorretas
+[DEBUG] 1774550724819 - Modo debug ativado
+[ERROR] 1774550724819 - Ligacao perdida
+[INFO] 1774550724819 - Interface carregada
+[WARNING] 1774550724819 - Latencia elevada
+[ERROR] 1774550724833 - Falha critica
