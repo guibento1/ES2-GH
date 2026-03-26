@@ -57,8 +57,8 @@ public class Main {
 
         // --------- Object Pool --------------
         LogDestinationPool pool = new LogDestinationPool(Arrays.asList(
-            new FileDestination("src/pool_logs1.txt"),
-            new FileDestination("src/pool_logs2.txt")
+            new FileDestination("src/main/java/pool_logs_1.txt"),
+            new FileDestination("src/main/java/pool_logs_2.txt")
         ));
 
         System.out.println("Disponiveis: " + pool.availableCount()); // 2
@@ -72,5 +72,18 @@ public class Main {
 
         pool.release(dest);
         System.out.println("Disponiveis: " + pool.availableCount()); // 2
+
+        // --------- Memento --------------
+        LogConfigCaretaker caretaker = new LogConfigCaretaker(config);
+
+        // Tirar snapshot
+        caretaker.save();
+
+        // Alterar configurações
+        config.setGlobalLevel(LogLevel.ERROR);
+        config.setFormatPatterns("[%level] %message %time");
+
+        // Restaurar snapshot 0
+        caretaker.restore(0);
     }
 }

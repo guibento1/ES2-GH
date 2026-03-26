@@ -39,6 +39,16 @@ public class LogConfig {
         this.destinations.add(destination);
     }
 
+    public LogConfigMemento createMemento() {
+        return new LogConfigMemento(globalLevel, destinations, formatPatterns);
+    }
+
+    public void restoreMemento(LogConfigMemento memento) {
+        this.globalLevel    = memento.getGlobalLevel();
+        this.destinations   = new ArrayList<>(memento.getDestinations());
+        this.formatPatterns = memento.getFormatPatterns();
+    }
+
     public String getFormatPatterns() {
         return formatPatterns;
     }
