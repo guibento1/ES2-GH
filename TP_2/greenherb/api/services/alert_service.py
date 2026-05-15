@@ -17,15 +17,7 @@ MAX_JUSTIFICATION_LEN = 500
 
 
 def classify_alert(temp, humidity, limits, sensor_ok):
-    """
-    Compound decision (MC/DC):
-        resultado = (C1 OR C2) AND C3
-        C1: temp     > limits['temp_max']
-        C2: humidity < limits['humidity_min']
-        C3: sensor_ok
-
-    Returns: "Crítico" | "Aviso" | None
-    """
+    """Returns "Crítico" | "Aviso" | None based on (C1 OR C2) AND C3."""
     if not isinstance(sensor_ok, bool):
         raise AlertClassificationError("sensor_ok must be a boolean.")
     if temp is None or humidity is None:

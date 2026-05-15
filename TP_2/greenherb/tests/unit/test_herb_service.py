@@ -1,14 +1,3 @@
-"""
-Testes de unidade — Sprint 2
-Módulo: api.services.herb_service  (TU-34 a TU-38)
-
-TU-34  Catálogo vazio — importação de registos com campos opcionais vazios      PE
-TU-35  Catálogo vazio — ficheiro CSV vazio gera erro                             PE
-TU-36  Re-importação do mesmo catálogo duplica os registos já existentes         PE
-TU-37  Importação de novas ervas não duplica as que já existiam no catálogo      PE
-TU-38  Tipo de input errado (name inteiro em vez de string) gera erro            PE
-"""
-
 import pytest
 
 from api.data import memory_store

@@ -18,17 +18,6 @@ class BatchNotFoundError(ValueError):
 
 
 def transition_batch_state(current_state, has_losses, end_date_set):
-    """
-    Compound decision (MC/DC):
-        C1: current_state == "ativo"
-        C2: has_losses
-        C3: end_date_set
-
-    C1=T, C3=T, C2=F → "concluído"
-    C1=T, C3=T, C2=T → "comprometido"
-    C1=T, C3=F       → BatchStateError
-    C1=F             → BatchStateError (terminal state)
-    """
     if current_state not in VALID_STATES:
         raise BatchStateError(f"Estado inválido: '{current_state}'.")
     if current_state in TERMINAL_STATES:
@@ -41,9 +30,6 @@ def transition_batch_state(current_state, has_losses, end_date_set):
 
 
 def calculate_productivity(planned_qty, actual_qty, losses):
-    """
-    productivity = (actual_qty - losses) / planned_qty * 100
-    """
     if not isinstance(planned_qty, (int, float)) or isinstance(planned_qty, bool):
         raise BatchCalculationError("planned_qty must be a number.")
     if not isinstance(actual_qty, (int, float)) or isinstance(actual_qty, bool):

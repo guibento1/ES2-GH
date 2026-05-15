@@ -9,16 +9,6 @@ class AutomationDecisionError(ValueError):
 
 
 def decide_automation(mode, rule_active, measurement_recent):
-    """
-    Compound decision (MC/DC):
-        C1: mode == "Automático"
-        C2: rule_active
-        C3: measurement_recent
-
-    C2=F OR C3=F          → "ignorada"
-    C1=T, C2=T, C3=T      → "executada"
-    C1=F, C2=T, C3=T      → "sugerida"
-    """
     if mode not in VALID_MODES:
         raise AutomationDecisionError(
             f"mode must be one of: {', '.join(sorted(VALID_MODES))}."
