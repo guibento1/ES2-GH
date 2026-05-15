@@ -52,8 +52,11 @@
 | TU-46 | RN-46: A criação do plano de cultivo têm um valor de humidade relativa com 40% |     | Unidade | Particionamento de equivalência |      |     |
 | TU-47 | RN-47: A criação do plano de cultivo têm um valor de humidade relativa com 80% |     | Unidade | Particionamento de equivalência |      |     |
 | TU-48 | RN-48: A criação do plano de cultivo têm um valor de humidade relativa com 64% |     | Unidade | Particionamento de equivalência |      |     |
-| TU-49 | RN-49: A criação do plano de cultivo têm um valor de luminosidade(lux) de 5000 |     | Unidade | Particionamento de equivalência |      |     |
-| TU-50 | RN-50: A criação do plano de cultivo têm um valor de luminosidade(lux) de 25000 |     | Unidade | Particionamento de equivalência |      |     |
+| TU-49 | RN-49: A criação do plano de cultivo têm um valor de luminosidade(lux) de 4999 |     | Unidade | Particionamento de equivalência |      |     |
+| TU-50 | RN-50: A criação do plano de cultivo têm um valor de luminosidade(lux) de 25001 |     | Unidade | Particionamento de equivalência |      |     |
+| TU-51 | RN-51: A criação do plano de cultivo têm um valor de luminosidade(lux) de 5000 |     | Unidade | Particionamento de equivalência |      |     |
+| TU-52 | RN-52: A criação do plano de cultivo têm um valor de luminosidade(lux) de 25000 |     | Unidade | Particionamento de equivalência |      |     |
+| TU-53 | RN-52: A criação do plano de cultivo têm um valor de luminosidade(lux) de 15000 |     | Unidade | Particionamento de equivalência |      |     |
 
 ## Tabela Inversa Requisito -> Testes
 
