@@ -39,8 +39,9 @@
 | TU-33 | RN-33: rejeita refresh token válido mas não registado | prefix /auth; POST /refresh; auth_service.refresh_token | Unidade | Particionamento de Equivalência | Retorna None; 401 | Refresh token válido gerado e removido do store em memória. |
 | TU-34 | RN-34: O catálogo está vazio e é possível importar registos vazios|      | Unidade |      |      |     |
 | TU-35 | RN-35: O catálogo está vazio e aparece um erro a informar que o ficheiro está vazio|      | Unidade |      |      |     |
-| TU-36 | RN-36: Importação do catálogo até ao momento com mais um registo duplica os registos já importados  |     | Unidade |      |      |     |
-| TU-37 | RN-37:  |     |     |      |      |     |
+| TU-36 | RN-36: Importação do catálogo até ao momento com um novo registo e duplica os registos que já tinham sido importados  |     | Unidade |      |      |     |
+| TU-37 | RN-37: Importação do catálogo até ao momento com um novo registo e não duplica os que já existiam  |     | Unidade |      |      |     |
+| TU-38 | RN-38: Os tipos de inputs serem diferentes do esperado. Por exemplo, é esperado um valor double e é adicionado uma string |     | Unidade |      |      |     |
 
 ## Tabela Inversa Requisito -> Testes
 
