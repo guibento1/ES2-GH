@@ -2,8 +2,8 @@ from typing import Any
 
 from fastapi import APIRouter, Body, status
 
-from app.controllers import auth_controller
-from app.models.schemas import RefreshTokenRequest, TokenResponse
+from api.controllers import auth_controller
+from api.models.schemas import RefreshTokenRequest, TokenResponse
 
 
 router = APIRouter(prefix="/auth", tags=["auth"])

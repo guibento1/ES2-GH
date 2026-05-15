@@ -1,4 +1,4 @@
-from app.services.automation_service import create_automation_rule, list_automation_rules
+from api.services.automation_service import create_automation_rule, list_automation_rules
 
 
 def get_automation_rules():

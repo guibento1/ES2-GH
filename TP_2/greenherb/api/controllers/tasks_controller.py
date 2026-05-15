@@ -1,4 +1,4 @@
-from app.services.task_service import create_task, list_tasks
+from api.services.task_service import create_task, list_tasks
 
 
 def get_tasks():

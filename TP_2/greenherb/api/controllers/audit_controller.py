@@ -1,4 +1,4 @@
-from app.services.audit_service import list_audit_logs
+from api.services.audit_service import list_audit_logs
 
 
 def get_audit_logs():

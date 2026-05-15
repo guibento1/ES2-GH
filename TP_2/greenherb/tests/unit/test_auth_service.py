@@ -2,8 +2,8 @@ from unittest.mock import patch
 
 import pytest
 
-from app.data import memory_store
-from app.services.auth_service import (
+from api.data import memory_store
+from api.services.auth_service import (
     AuthInputValidationError,
     TokenValidationError,
     authenticate_user,
@@ -158,12 +158,12 @@ def test_refresh_token(refresh_factory, esperado):
 
 
 def _expired_access_token():
-    with patch("app.services.auth_service.ACCESS_TOKEN_EXPIRE_MINUTES", -1):
+    with patch("api.services.auth_service.ACCESS_TOKEN_EXPIRE_MINUTES", -1):
         return generate_token(_admin_user(), token_type="access")
 
 
 def _expired_refresh_token():
-    with patch("app.services.auth_service.REFRESH_TOKEN_EXPIRE_MINUTES", -1):
+    with patch("api.services.auth_service.REFRESH_TOKEN_EXPIRE_MINUTES", -1):
         return generate_token(_admin_user(), token_type="refresh")
 
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 
-from app.controllers import audit_controller
+from api.controllers import audit_controller
 
 
 router = APIRouter(prefix="/audit", tags=["audit"])

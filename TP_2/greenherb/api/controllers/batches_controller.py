@@ -1,4 +1,4 @@
-from app.services.batch_service import create_batch, list_batches
+from api.services.batch_service import create_batch, list_batches
 
 
 def get_batches():

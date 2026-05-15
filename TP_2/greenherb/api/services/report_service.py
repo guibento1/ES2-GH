@@ -1,4 +1,4 @@
-from app.services.mock_service import create_mock, list_mock
+from api.services.mock_service import create_mock, list_mock
 
 
 def list_reports():

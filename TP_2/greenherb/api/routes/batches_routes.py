@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import APIRouter, status
 
-from app.controllers import batches_controller
+from api.controllers import batches_controller
 
 
 router = APIRouter(prefix="/batches", tags=["batches"])

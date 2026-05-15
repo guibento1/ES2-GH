@@ -1,4 +1,4 @@
-from app.services.mock_service import list_mock
+from api.services.mock_service import list_mock
 
 
 def list_audit_logs():

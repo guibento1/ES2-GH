@@ -1,4 +1,4 @@
-from app.data import memory_store
+from api.data import memory_store
 
 
 def list_users():

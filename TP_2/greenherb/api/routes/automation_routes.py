@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import APIRouter, status
 
-from app.controllers import automation_controller
+from api.controllers import automation_controller
 
 
 router = APIRouter(prefix="/automation", tags=["automation"])

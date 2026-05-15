@@ -1,4 +1,4 @@
-from app.services.user_service import list_users
+from api.services.user_service import list_users
 
 
 def get_users():

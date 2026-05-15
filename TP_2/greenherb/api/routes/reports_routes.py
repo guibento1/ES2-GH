@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import APIRouter, status
 
-from app.controllers import reports_controller
+from api.controllers import reports_controller
 
 
 router = APIRouter(prefix="/reports", tags=["reports"])

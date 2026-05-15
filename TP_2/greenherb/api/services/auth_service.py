@@ -5,7 +5,7 @@ from uuid import uuid4
 
 import jwt
 
-from app.data import memory_store
+from api.data import memory_store
 
 
 SECRET_KEY = os.getenv(

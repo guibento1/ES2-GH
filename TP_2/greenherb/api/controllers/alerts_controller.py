@@ -1,4 +1,4 @@
-from app.services.alert_service import create_alert, list_alerts
+from api.services.alert_service import create_alert, list_alerts
 
 
 def get_alerts():

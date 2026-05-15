@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routes import (
+from api.routes import (
     alerts_routes,
     audit_routes,
     auth_routes,

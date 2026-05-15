@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 
-from app.services.auth_service import (
+from api.services.auth_service import (
     AuthInputValidationError,
     TokenValidationError,
     authenticate_user,

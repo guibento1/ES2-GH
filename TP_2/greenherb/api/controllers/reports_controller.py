@@ -1,4 +1,4 @@
-from app.services.report_service import create_report, list_reports
+from api.services.report_service import create_report, list_reports
 
 
 def get_reports():

@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import APIRouter, status
 
-from app.controllers import alerts_controller
+from api.controllers import alerts_controller
 
 
 router = APIRouter(prefix="/alerts", tags=["alerts"])

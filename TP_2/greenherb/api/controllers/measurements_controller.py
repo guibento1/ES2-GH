@@ -1,4 +1,4 @@
-from app.services.measurement_service import create_measurement, list_measurements
+from api.services.measurement_service import create_measurement, list_measurements
 
 
 def get_measurements():
