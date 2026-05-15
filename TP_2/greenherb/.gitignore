@@ -4,4 +4,11 @@ __pycache__/
 .coverage
 htmlcov/
 uvicorn*.log
-.claude
+.claude/
+.idea/
+.vscode/
+.DS_Store
+*.log
+*.sqlite3
+*.env
+.env.*              
