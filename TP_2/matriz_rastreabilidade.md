@@ -42,6 +42,11 @@
 | TU-36 | RN-36: Importação do catálogo até ao momento com um novo registo e duplica os registos que já tinham sido importados  |     | Unidade |      |      |     |
 | TU-37 | RN-37: Importação do catálogo até ao momento com um novo registo e não duplica os que já existiam  |     | Unidade |      |      |     |
 | TU-38 | RN-38: Os tipos de inputs serem diferentes do esperado. Por exemplo, é esperado um valor double e é adicionado uma string |     | Unidade |      |      |     |
+| TU-39 | RN-39: A criação do plano de cultivo têm um valor de temperatura com 17º |     |     |      |      |     |
+| TU-40 | RN-40: A criação do plano de cultivo têm um valor de temperatura com 29º |     |     |      |      |     |
+| TU-41 | RN-41: ... |     |     |      |      |     |
+| TU-42 | RN-42: ... |     |     |      |      |     |
+| TU-43 | RN-43: ... |     |     |      |      |     |
 
 ## Tabela Inversa Requisito -> Testes
 
