@@ -42,16 +42,16 @@
 | TU-36 | RN-36: Importação do catálogo até ao momento com um novo registo e duplica os registos que já tinham sido importados  |     | Unidade |      |      |     |
 | TU-37 | RN-37: Importação do catálogo até ao momento com um novo registo e não duplica os que já existiam  |     | Unidade |      |      |     |
 | TU-38 | RN-38: Os tipos de inputs serem diferentes do esperado. Por exemplo, é esperado um valor double e é adicionado uma string |     | Unidade |      |      |     |
-| TU-39 | RN-39: A criação do plano de cultivo têm um valor de temperatura com 17º |     |     |      |      |     |
-| TU-40 | RN-40: A criação do plano de cultivo têm um valor de temperatura com 29º |     |     |      |      |     |
-| TU-41 | RN-41: A criação do plano de cultivo têm um valor de temperatura com 18º |     |     |      |      |     |
-| TU-42 | RN-42: A criação do plano de cultivo têm um valor de temperatura com 28º |     |     |      |      |     |
-| TU-43 | RN-43: A criação do plano de cultivo têm um valor de temperatura com 23º |     |     |      |      |     |
-| TU-44 | RN-44: A criação do plano de cultivo têm um valor de humidade relativa com 39% |     |     |      |      |     |
-| TU-45 | RN-45: A criação do plano de cultivo têm um valor de humidade relativa com 81% |     |     |      |      |     |
-| TU-46 | RN-46: A criação do plano de cultivo têm um valor de humidade relativa com 40% |     |     |      |      |     |
-| TU-47 | RN-47: A criação do plano de cultivo têm um valor de humidade relativa com 80% |     |     |      |      |     |
-| TU-48 | RN-48: A criação do plano de cultivo têm um valor de humidade relativa com 64% |     |     |      |      |     |
+| TU-39 | RN-39: A criação do plano de cultivo têm um valor de temperatura com 17º |     | Unidade | Particionamento de equivalência |      |     |
+| TU-40 | RN-40: A criação do plano de cultivo têm um valor de temperatura com 29º |     | Unidade | Particionamento de equivalência |      |     |
+| TU-41 | RN-41: A criação do plano de cultivo têm um valor de temperatura com 18º |     | Unidade | Particionamento de equivalência |      |     |
+| TU-42 | RN-42: A criação do plano de cultivo têm um valor de temperatura com 28º |     | Unidade | Particionamento de equivalência |      |     |
+| TU-43 | RN-43: A criação do plano de cultivo têm um valor de temperatura com 23º |     | Unidade | Particionamento de equivalência |      |     |
+| TU-44 | RN-44: A criação do plano de cultivo têm um valor de humidade relativa com 39% |     | Unidade | Particionamento de equivalência |      |     |
+| TU-45 | RN-45: A criação do plano de cultivo têm um valor de humidade relativa com 81% |     | Unidade | Particionamento de equivalência |      |     |
+| TU-46 | RN-46: A criação do plano de cultivo têm um valor de humidade relativa com 40% |     | Unidade | Particionamento de equivalência |      |     |
+| TU-47 | RN-47: A criação do plano de cultivo têm um valor de humidade relativa com 80% |     | Unidade | Particionamento de equivalência |      |     |
+| TU-48 | RN-48: A criação do plano de cultivo têm um valor de humidade relativa com 64% |     | Unidade | Particionamento de equivalência |      |     |
 
 ## Tabela Inversa Requisito -> Testes
 
