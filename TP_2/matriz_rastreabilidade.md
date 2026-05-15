@@ -37,6 +37,10 @@
 | TU-31 | RN-31: rejeita refresh token vazio | prefix /auth; POST /refresh; auth_service.refresh_token | Unidade | Particionamento de Equivalência | Lança TokenValidationError; 401 | Nenhuma. Teste isolado sem dependências de BD ou rede. |
 | TU-32 | RN-32: rejeita refresh token null | prefix /auth; POST /refresh; auth_service.refresh_token | Unidade | Particionamento de Equivalência | Lança TokenValidationError; 401 | Nenhuma. Teste isolado sem dependências de BD ou rede. |
 | TU-33 | RN-33: rejeita refresh token válido mas não registado | prefix /auth; POST /refresh; auth_service.refresh_token | Unidade | Particionamento de Equivalência | Retorna None; 401 | Refresh token válido gerado e removido do store em memória. |
+| TU-34 | RN-34: O catálogo está vazio e é possível importar registos vazios|      | Unidade |      |      |     |
+| TU-35 | RN-35: O catálogo está vazio e aparece um erro a informar que o ficheiro está vazio|      | Unidade |      |      |     |
+| TU-36 | RN-36: Importação do catálogo até ao momento com mais um registo duplica os registos já importados  |     | Unidade |      |      |     |
+| TU-37 | RN-37:  |     |     |      |      |     |
 
 ## Tabela Inversa Requisito -> Testes
 
