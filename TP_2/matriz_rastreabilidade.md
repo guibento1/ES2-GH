@@ -37,11 +37,11 @@
 | TU-31 | RN-31: rejeita refresh token vazio | prefix /auth; POST /refresh; auth_service.refresh_token | Unidade | Particionamento de Equivalência | Lança TokenValidationError; 401 | Nenhuma. Teste isolado sem dependências de BD ou rede. |
 | TU-32 | RN-32: rejeita refresh token null | prefix /auth; POST /refresh; auth_service.refresh_token | Unidade | Particionamento de Equivalência | Lança TokenValidationError; 401 | Nenhuma. Teste isolado sem dependências de BD ou rede. |
 | TU-33 | RN-33: rejeita refresh token válido mas não registado | prefix /auth; POST /refresh; auth_service.refresh_token | Unidade | Particionamento de Equivalência | Retorna None; 401 | Refresh token válido gerado e removido do store em memória. |
-| TU-34 | RN-34: O catálogo está vazio e é possível importar registos vazios|      | Unidade |      |      |     |
-| TU-35 | RN-35: O catálogo está vazio e aparece um erro a informar que o ficheiro está vazio|      | Unidade |      |      |     |
-| TU-36 | RN-36: Importação do catálogo até ao momento com um novo registo e duplica os registos que já tinham sido importados  |     | Unidade |      |      |     |
-| TU-37 | RN-37: Importação do catálogo até ao momento com um novo registo e não duplica os que já existiam  |     | Unidade |      |      |     |
-| TU-38 | RN-38: Os tipos de inputs serem diferentes do esperado. Por exemplo, é esperado um valor double e é adicionado uma string |     | Unidade |      |      |     |
+| TU-34 | RN-34: O catálogo está vazio e é possível importar registos vazios|      | Unidade | Particionamento de equivalência |      |     |
+| TU-35 | RN-35: O catálogo está vazio e aparece um erro a informar que o ficheiro está vazio|      | Unidade | Particionamento de equivalência |      |     |
+| TU-36 | RN-36: Importação do catálogo até ao momento com um novo registo e duplica os registos que já tinham sido importados  |     | Unidade | Particionamento de equivalência |      |     |
+| TU-37 | RN-37: Importação do catálogo até ao momento com um novo registo e não duplica os que já existiam  |     | Unidade | Particionamento de equivalência |      |     |
+| TU-38 | RN-38: Os tipos de inputs serem diferentes do esperado. Por exemplo, é esperado um valor double e é adicionado uma string |     | Unidade | Particionamento de equivalência |      |     |
 | TU-39 | RN-39: A criação do plano de cultivo têm um valor de temperatura com 17º |     | Unidade | Particionamento de equivalência |      |     |
 | TU-40 | RN-40: A criação do plano de cultivo têm um valor de temperatura com 29º |     | Unidade | Particionamento de equivalência |      |     |
 | TU-41 | RN-41: A criação do plano de cultivo têm um valor de temperatura com 18º |     | Unidade | Particionamento de equivalência |      |     |
@@ -52,6 +52,8 @@
 | TU-46 | RN-46: A criação do plano de cultivo têm um valor de humidade relativa com 40% |     | Unidade | Particionamento de equivalência |      |     |
 | TU-47 | RN-47: A criação do plano de cultivo têm um valor de humidade relativa com 80% |     | Unidade | Particionamento de equivalência |      |     |
 | TU-48 | RN-48: A criação do plano de cultivo têm um valor de humidade relativa com 64% |     | Unidade | Particionamento de equivalência |      |     |
+| TU-49 | RN-49: A criação do plano de cultivo têm um valor de luminosidade(lux) de 5000 |     | Unidade | Particionamento de equivalência |      |     |
+| TU-50 | RN-50: A criação do plano de cultivo têm um valor de luminosidade(lux) de 25000 |     | Unidade | Particionamento de equivalência |      |     |
 
 ## Tabela Inversa Requisito -> Testes
 
