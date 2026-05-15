@@ -1,0 +1,59 @@
+GREENHERB - COMANDOS DE EXECUCAO
+================================
+
+1. Entrar na pasta do projeto
+-----------------------------
+cd C:\Users\bento\Documents\GitHub\ES2-GH\TP_2\greenherb
+
+
+2. Correr a API
+---------------
+uvicorn app.main:app --reload
+
+Swagger:
+http://127.0.0.1:8000/docs
+
+OpenAPI JSON:
+http://127.0.0.1:8000/openapi.json
+
+Redoc:
+http://127.0.0.1:8000/redoc
+
+Se a porta 8000 estiver ocupada:
+uvicorn app.main:app --reload --port 8001
+
+Swagger nesse caso:
+http://127.0.0.1:8001/docs
+
+
+3. Testar login no Swagger
+--------------------------
+Endpoint:
+POST /auth/login
+
+Body:
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+Resultado esperado:
+200 OK com access_token, refresh_token e token_type.
+
+Credenciais seed:
+tecnico / tecnico123
+responsavel / responsavel123
+admin / admin123
+
+
+4. Executar apenas o ficheiro de testes unitarios
+-------------------------------------------------
+pytest tests/unit/test_auth_service.py
+
+
+5. Executar testes com cobertura, como pedido no enunciado
+----------------------------------------------------------
+pytest tests/ --cov=app --cov-report=term-missing
+
+Resultado esperado:
+33 passed
