@@ -44,9 +44,14 @@
 | TU-38 | RN-38: Os tipos de inputs serem diferentes do esperado. Por exemplo, é esperado um valor double e é adicionado uma string |     | Unidade |      |      |     |
 | TU-39 | RN-39: A criação do plano de cultivo têm um valor de temperatura com 17º |     |     |      |      |     |
 | TU-40 | RN-40: A criação do plano de cultivo têm um valor de temperatura com 29º |     |     |      |      |     |
-| TU-41 | RN-41: ... |     |     |      |      |     |
-| TU-42 | RN-42: ... |     |     |      |      |     |
-| TU-43 | RN-43: ... |     |     |      |      |     |
+| TU-41 | RN-41: A criação do plano de cultivo têm um valor de temperatura com 18º |     |     |      |      |     |
+| TU-42 | RN-42: A criação do plano de cultivo têm um valor de temperatura com 28º |     |     |      |      |     |
+| TU-43 | RN-43: A criação do plano de cultivo têm um valor de temperatura com 23º |     |     |      |      |     |
+| TU-44 | RN-44: A criação do plano de cultivo têm um valor de humidade relativa com 39% |     |     |      |      |     |
+| TU-45 | RN-45: A criação do plano de cultivo têm um valor de humidade relativa com 81% |     |     |      |      |     |
+| TU-46 | RN-46: A criação do plano de cultivo têm um valor de humidade relativa com 40% |     |     |      |      |     |
+| TU-47 | RN-47: A criação do plano de cultivo têm um valor de humidade relativa com 80% |     |     |      |      |     |
+| TU-48 | RN-48: A criação do plano de cultivo têm um valor de humidade relativa com 64% |     |     |      |      |     |
 
 ## Tabela Inversa Requisito -> Testes
 
