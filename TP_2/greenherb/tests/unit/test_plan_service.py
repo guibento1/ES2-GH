@@ -133,3 +133,49 @@ def test_pontual_autorizacao(test_id, authorized_by, esperado):
             validate_plan(payload)
     else:
         validate_plan(payload)
+
+
+# ---------------------------------------------------------------------------
+# TU-81 a TU-83 — Tipo de plano: PE (regular / emergência / inválido)
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize(
+    "test_id, plan_type, esperado",
+    [
+        ("TU-81", "regular",    "ok"),
+        ("TU-82", "emergência", "ok"),
+        ("TU-83", "invalido",   "erro"),
+    ],
+)
+def test_tipo_plano(test_id, plan_type, esperado):
+    """PE: tipo de plano — classes válidas (regular, emergência) e inválida (TU-81 a TU-83)."""
+    payload = {"type": plan_type}
+    if esperado == "erro":
+        with pytest.raises(PlanValidationError):
+            validate_plan(payload)
+    else:
+        validate_plan(payload)
+
+
+# ---------------------------------------------------------------------------
+# TU-84 a TU-88 — Duração do ciclo [1, 365] dias: VL
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize(
+    "test_id, days, esperado",
+    [
+        ("TU-84",   0, "erro"),
+        ("TU-85",   1, "ok"),
+        ("TU-86",  90, "ok"),
+        ("TU-87", 365, "ok"),
+        ("TU-88", 366, "erro"),
+    ],
+)
+def test_duracao_ciclo(test_id, days, esperado):
+    """VL: duration_days no intervalo [1, 365] dias (TU-84 a TU-88)."""
+    payload = _plano(duration_days=days)
+    if esperado == "erro":
+        with pytest.raises(PlanValidationError):
+            validate_plan(payload)
+    else:
+        validate_plan(payload)

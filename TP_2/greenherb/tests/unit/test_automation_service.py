@@ -1,25 +1,3 @@
-"""
-Testes de unidade — Sprint 3
-Módulo: api.services.automation_service  (TU-76 a TU-79)
-
-Técnica: Cobertura de Condições Múltiplas + MC/DC
-
-Decisão composta:
-  C1: mode == "Automático"
-  C2: rule_active
-  C3: measurement_recent
-
-Lógica:
-  NOT C2 OR NOT C3  →  "ignorada"   (regra inactiva ou medição não recente)
-  C1=T, C2=T, C3=T  →  "executada"  (modo automático, tudo activo)
-  C1=F, C2=T, C3=T  →  "sugerida"   (modo manual, tudo activo)
-
-TU-76  Automático + regra ativa + medição recente   →  "executada"
-TU-77  Manual     + regra ativa + medição recente   →  "sugerida"
-TU-78  Qualquer   + regra inativa                   →  "ignorada"
-TU-79  Qualquer   + medição não recente              →  "ignorada"
-"""
-
 import pytest
 
 from api.services.automation_service import AutomationDecisionError, decide_automation
@@ -28,16 +6,9 @@ from api.services.automation_service import AutomationDecisionError, decide_auto
 @pytest.mark.parametrize(
     "test_id, mode,        rule_active, measurement_recent, esperado",
     [
-        # TU-76: C1=T, C2=T, C3=T → "executada"
         ("TU-76", "Automático", True,  True,  "executada"),
-
-        # TU-77: C1=F, C2=T, C3=T → "sugerida"
         ("TU-77", "Manual",     True,  True,  "sugerida"),
-
-        # TU-78: C2=F (regra inativa) → "ignorada" independentemente de C1 e C3
         ("TU-78", "Automático", False, True,  "ignorada"),
-
-        # TU-79: C3=F (medição não recente) → "ignorada" independentemente de C1 e C2
         ("TU-79", "Manual",     True,  False, "ignorada"),
     ],
 )

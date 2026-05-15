@@ -85,7 +85,93 @@ class PlanResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Legacy mock response (kept for other endpoints still scaffolded)
+# Batches
+# ---------------------------------------------------------------------------
+
+class BatchCreate(BaseModel):
+    herb_id: int
+    plan_id: int | None = None
+    planned_qty: float
+
+
+class BatchCloseRequest(BaseModel):
+    has_losses: bool
+    actual_qty: float
+    losses: float = 0.0
+
+
+class BatchResponse(BaseModel):
+    id: int
+    herb_id: int
+    plan_id: int | None = None
+    state: str
+    planned_qty: float
+    actual_qty: float | None = None
+    losses: float | None = None
+    productivity: float | None = None
+
+
+# ---------------------------------------------------------------------------
+# Measurements
+# ---------------------------------------------------------------------------
+
+class MeasurementCreate(BaseModel):
+    batch_id: int
+    temp: float
+    humidity: float
+    luminosity: float
+    sensor_ok: bool = True
+
+
+class MeasurementResponse(BaseModel):
+    id: int
+    batch_id: int
+    temp: float
+    humidity: float
+    luminosity: float
+    sensor_ok: bool
+    alert: Any | None = None
+
+
+# ---------------------------------------------------------------------------
+# Alerts
+# ---------------------------------------------------------------------------
+
+class AlertResolveRequest(BaseModel):
+    action: str          # "resolvido" | "ignorado"
+    justification: str | None = None
+
+
+class AlertResponse(BaseModel):
+    id: int
+    batch_id: int | None = None
+    level: str | None = None   # "Aviso" | "Crítico"
+    state: str                 # "pendente" | "resolvido" | "ignorado"
+    justification: str | None = None
+
+
+# ---------------------------------------------------------------------------
+# Automation
+# ---------------------------------------------------------------------------
+
+class AutomationRuleCreate(BaseModel):
+    name: str
+    mode: str             # "Manual" | "Automático"
+    condition: str | None = None
+
+
+class AutomationEvaluateRequest(BaseModel):
+    mode: str
+    rule_active: bool
+    measurement_recent: bool
+
+
+class AutomationEvaluateResponse(BaseModel):
+    decision: str         # "executada" | "sugerida" | "ignorada"
+
+
+# ---------------------------------------------------------------------------
+# Legacy mock response (outros endpoints ainda em scaffold)
 # ---------------------------------------------------------------------------
 
 class MockResourceResponse(BaseModel):

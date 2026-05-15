@@ -8,7 +8,7 @@ cd C:\Users\bento\Documents\GitHub\ES2-GH\TP_2\greenherb
 
 2. Correr a API
 ---------------
-uvicorn api.main:app --reload
+uvicorn api.main:api --reload
 
 Swagger:
 http://127.0.0.1:8000/docs
@@ -19,26 +19,6 @@ http://127.0.0.1:8000/openapi.json
 Redoc:
 http://127.0.0.1:8000/redoc
 
-Se a porta 8000 estiver ocupada:
-uvicorn api.main:app --reload --port 8001
-
-Swagger nesse caso:
-http://127.0.0.1:8001/docs
-
-
-3. Testar login no Swagger
---------------------------
-Endpoint:
-POST /auth/login
-
-Body:
-{
-  "username": "admin",
-  "password": "admin123"
-}
-
-Resultado esperado:
-200 OK com access_token, refresh_token e token_type.
 
 Credenciais seed:
 tecnico / tecnico123
@@ -54,6 +34,3 @@ pytest tests/unit/test_auth_service.py
 5. Executar testes com cobertura, como pedido no enunciado
 ----------------------------------------------------------
 pytest tests/ --cov=api --cov-report=term-missing
-
-Resultado esperado:
-132 passed

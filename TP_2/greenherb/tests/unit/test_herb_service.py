@@ -120,3 +120,21 @@ def test_tu38_tipo_input_errado_name_inteiro():
     """PE: name com tipo inteiro (em vez de string) lança HerbValidationError."""
     with pytest.raises(HerbValidationError):
         validate_herb({"name": 123})
+
+
+# ---------------------------------------------------------------------------
+# TU-80 — CSV misto: 1 linha válida + 1 linha inválida (PE)
+# ---------------------------------------------------------------------------
+
+def test_tu80_csv_misto_valida_e_invalida():
+    """PE: importação de CSV com 1 linha válida e 1 inválida (name vazio) classifica corretamente."""
+    content = _csv(
+        ["Lavanda", "Lamiaceae", ""],
+        ["",        "Lamiaceae", ""],
+    )
+    result = import_herbs_csv(content)
+
+    assert result["imported"] == 1
+    assert result["failed"] == 1
+    assert len(memory_store.HERBS) == 1
+    assert memory_store.HERBS[0]["name"] == "Lavanda"

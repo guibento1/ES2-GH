@@ -5,26 +5,19 @@ VALID_MODES = {"Manual", "Automático"}
 
 
 class AutomationDecisionError(ValueError):
-    """Raised when automation decision inputs are invalid."""
     status_code = 400
 
 
 def decide_automation(mode, rule_active, measurement_recent):
     """
-    Decide whether an automation action is executed, suggested, or ignored.
-
-    Compound decision (MC/DC target):
+    Compound decision (MC/DC):
         C1: mode == "Automático"
         C2: rule_active
         C3: measurement_recent
 
-    Decision table:
-        C2=F OR C3=F          → "ignorada"  (rule inactive or stale measurement)
-        C1=T, C2=T, C3=T      → "executada" (automatic mode, all conditions met)
-        C1=F, C2=T, C3=T      → "sugerida"  (manual mode, conditions met)
-
-    Returns: "executada" | "sugerida" | "ignorada"
-    Raises AutomationDecisionError for invalid inputs.
+    C2=F OR C3=F          → "ignorada"
+    C1=T, C2=T, C3=T      → "executada"
+    C1=F, C2=T, C3=T      → "sugerida"
     """
     if mode not in VALID_MODES:
         raise AutomationDecisionError(
@@ -37,7 +30,6 @@ def decide_automation(mode, rule_active, measurement_recent):
 
     if not rule_active or not measurement_recent:
         return "ignorada"
-
     return "executada" if mode == "Automático" else "sugerida"
 
 
