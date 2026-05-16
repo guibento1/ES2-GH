@@ -12,35 +12,40 @@ class AlertNotFoundError(ValueError):
 class AlertActionError(ValueError):
     status_code = 422
 
+
 MIN_JUSTIFICATION_LEN = 10
 MAX_JUSTIFICATION_LEN = 500
 
 
-def classify_alert(temp, humidity, limits, sensor_ok):
-    """Returns "Crítico" | "Aviso" | None based on (C1 OR C2) AND C3."""
+def classify_alert(temp, humidity, luminosity, limits, sensor_ok):
+    """Returns "Crítico" | "Aviso" | "Informativo" | None."""
     if not isinstance(sensor_ok, bool):
         raise AlertClassificationError("sensor_ok must be a boolean.")
-    if temp is None or humidity is None:
-        raise AlertClassificationError("temp and humidity are required.")
-    if "temp_max" not in limits or "humidity_min" not in limits:
-        raise AlertClassificationError("limits must contain temp_max and humidity_min.")
+    if any(v is None for v in (temp, humidity, luminosity)):
+        raise AlertClassificationError("temp, humidity and luminosity are required.")
+    required = ("temp_min", "temp_max", "humidity_min", "humidity_max",
+                "luminosity_min", "luminosity_max")
+    if any(k not in limits for k in required):
+        raise AlertClassificationError("limits must contain all 6 boundary keys.")
 
-    c1 = temp > limits["temp_max"]
-    c2 = humidity < limits["humidity_min"]
-    c3 = sensor_ok
-
-    if not c3:
+    if not sensor_ok:
         return None
-    if c1 and c2:
+
+    temp_out = temp < limits["temp_min"] or temp > limits["temp_max"]
+    hum_out = humidity < limits["humidity_min"] or humidity > limits["humidity_max"]
+    lux_out = luminosity < limits["luminosity_min"] or luminosity > limits["luminosity_max"]
+
+    if temp_out and hum_out:
         return "Crítico"
-    if c1 or c2:
+    if temp_out or hum_out:
         return "Aviso"
+    if lux_out:
+        return "Informativo"
     return None
 
 
 def resolve_alert(alert_id, action, justification=None):
-    """
-    Resolve or ignore an alert.
+    """Resolve or ignore an alert.
     - action "resolvido": justification optional
     - action "ignorado":  justification required (10–500 chars)
     """

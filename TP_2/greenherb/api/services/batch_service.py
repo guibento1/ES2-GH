@@ -17,6 +17,27 @@ class BatchNotFoundError(ValueError):
     status_code = 404
 
 
+class BatchValidationError(ValueError):
+    status_code = 400
+
+
+def validate_batch(payload):
+    """Validate batch creation payload."""
+    if payload is None or not isinstance(payload, dict):
+        raise BatchValidationError("Payload must be a JSON object.")
+
+    if payload.get("herb_id") is None:
+        raise BatchValidationError("herb_id is required.")
+
+    planned_qty = payload.get("planned_qty")
+    if planned_qty is None:
+        raise BatchValidationError("planned_qty is required.")
+    if not isinstance(planned_qty, (int, float)) or isinstance(planned_qty, bool):
+        raise BatchValidationError("planned_qty must be a number.")
+    if planned_qty <= 0:
+        raise BatchValidationError("planned_qty must be > 0.")
+
+
 def transition_batch_state(current_state, has_losses, end_date_set):
     if current_state not in VALID_STATES:
         raise BatchStateError(f"Estado inválido: '{current_state}'.")
@@ -52,32 +73,25 @@ def list_batches():
 
 
 def create_batch(payload):
+    validate_batch(payload)
     return memory_store.add_batch({
-        "herb_id": payload["herb_id"],
-        "plan_id": payload.get("plan_id"),
-        "state": "ativo",
-        "planned_qty": payload["planned_qty"],
-        "actual_qty": None,
-        "losses": None,
+        "herb_id":      payload["herb_id"],
+        "plan_id":      payload.get("plan_id"),
+        "state":        "ativo",
+        "planned_qty":  payload["planned_qty"],
+        "actual_qty":   None,
+        "losses":       None,
         "productivity": None,
     })
 
 
 def close_batch(batch_id, has_losses, actual_qty, losses):
-    """
-    Close a batch: transition state + calculate productivity + persist.
-    Raises BatchNotFoundError if batch_id does not exist.
-    """
     batch = memory_store.find_batch_by_id(batch_id)
     if batch is None:
         raise BatchNotFoundError(f"Lote {batch_id} não encontrado.")
-
     new_state = transition_batch_state(batch["state"], has_losses, end_date_set=True)
     productivity = calculate_productivity(batch["planned_qty"], actual_qty, losses)
-
     return memory_store.update_batch(batch_id, {
-        "state": new_state,
-        "actual_qty": actual_qty,
-        "losses": losses,
-        "productivity": productivity,
+        "state": new_state, "actual_qty": actual_qty,
+        "losses": losses, "productivity": productivity,
     })

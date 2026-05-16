@@ -58,56 +58,101 @@
 | TU-54 | RN-54: Plano pontual criado com autorização do Responsável Técnico presente | POST /plans; plan_service.validate_plan | Unidade | Particionamento de Equivalência (authorized_by válido) | validate_plan não lança; 201 | Nenhuma. Teste isolado com payload {"type":"pontual","authorized_by":"responsavel"}. |
 | TU-55 | RN-55: Plano pontual rejeitado quando authorized_by está ausente (null) | POST /plans; plan_service.validate_plan | Unidade | Particionamento de Equivalência (authorized_by null) | Lança PlanValidationError; 400 | Nenhuma. Teste isolado com payload {"type":"pontual","authorized_by":null}. |
 | TU-56 | RN-56: Plano pontual rejeitado quando authorized_by está vazio ("") | POST /plans; plan_service.validate_plan | Unidade | Particionamento de Equivalência (authorized_by vazio) | Lança PlanValidationError; 400 | Nenhuma. Teste isolado com payload {"type":"pontual","authorized_by":""}. |
-| **TU-57** | RN-57: C1=F C2=F C3=F — sensor off, leituras normais | POST /measurements; alert_service.classify_alert | Unidade | Condições Múltiplas / MC/DC (linha 1 da tabela de verdade) | Retorna None | Limites: temp_max=28, humidity_min=40. temp=23, hum=60, sensor_ok=False. |
-| **TU-58** | RN-58: C1=F C2=F C3=T — sensor on, ambas leituras normais | POST /measurements; alert_service.classify_alert | Unidade | Condições Múltiplas / MC/DC (linha 2 — par MC/DC de C1 e C2) | Retorna None | Limites: temp_max=28, humidity_min=40. temp=23, hum=60, sensor_ok=True. |
-| **TU-59** | RN-59: C1=F C2=T C3=F — humidade baixa mas sensor off | POST /measurements; alert_service.classify_alert | Unidade | Condições Múltiplas / MC/DC (linha 3 — par MC/DC de C3) | Retorna None | Limites: temp_max=28, humidity_min=40. temp=23, hum=35, sensor_ok=False. |
-| **TU-60** | RN-60: C1=F C2=T C3=T — humidade baixa, sensor on → Aviso | POST /measurements; alert_service.classify_alert | Unidade | Condições Múltiplas / MC/DC (linha 4 — par MC/DC de C2 e C3) | Retorna "Aviso" | Limites: temp_max=28, humidity_min=40. temp=23, hum=35, sensor_ok=True. |
-| **TU-61** | RN-61: C1=T C2=F C3=F — temperatura alta mas sensor off | POST /measurements; alert_service.classify_alert | Unidade | Condições Múltiplas / MC/DC (linha 5) | Retorna None | Limites: temp_max=28, humidity_min=40. temp=30, hum=60, sensor_ok=False. |
-| **TU-62** | RN-62: C1=T C2=F C3=T — temperatura alta, sensor on → Aviso | POST /measurements; alert_service.classify_alert | Unidade | Condições Múltiplas / MC/DC (linha 6 — par MC/DC de C1) | Retorna "Aviso" | Limites: temp_max=28, humidity_min=40. temp=30, hum=60, sensor_ok=True. |
-| **TU-63** | RN-63: C1=T C2=T C3=F — ambos violados mas sensor off | POST /measurements; alert_service.classify_alert | Unidade | Condições Múltiplas / MC/DC (linha 7 — par MC/DC de C3) | Retorna None | Limites: temp_max=28, humidity_min=40. temp=30, hum=35, sensor_ok=False. |
-| **TU-64** | RN-64: C1=T C2=T C3=T — ambas leituras violadas, sensor on → Crítico | POST /measurements; alert_service.classify_alert | Unidade | Condições Múltiplas / MC/DC (linha 8 — resultado Crítico) | Retorna "Crítico" | Limites: temp_max=28, humidity_min=40. temp=30, hum=35, sensor_ok=True. |
-| **TU-65** | RN-65: lote ativo sem perdas com data definida → concluído | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (C1=T C2=F C3=T) | Retorna "concluído" | current_state="ativo", has_losses=False, end_date_set=True. |
-| **TU-66** | RN-66: lote ativo com perdas e data definida → comprometido | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (C1=T C2=T C3=T) | Retorna "comprometido" | current_state="ativo", has_losses=True, end_date_set=True. |
-| **TU-67** | RN-67: lote ativo sem data de conclusão → erro | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (C3=F) | Lança BatchStateError; 400 | current_state="ativo", end_date_set=False. |
-| **TU-68** | RN-68: lote já concluído não pode transicionar | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (estado terminal) | Lança BatchStateError; 400 | current_state="concluído". |
-| **TU-69** | RN-69: lote comprometido não pode transicionar | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (estado terminal) | Lança BatchStateError; 400 | current_state="comprometido". |
-| **TU-70** | RN-70: estado inválido ("suspenso") → erro imediato | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (estado desconhecido) | Lança BatchStateError; 400 | current_state="suspenso". |
-| **TU-71** | RN-71: sem perdas, colheita total → produtividade 100% | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (classe válida sem perdas) | Retorna 100.0 | planned_qty=100, actual_qty=100, losses=0. |
-| **TU-72** | RN-72: com perdas parciais → produtividade 80% | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (classe válida com perdas) | Retorna 80.0 | planned_qty=100, actual_qty=100, losses=20. |
-| **TU-73** | RN-73: colheita parcial sem perdas → produtividade 60% | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (colheita incompleta) | Retorna 60.0 | planned_qty=100, actual_qty=60, losses=0. |
-| **TU-74** | RN-74: perdas superiores à colheita → erro | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (losses > actual_qty) | Lança BatchCalculationError; 400 | planned_qty=100, actual_qty=50, losses=60. |
-| TU-75 | RN-75: planned_qty = 0 → divisão por zero → erro | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Valores Limite (planned_qty=0) | Lança BatchCalculationError; 400 | planned_qty=0. |
-| TU-76 | RN-76: modo Automático + regra ativa + medição recente → executada | POST /automation/evaluate; automation_service.decide_automation | Unidade | Condições Múltiplas / MC/DC (C1=T C2=T C3=T) | Retorna "executada" | mode="Automático", rule_active=True, measurement_recent=True. |
-| TU-77 | RN-77: modo Manual + regra ativa + medição recente → sugerida | POST /automation/evaluate; automation_service.decide_automation | Unidade | Condições Múltiplas / MC/DC (C1=F C2=T C3=T) | Retorna "sugerida" | mode="Manual", rule_active=True, measurement_recent=True. |
-| TU-78 | RN-78: regra inativa → ignorada independentemente do modo | POST /automation/evaluate; automation_service.decide_automation | Unidade | Condições Múltiplas / MC/DC (C2=F) | Retorna "ignorada" | mode="Automático", rule_active=False, measurement_recent=True. |
-| TU-79 | RN-79: medição não recente → ignorada independentemente do modo | POST /automation/evaluate; automation_service.decide_automation | Unidade | Condições Múltiplas / MC/DC (C3=F) | Retorna "ignorada" | mode="Manual", rule_active=True, measurement_recent=False. |
-| TU-80 | RN-80: importação de CSV misto com 1 linha válida e 1 linha inválida (name vazio) | POST /herbs/import; herb_service.import_herbs_csv | Unidade | Particionamento de Equivalência (misto: uma linha válida juntamente com uma linha inválida) | result['imported']==1; result['failed']==1; catálogo tem 1 entrada | Catálogo vazio (reset_herbs). CSV com name="Lavanda" (válido) e name="" (inválido). |
-| TU-81 | RN-81: tipo de plano "regular" é aceite | POST /plans; plan_service.validate_plan | Unidade | Particionamento de Equivalência (classe válida: regular) | validate_plan não lança; 201 | Nenhuma. Teste isolado com payload {"type":"regular"}. |
-| TU-82 | RN-82: tipo de plano "emergência" é aceite | POST /plans; plan_service.validate_plan | Unidade | Particionamento de Equivalência (classe válida: emergência) | validate_plan não lança; 201 | Nenhuma. Teste isolado com payload {"type":"emergência"}. |
-| TU-83 | RN-83: tipo de plano desconhecido é rejeitado | POST /plans; plan_service.validate_plan | Unidade | Particionamento de Equivalência (classe inválida: tipo desconhecido) | Lança PlanValidationError; 400 | Nenhuma. Teste isolado com payload {"type":"invalido"}. |
-| TU-84 | RN-84: duração do ciclo de 0 dias rejeitada (abaixo do mínimo 1) | POST /plans; plan_service.validate_plan | Unidade | Análise de Valores Limite (days=0, abaixo do mínimo 1) | Lança PlanValidationError; 400 | Nenhuma. Teste isolado. |
-| TU-85 | RN-85: duração do ciclo de 1 dia aceite (limite inferior exacto) | POST /plans; plan_service.validate_plan | Unidade | Análise de Valores Limite (days=1, limite inferior exacto) | validate_plan não lança; 201 | Nenhuma. Teste isolado. |
-| TU-86 | RN-86: duração do ciclo de 90 dias aceite (valor nominal interior) | POST /plans; plan_service.validate_plan | Unidade | Análise de Valores Limite (days=90, valor nominal interior) | validate_plan não lança; 201 | Nenhuma. Teste isolado. |
-| TU-87 | RN-87: duração do ciclo de 365 dias aceite (limite superior exacto) | POST /plans; plan_service.validate_plan | Unidade | Análise de Valores Limite (days=365, limite superior exacto) | validate_plan não lança; 201 | Nenhuma. Teste isolado. |
-| TU-88 | RN-88: duração do ciclo de 366 dias rejeitada (acima do máximo 365) | POST /plans; plan_service.validate_plan | Unidade | Análise de Valores Limite (days=366, acima do máximo 365) | Lança PlanValidationError; 400 | Nenhuma. Teste isolado. |
-| TU-89 | RN-89: resolução com action "resolvido" sem justificação → aceite | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (resolvido, justificação opcional ausente) | Retorna alerta com state="resolvido"; 200 | Alerta "pendente" inserido em memória (reset_alerts + add_alert). |
-| TU-90 | RN-90: resolução com action "resolvido" com justificação → aceite | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (resolvido, justificação presente) | Retorna alerta com state="resolvido"; 200 | Alerta "pendente" inserido em memória. |
-| TU-91 | RN-91: resolução com action "ignorado" e justificação válida (50 chars) → aceite | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (ignorado com justificação válida) | Retorna alerta com state="ignorado"; 200 | Alerta "pendente" inserido em memória. |
-| TU-92 | RN-92: resolução com action "ignorado" sem justificação → rejeitada | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (ignorado sem justificação obrigatória) | Lança AlertActionError; 422 | Alerta "pendente" inserido em memória. |
-| TU-93 | RN-93: resolução com action desconhecida ("cancelado") → rejeitada | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (action inválida) | Lança AlertActionError; 422 | Alerta "pendente" inserido em memória. |
-| TU-94 | RN-94: justificação de 9 chars rejeitada (abaixo do mínimo 10) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=9, abaixo do mínimo 10) | Lança AlertActionError; 422 | Alerta "pendente" inserido em memória. |
-| TU-95 | RN-95: justificação de 10 chars aceite (limite inferior exacto) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=10, limite inferior exacto) | Retorna alerta com state="ignorado"; 200 | Alerta "pendente" inserido em memória. |
-| TU-96 | RN-96: justificação de 250 chars aceite (valor nominal interior) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=250, valor nominal) | Retorna alerta com state="ignorado"; 200 | Alerta "pendente" inserido em memória. |
-| TU-97 | RN-97: justificação de 500 chars aceite (limite superior exacto) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=500, limite superior exacto) | Retorna alerta com state="ignorado"; 200 | Alerta "pendente" inserido em memória. |
-| TU-98 | RN-98: justificação de 501 chars rejeitada (acima do máximo 500) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=501, acima do máximo 500) | Lança AlertActionError; 422 | Alerta "pendente" inserido em memória. |
-| TU-99 | RN-99: resolução de alerta inexistente → AlertNotFoundError | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (id inexistente) | Lança AlertNotFoundError; 404 | Store de alertas vazio (reset_alerts). |
-| TU-100 | RN-100: resolução de alerta já resolvido → AlertActionError | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (estado não "pendente") | Lança AlertActionError; 422 | Alerta com state="resolvido" inserido em memória. |
-| TU-101 | RN-101: medição sem batch_id → MeasurementValidationError | POST /measurements; measurement_service.create_measurement | Unidade | Particionamento de Equivalência (campo obrigatório batch_id ausente) | Lança MeasurementValidationError; 400 | Nenhuma. Teste isolado. |
-| TU-102 | RN-102: medição sem temp → MeasurementValidationError | POST /measurements; measurement_service.create_measurement | Unidade | Particionamento de Equivalência (campo obrigatório temp ausente) | Lança MeasurementValidationError; 400 | Nenhuma. Teste isolado. |
-| TU-103 | RN-103: medição sem humidity → MeasurementValidationError | POST /measurements; measurement_service.create_measurement | Unidade | Particionamento de Equivalência (campo obrigatório humidity ausente) | Lança MeasurementValidationError; 400 | Nenhuma. Teste isolado. |
-| TU-104 | RN-104: medição sem luminosity → MeasurementValidationError | POST /measurements; measurement_service.create_measurement | Unidade | Particionamento de Equivalência (campo obrigatório luminosity ausente) | Lança MeasurementValidationError; 400 | Nenhuma. Teste isolado. |
-| TU-105 | RN-105: medição válida dentro dos limites → criada sem alerta | POST /measurements; measurement_service.create_measurement | Unidade | Particionamento de Equivalência (leituras dentro dos limites) | Retorna medição com alert=None; 201 | Lote ativo id=1 inserido em memória. Temp=23, hum=60, sensor_ok=True. |
-| TU-106 | RN-106: medição com temperatura acima do limite e sensor ativo → alerta automático "Aviso" | POST /measurements; measurement_service.create_measurement | Unidade | Particionamento de Equivalência (temp > temp_max, sensor_ok=True) | Retorna medição com alert.level="Aviso"; 201 | Lote ativo id=1 inserido em memória. Temp=30 (>28), hum=60, sensor_ok=True. |
+| TU-57 | RN-57: data no formato YYYY-MM-DD é aceite | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (formato válido) | validate_date não lança | Nenhuma. Teste isolado. |
+| TU-58 | RN-58: data DD-MM-YYYY é rejeitada | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (DD-MM-YYYY inválido) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-59 | RN-59: data MM-DD-YYYY é rejeitada | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (MM-DD-YYYY inválido) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-60 | RN-60: data DD/MM/YYYY com barras é rejeitada | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (barras em vez de hífens) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-61 | RN-61: data YYYY/MM/DD com barras é rejeitada | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (barras em vez de hífens) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-62 | RN-62: data sem separadores (YYYYMMDD) é rejeitada | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (sem separadores) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-63 | RN-63: string que não é data é rejeitada | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (string não-data) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-64 | RN-64: data por extenso é rejeitada | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (data por extenso) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-65 | RN-65: mês inexistente (2026-13-01) é rejeitado | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (mês inválido) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-66 | RN-66: dia inexistente (2026-02-30) é rejeitado | POST /plans, /batches, /tasks; date_validator.validate_date | Unidade | Particionamento de Equivalência (dia inválido) | Lança DateValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-67 | RN-67: lote ativo sem perdas com data definida transiciona para concluído | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência | Retorna "concluído" | current_state="ativo", has_losses=False, end_date_set=True. |
+| TU-68 | RN-68: lote ativo com perdas e data definida transiciona para comprometido | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência | Retorna "comprometido" | current_state="ativo", has_losses=True, end_date_set=True. |
+| TU-69 | RN-69: lote ativo sem data de conclusão lança erro | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (end_date_set=False) | Lança BatchStateError; 400 | current_state="ativo", end_date_set=False. |
+| TU-70 | RN-70: lote já concluído não pode transicionar | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (estado terminal) | Lança BatchStateError; 400 | current_state="concluído". |
+| TU-71 | RN-71: lote comprometido não pode transicionar | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (estado terminal) | Lança BatchStateError; 400 | current_state="comprometido". |
+| TU-72 | RN-72: estado inválido lança erro imediato | PATCH /batches/{id}/close; batch_service.transition_batch_state | Unidade | Particionamento de Equivalência (estado desconhecido) | Lança BatchStateError; 400 | current_state="suspenso". |
+| TU-73 | RN-73: sem perdas, colheita total — produtividade 100% | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (sem perdas) | Retorna 100.0 | planned=100, actual=100, losses=0. |
+| TU-74 | RN-74: com perdas parciais — produtividade 80% | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (com perdas) | Retorna 80.0 | planned=100, actual=100, losses=20. |
+| TU-75 | RN-75: colheita parcial sem perdas — produtividade 60% | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (colheita incompleta) | Retorna 60.0 | planned=100, actual=60, losses=0. |
+| TU-76 | RN-76: perdas superiores à colheita lançam erro | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (losses > actual) | Lança BatchCalculationError; 400 | planned=100, actual=50, losses=60. |
+| TU-77 | RN-77: planned_qty=0 lança erro de divisão | PATCH /batches/{id}/close; batch_service.calculate_productivity | Unidade | Particionamento de Equivalência (planned=0) | Lança BatchCalculationError; 400 | planned=0. |
+| TU-78 | RN-78: criação de lote com payload válido é aceite | POST /batches; batch_service.validate_batch | Unidade | Particionamento de Equivalência (classe válida) | validate_batch não lança; 201 | Nenhuma. Teste isolado com herb_id=1, planned_qty=100. |
+| TU-79 | RN-79: criação de lote sem herb_id lança erro | POST /batches; batch_service.validate_batch | Unidade | Particionamento de Equivalência (herb_id ausente) | Lança BatchValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-80 | RN-80: criação de lote com planned_qty=0 lança erro | POST /batches; batch_service.validate_batch | Unidade | Particionamento de Equivalência (planned_qty zero) | Lança BatchValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-81 | RN-81: criação de lote com planned_qty negativo lança erro | POST /batches; batch_service.validate_batch | Unidade | Particionamento de Equivalência (planned_qty negativo) | Lança BatchValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-82 | RN-82: tarefa do tipo rega é aceite | POST /tasks; task_service.validate_task | Unidade | Particionamento de Equivalência (classe válida) | validate_task não lança; 201 | Nenhuma. Teste isolado. |
+| TU-83 | RN-83: tarefa do tipo fertilização é aceite | POST /tasks; task_service.validate_task | Unidade | Particionamento de Equivalência (classe válida) | validate_task não lança; 201 | Nenhuma. Teste isolado. |
+| TU-84 | RN-84: tarefa do tipo colheita é aceite | POST /tasks; task_service.validate_task | Unidade | Particionamento de Equivalência (classe válida) | validate_task não lança; 201 | Nenhuma. Teste isolado. |
+| TU-85 | RN-85: tarefa do tipo monitorização é aceite | POST /tasks; task_service.validate_task | Unidade | Particionamento de Equivalência (classe válida) | validate_task não lança; 201 | Nenhuma. Teste isolado. |
+| TU-86 | RN-86: tarefa do tipo desconhecido é rejeitada | POST /tasks; task_service.validate_task | Unidade | Particionamento de Equivalência (classe inválida) | Lança TaskValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-87 | RN-87: tarefa sem batch_id lança erro | POST /tasks; task_service.validate_task | Unidade | Particionamento de Equivalência (batch_id ausente) | Lança TaskValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-88 | RN-88: tarefa sem task_type lança erro | POST /tasks; task_service.validate_task | Unidade | Particionamento de Equivalência (task_type ausente) | Lança TaskValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-89 | RN-89: tarefa com data em formato inválido DD-MM-YYYY lança erro | POST /tasks; task_service.validate_task | Unidade | Particionamento de Equivalência (formato de data inválido) | Lança TaskValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-90 | RN-90: medição com temp=17°C (abaixo de 18) gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (temp=17, abaixo do mínimo 18) | result["alert"] não é None | Lote ativo id=1 em memória. |
+| TU-91 | RN-91: medição com temp=18°C (limite inferior) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (temp=18, limite inferior exacto) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-92 | RN-92: medição com temp=23°C (nominal) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (temp=23, valor nominal interior) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-93 | RN-93: medição com temp=28°C (limite superior) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (temp=28, limite superior exacto) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-94 | RN-94: medição com temp=29°C (acima de 28) gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (temp=29, acima do máximo 28) | result["alert"] não é None | Lote ativo id=1 em memória. |
+| TU-95 | RN-95: medição com hum=39% (abaixo de 40) gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (hum=39, abaixo do mínimo 40) | result["alert"] não é None | Lote ativo id=1 em memória. |
+| TU-96 | RN-96: medição com hum=40% (limite inferior) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (hum=40, limite inferior exacto) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-97 | RN-97: medição com hum=60% (nominal) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (hum=60, valor nominal interior) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-98 | RN-98: medição com hum=80% (limite superior) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (hum=80, limite superior exacto) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-99 | RN-99: medição com hum=81% (acima de 80) gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (hum=81, acima do máximo 80) | result["alert"] não é None | Lote ativo id=1 em memória. |
+| TU-100 | RN-100: medição com lux=4999 (abaixo de 5000) gera alerta Informativo | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (lux=4999, abaixo do mínimo 5000) | result["alert"].level=="Informativo" | Lote ativo id=1 em memória. |
+| TU-101 | RN-101: medição com lux=5000 (limite inferior) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (lux=5000, limite inferior exacto) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-102 | RN-102: medição com lux=15000 (nominal) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (lux=15000, valor nominal interior) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-103 | RN-103: medição com lux=25000 (limite superior) não gera alerta | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (lux=25000, limite superior exacto) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-104 | RN-104: medição com lux=25001 (acima de 25000) gera alerta Informativo | POST /measurements; measurement_service.create_measurement | Unidade | Análise de Valores Limite (lux=25001, acima do máximo 25000) | result["alert"].level=="Informativo" | Lote ativo id=1 em memória. |
+| TU-105 | RN-105: sensor_ok=False — sem alerta mesmo com leituras fora dos limites | POST /measurements; measurement_service.create_measurement | Unidade | Particionamento de Equivalência (sensor desligado) | result["alert"] é None | Lote ativo id=1 em memória. |
+| TU-106 | RN-106: sensor_ok não booleano lança MeasurementValidationError | POST /measurements; measurement_service.create_measurement | Unidade | Particionamento de Equivalência (sensor_ok tipo inválido) | Lança MeasurementValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-107 | RN-107: todas leituras normais e sensor activo — sem alerta | POST /measurements; alert_service.classify_alert | Unidade | Particionamento de Equivalência (classe None) | Retorna None | temp=23, hum=60, lux=15000, sensor_ok=True. |
+| TU-108 | RN-108: temperatura alta (29°C) — Aviso | POST /measurements; alert_service.classify_alert | Unidade | Particionamento de Equivalência (classe Aviso — temp alta) | Retorna "Aviso" | temp=29, hum=60, lux=15000, sensor_ok=True. |
+| TU-109 | RN-109: temperatura baixa (17°C) — Aviso | POST /measurements; alert_service.classify_alert | Unidade | Particionamento de Equivalência (classe Aviso — temp baixa) | Retorna "Aviso" | temp=17, hum=60, lux=15000, sensor_ok=True. |
+| TU-110 | RN-110: humidade alta (85%) — Aviso | POST /measurements; alert_service.classify_alert | Unidade | Particionamento de Equivalência (classe Aviso — hum alta) | Retorna "Aviso" | temp=23, hum=85, lux=15000, sensor_ok=True. |
+| TU-111 | RN-111: humidade baixa (35%) — Aviso | POST /measurements; alert_service.classify_alert | Unidade | Particionamento de Equivalência (classe Aviso — hum baixa) | Retorna "Aviso" | temp=23, hum=35, lux=15000, sensor_ok=True. |
+| TU-112 | RN-112: temp e hum ambas fora dos limites — Crítico | POST /measurements; alert_service.classify_alert | Unidade | Particionamento de Equivalência (classe Crítico) | Retorna "Crítico" | temp=29, hum=35, lux=15000, sensor_ok=True. |
+| TU-113 | RN-113: luminosidade fora dos limites — Informativo | POST /measurements; alert_service.classify_alert | Unidade | Particionamento de Equivalência (classe Informativo) | Retorna "Informativo" | temp=23, hum=60, lux=26000, sensor_ok=True. |
+| TU-114 | RN-114: sensor desligado — sem alerta independentemente das leituras | POST /measurements; alert_service.classify_alert | Unidade | Particionamento de Equivalência (sensor_ok=False) | Retorna None | temp=29, hum=35, lux=26000, sensor_ok=False. |
+| TU-115 | RN-115: resolução com action resolvido sem justificação é aceite | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (resolvido, justificação opcional ausente) | Retorna alerta com state="resolvido"; 200 | Alerta pendente em memória. |
+| TU-116 | RN-116: resolução com action resolvido com justificação é aceite | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (resolvido com justificação presente) | Retorna alerta com state="resolvido"; 200 | Alerta pendente em memória. |
+| TU-117 | RN-117: resolução com action ignorado e justificação válida é aceite | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (ignorado com justificação válida) | Retorna alerta com state="ignorado"; 200 | Alerta pendente em memória. |
+| TU-118 | RN-118: resolução com action ignorado sem justificação é rejeitada | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (ignorado sem justificação obrigatória) | Lança AlertActionError; 422 | Alerta pendente em memória. |
+| TU-119 | RN-119: resolução com action desconhecida é rejeitada | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (action inválida) | Lança AlertActionError; 422 | Alerta pendente em memória. |
+| TU-120 | RN-120: justificação de 9 chars rejeitada (abaixo do mínimo 10) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=9, abaixo do mínimo 10) | Lança AlertActionError; 422 | Alerta pendente em memória. |
+| TU-121 | RN-121: justificação de 10 chars aceite (limite inferior exacto) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=10, limite inferior exacto) | Retorna alerta com state="ignorado"; 200 | Alerta pendente em memória. |
+| TU-122 | RN-122: justificação de 250 chars aceite (valor nominal interior) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=250, valor nominal) | Retorna alerta com state="ignorado"; 200 | Alerta pendente em memória. |
+| TU-123 | RN-123: justificação de 500 chars aceite (limite superior exacto) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=500, limite superior exacto) | Retorna alerta com state="ignorado"; 200 | Alerta pendente em memória. |
+| TU-124 | RN-124: justificação de 501 chars rejeitada (acima do máximo 500) | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Análise de Valores Limite (len=501, acima do máximo 500) | Lança AlertActionError; 422 | Alerta pendente em memória. |
+| TU-125 | RN-125: resolução de alerta com id inexistente lança AlertNotFoundError | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (id inexistente) | Lança AlertNotFoundError; 404 | Store de alertas vazio. |
+| TU-126 | RN-126: resolução de alerta já resolvido lança AlertActionError | PATCH /alerts/{id}; alert_service.resolve_alert | Unidade | Particionamento de Equivalência (estado não pendente) | Lança AlertActionError; 422 | Alerta com state="resolvido" em memória. |
+| TU-127 | RN-127: modo Automático + regra ativa + medição recente — executada | POST /automation/evaluate; automation_service.decide_automation | Unidade | Particionamento de Equivalência (classe executada) | Retorna "executada" | mode="Automático", rule_active=True, measurement_recent=True. |
+| TU-128 | RN-128: modo Manual + regra ativa + medição recente — sugerida | POST /automation/evaluate; automation_service.decide_automation | Unidade | Particionamento de Equivalência (classe sugerida) | Retorna "sugerida" | mode="Manual", rule_active=True, measurement_recent=True. |
+| TU-129 | RN-129: regra inativa — ignorada independentemente do modo | POST /automation/evaluate; automation_service.decide_automation | Unidade | Particionamento de Equivalência (regra inativa) | Retorna "ignorada" | mode="Automático", rule_active=False. |
+| TU-130 | RN-130: medição não recente — ignorada independentemente do modo | POST /automation/evaluate; automation_service.decide_automation | Unidade | Particionamento de Equivalência (medição não recente) | Retorna "ignorada" | mode="Manual", measurement_recent=False. |
+| TU-131 | RN-131: modo inválido lança AutomationDecisionError | POST /automation/evaluate; automation_service.decide_automation | Unidade | Particionamento de Equivalência (modo inválido) | Lança AutomationDecisionError; 400 | Nenhuma. Teste isolado. |
+| TU-132 | RN-132: perfil Técnico é aceite | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (perfil válido) | validate_user não lança; 201 | Nenhuma. Teste isolado. |
+| TU-133 | RN-133: perfil Responsável Técnico é aceite | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (perfil válido) | validate_user não lança; 201 | Nenhuma. Teste isolado. |
+| TU-134 | RN-134: perfil Administrador é aceite | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (perfil válido) | validate_user não lança; 201 | Nenhuma. Teste isolado. |
+| TU-135 | RN-135: perfil Gestor (desconhecido) é rejeitado | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (perfil inválido) | Lança UserValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-136 | RN-136: perfil null é rejeitado | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (perfil ausente) | Lança UserValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-137 | RN-137: payload válido completo é aceite | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (classe válida) | validate_user não lança; 201 | Nenhuma. Teste isolado. |
+| TU-138 | RN-138: username em falta lança UserValidationError | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (username ausente) | Lança UserValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-139 | RN-139: password em falta lança UserValidationError | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (password ausente) | Lança UserValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-140 | RN-140: role em falta lança UserValidationError | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (role ausente) | Lança UserValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-141 | RN-141: username vazio lança UserValidationError | POST /users; user_service.validate_user | Unidade | Particionamento de Equivalência (username vazio) | Lança UserValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-142 | RN-142: formato CSV é aceite | GET /reports; report_service.validate_report_format | Unidade | Particionamento de Equivalência (formato válido) | validate_report_format não lança; 200 | Nenhuma. Teste isolado. |
+| TU-143 | RN-143: formato Excel é aceite | GET /reports; report_service.validate_report_format | Unidade | Particionamento de Equivalência (formato válido) | validate_report_format não lança; 200 | Nenhuma. Teste isolado. |
+| TU-144 | RN-144: formato PDF é rejeitado | GET /reports; report_service.validate_report_format | Unidade | Particionamento de Equivalência (formato inválido) | Lança ReportValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-145 | RN-145: formato JSON é rejeitado | GET /reports; report_service.validate_report_format | Unidade | Particionamento de Equivalência (formato inválido) | Lança ReportValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-146 | RN-146: formato null é rejeitado | GET /reports; report_service.validate_report_format | Unidade | Particionamento de Equivalência (formato ausente) | Lança ReportValidationError; 400 | Nenhuma. Teste isolado. |
+| TU-147 | RN-147: operação create_batch é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de escrita) | Retorna True | Nenhuma. Teste isolado. |
+| TU-148 | RN-148: operação resolve_alert é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de escrita) | Retorna True | Nenhuma. Teste isolado. |
+| TU-149 | RN-149: operação close_batch é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de escrita) | Retorna True | Nenhuma. Teste isolado. |
+| TU-150 | RN-150: operação get_batches não é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de leitura) | Retorna False | Nenhuma. Teste isolado. |
+| TU-151 | RN-151: operação get_herbs não é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de leitura) | Retorna False | Nenhuma. Teste isolado. |
 
 ## Tabela Inversa Requisito -> Testes
 
@@ -169,53 +214,98 @@
 | RN-54: plano pontual com authorized_by válido é aceite | TU-54 |
 | RN-55: plano pontual sem authorized_by (null) é rejeitado | TU-55 |
 | RN-56: plano pontual com authorized_by vazio é rejeitado | TU-56 |
-| RN-57: classify_alert C1=F C2=F C3=F → None | TU-57 |
-| RN-58: classify_alert C1=F C2=F C3=T → None | TU-58 |
-| RN-59: classify_alert C1=F C2=T C3=F → None | TU-59 |
-| RN-60: classify_alert C1=F C2=T C3=T → "Aviso" | TU-60 |
-| RN-61: classify_alert C1=T C2=F C3=F → None | TU-61 |
-| RN-62: classify_alert C1=T C2=F C3=T → "Aviso" | TU-62 |
-| RN-63: classify_alert C1=T C2=T C3=F → None | TU-63 |
-| RN-64: classify_alert C1=T C2=T C3=T → "Crítico" | TU-64 |
-| RN-65: lote ativo sem perdas + data definida → "concluído" | TU-65 |
-| RN-66: lote ativo com perdas + data definida → "comprometido" | TU-66 |
-| RN-67: lote ativo sem data de conclusão → BatchStateError | TU-67 |
-| RN-68: lote concluído não pode transicionar → BatchStateError | TU-68 |
-| RN-69: lote comprometido não pode transicionar → BatchStateError | TU-69 |
-| RN-70: estado inválido → BatchStateError | TU-70 |
-| RN-71: sem perdas, colheita total → produtividade 100% | TU-71 |
-| RN-72: com perdas parciais → produtividade 80% | TU-72 |
-| RN-73: colheita parcial sem perdas → produtividade 60% | TU-73 |
-| RN-74: losses > actual_qty → BatchCalculationError | TU-74 |
-| RN-75: planned_qty = 0 → BatchCalculationError | TU-75 |
-| RN-76: Automático + regra ativa + medição recente → "executada" | TU-76 |
-| RN-77: Manual + regra ativa + medição recente → "sugerida" | TU-77 |
-| RN-78: regra inativa → "ignorada" | TU-78 |
-| RN-79: medição não recente → "ignorada" | TU-79 |
-| RN-80: importação de CSV misto (válida + inválida) classifica corretamente | TU-80 |
-| RN-81: tipo de plano "regular" é aceite | TU-81 |
-| RN-82: tipo de plano "emergência" é aceite | TU-82 |
-| RN-83: tipo de plano desconhecido é rejeitado | TU-83 |
-| RN-84: duração do ciclo 0 dias rejeitada (abaixo do mínimo) | TU-84 |
-| RN-85: duração do ciclo 1 dia aceite (limite inferior) | TU-85 |
-| RN-86: duração do ciclo 90 dias aceite (valor nominal) | TU-86 |
-| RN-87: duração do ciclo 365 dias aceite (limite superior) | TU-87 |
-| RN-88: duração do ciclo 366 dias rejeitada (acima do máximo) | TU-88 |
-| RN-89: resolve_alert "resolvido" sem justificação → aceite | TU-89 |
-| RN-90: resolve_alert "resolvido" com justificação → aceite | TU-90 |
-| RN-91: resolve_alert "ignorado" com justificação válida → aceite | TU-91 |
-| RN-92: resolve_alert "ignorado" sem justificação → AlertActionError | TU-92 |
-| RN-93: resolve_alert action inválida → AlertActionError | TU-93 |
-| RN-94: justificação 9 chars rejeitada (abaixo do mínimo 10) | TU-94 |
-| RN-95: justificação 10 chars aceite (limite inferior) | TU-95 |
-| RN-96: justificação 250 chars aceite (valor nominal) | TU-96 |
-| RN-97: justificação 500 chars aceite (limite superior) | TU-97 |
-| RN-98: justificação 501 chars rejeitada (acima do máximo 500) | TU-98 |
-| RN-99: resolve_alert id inexistente → AlertNotFoundError | TU-99 |
-| RN-100: resolve_alert alerta não pendente → AlertActionError | TU-100 |
-| RN-101: create_measurement sem batch_id → MeasurementValidationError | TU-101 |
-| RN-102: create_measurement sem temp → MeasurementValidationError | TU-102 |
-| RN-103: create_measurement sem humidity → MeasurementValidationError | TU-103 |
-| RN-104: create_measurement sem luminosity → MeasurementValidationError | TU-104 |
-| RN-105: create_measurement válida dentro dos limites → alert=None | TU-105 |
-| RN-106: create_measurement com temp > limite e sensor ativo → alerta "Aviso" | TU-106 |
+| RN-57 | TU-57 |
+| RN-58 | TU-58 |
+| RN-59 | TU-59 |
+| RN-60 | TU-60 |
+| RN-61 | TU-61 |
+| RN-62 | TU-62 |
+| RN-63 | TU-63 |
+| RN-64 | TU-64 |
+| RN-65 | TU-65 |
+| RN-66 | TU-66 |
+| RN-67 | TU-67 |
+| RN-68 | TU-68 |
+| RN-69 | TU-69 |
+| RN-70 | TU-70 |
+| RN-71 | TU-71 |
+| RN-72 | TU-72 |
+| RN-73 | TU-73 |
+| RN-74 | TU-74 |
+| RN-75 | TU-75 |
+| RN-76 | TU-76 |
+| RN-77 | TU-77 |
+| RN-78 | TU-78 |
+| RN-79 | TU-79 |
+| RN-80 | TU-80 |
+| RN-81 | TU-81 |
+| RN-82 | TU-82 |
+| RN-83 | TU-83 |
+| RN-84 | TU-84 |
+| RN-85 | TU-85 |
+| RN-86 | TU-86 |
+| RN-87 | TU-87 |
+| RN-88 | TU-88 |
+| RN-89 | TU-89 |
+| RN-90 | TU-90 |
+| RN-91 | TU-91 |
+| RN-92 | TU-92 |
+| RN-93 | TU-93 |
+| RN-94 | TU-94 |
+| RN-95 | TU-95 |
+| RN-96 | TU-96 |
+| RN-97 | TU-97 |
+| RN-98 | TU-98 |
+| RN-99 | TU-99 |
+| RN-100 | TU-100 |
+| RN-101 | TU-101 |
+| RN-102 | TU-102 |
+| RN-103 | TU-103 |
+| RN-104 | TU-104 |
+| RN-105 | TU-105 |
+| RN-106 | TU-106 |
+| RN-107 | TU-107 |
+| RN-108 | TU-108 |
+| RN-109 | TU-109 |
+| RN-110 | TU-110 |
+| RN-111 | TU-111 |
+| RN-112 | TU-112 |
+| RN-113 | TU-113 |
+| RN-114 | TU-114 |
+| RN-115 | TU-115 |
+| RN-116 | TU-116 |
+| RN-117 | TU-117 |
+| RN-118 | TU-118 |
+| RN-119 | TU-119 |
+| RN-120 | TU-120 |
+| RN-121 | TU-121 |
+| RN-122 | TU-122 |
+| RN-123 | TU-123 |
+| RN-124 | TU-124 |
+| RN-125 | TU-125 |
+| RN-126 | TU-126 |
+| RN-127 | TU-127 |
+| RN-128 | TU-128 |
+| RN-129 | TU-129 |
+| RN-130 | TU-130 |
+| RN-131 | TU-131 |
+| RN-132 | TU-132 |
+| RN-133 | TU-133 |
+| RN-134 | TU-134 |
+| RN-135 | TU-135 |
+| RN-136 | TU-136 |
+| RN-137 | TU-137 |
+| RN-138 | TU-138 |
+| RN-139 | TU-139 |
+| RN-140 | TU-140 |
+| RN-141 | TU-141 |
+| RN-142 | TU-142 |
+| RN-143 | TU-143 |
+| RN-144 | TU-144 |
+| RN-145 | TU-145 |
+| RN-146 | TU-146 |
+| RN-147 | TU-147 |
+| RN-148 | TU-148 |
+| RN-149 | TU-149 |
+| RN-150 | TU-150 |
+| RN-151 | TU-151 |
