@@ -153,7 +153,7 @@
 | TU-149 | RN-149: operação close_batch é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de escrita) | Retorna True | Nenhuma. Teste isolado. |
 | TU-150 | RN-150: operação get_batches não é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de leitura) | Retorna False | Nenhuma. Teste isolado. |
 | TU-151 | RN-151: operação get_herbs não é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de leitura) | Retorna False | Nenhuma. Teste isolado. |
-
+| --- | --- | --- | --- | --- | --- | --- |
 | TI-01 | RF-01: login com credenciais válidas devolve tokens | POST /auth/login | Integração | Particionamento de Equivalência (credenciais válidas) | 200 com access_token e refresh_token | Utilizadores seed em memória. |
 | TI-02 | RF-01: login com password errada é rejeitado | POST /auth/login | Integração | Particionamento de Equivalência (password errada) | 401 | Utilizadores seed em memória. |
 | TI-03 | RF-01: login com username inexistente é rejeitado | POST /auth/login | Integração | Particionamento de Equivalência (username inexistente) | 401 | Utilizadores seed em memória. |
