@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python append_matrix.py)",
+      "Bash(python -c \"import os; os.remove\\('append_matrix.py'\\); print\\('script removed'\\)\")",
+      "Bash(python -m pytest tests/ -q --no-header)",
+      "Bash(python -c \"import os; os.makedirs\\('docs', exist_ok=True\\); print\\('ok'\\)\")"
+    ]
+  }
+}

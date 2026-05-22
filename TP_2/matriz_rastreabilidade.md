@@ -154,6 +154,78 @@
 | TU-150 | RN-150: operação get_batches não é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de leitura) | Retorna False | Nenhuma. Teste isolado. |
 | TU-151 | RN-151: operação get_herbs não é auditável | GET /audit; audit_service.is_auditable_action | Unidade | Particionamento de Equivalência (operação de leitura) | Retorna False | Nenhuma. Teste isolado. |
 
+| TI-01 | RF-01: login com credenciais válidas devolve tokens | POST /auth/login | Integração | Particionamento de Equivalência (credenciais válidas) | 200 com access_token e refresh_token | Utilizadores seed em memória. |
+| TI-02 | RF-01: login com password errada é rejeitado | POST /auth/login | Integração | Particionamento de Equivalência (password errada) | 401 | Utilizadores seed em memória. |
+| TI-03 | RF-01: login com username inexistente é rejeitado | POST /auth/login | Integração | Particionamento de Equivalência (username inexistente) | 401 | Utilizadores seed em memória. |
+| TI-04 | RF-01: login com payload vazio é rejeitado | POST /auth/login | Integração | Particionamento de Equivalência (payload vazio) | 400 ou 422 | Nenhuma. |
+| TI-05 | RF-02: refresh token válido devolve novo par de tokens | POST /auth/refresh | Integração | Particionamento de Equivalência (refresh token válido) | 200 com access_token | Refresh token obtido via login. |
+| TI-06 | RF-02: refresh token malformado é rejeitado | POST /auth/refresh | Integração | Particionamento de Equivalência (token malformado) | 401 | Nenhuma. |
+| TI-07 | RF-01: método errado GET /auth/login é rejeitado | GET /auth/login | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Nenhuma. |
+| TI-08 | RF-03: GET /herbs sem token devolve 401 | GET /herbs | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-09 | RF-03: GET /herbs com token válido devolve lista | GET /herbs | Integração | Particionamento de Equivalência (token válido) | 200 com campo herbs | Token Admin gerado. |
+| TI-10 | RF-04: POST /herbs/import sem token devolve 401 | POST /herbs/import | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-11 | RF-04: POST /herbs/import com perfil Técnico devolve 403 | POST /herbs/import | Integração | Particionamento de Equivalência (perfil sem permissão) | 403 | Token Técnico gerado. |
+| TI-12 | RF-04: POST /herbs/import com Admin e CSV válido devolve 200 | POST /herbs/import | Integração | Particionamento de Equivalência (CSV válido) | 200 com imported=2 | Token Admin gerado. Catálogo vazio (reset_herbs). |
+| TI-13 | RF-04: POST /herbs/import com CSV vazio devolve 400 ou 422 | POST /herbs/import | Integração | Particionamento de Equivalência (CSV vazio) | 400 ou 422 | Token Admin gerado. |
+| TI-14 | RF-05: POST /plans sem token devolve 401 | POST /plans | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-15 | RF-05: POST /plans com tipo regular válido devolve 201 | POST /plans | Integração | Particionamento de Equivalência (tipo regular) | 201 com type="regular" | Token Admin gerado. |
+| TI-16 | RF-05: POST /plans com tipo inválido devolve 400 | POST /plans | Integração | Particionamento de Equivalência (tipo inválido) | 400 | Token Admin gerado. |
+| TI-17 | RF-05: POST /plans pontual sem authorized_by devolve 400 | POST /plans | Integração | Particionamento de Equivalência (pontual sem autorização) | 400 | Token Admin gerado. |
+| TI-18 | RF-05: POST /plans pontual com authorized_by devolve 201 | POST /plans | Integração | Particionamento de Equivalência (pontual com autorização) | 201 com authorized_by preenchido | Token Admin gerado. |
+| TI-19 | RF-05: GET /plans com token válido devolve 200 | GET /plans | Integração | Particionamento de Equivalência (token válido) | 200 com campo plans | Token Admin gerado. |
+| TI-20 | RF-05: DELETE /plans devolve 405 | DELETE /plans | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
+| TI-21 | RF-06: POST /batches sem token devolve 401 | POST /batches | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-22 | RF-06: POST /batches com payload válido devolve 201 | POST /batches | Integração | Particionamento de Equivalência (payload válido) | 201 com state="ativo" | Token Admin gerado. |
+| TI-23 | RF-06: POST /batches sem herb_id devolve 422 | POST /batches | Integração | Particionamento de Equivalência (campo obrigatório em falta) | 422 | Token Admin gerado. |
+| TI-24 | RF-06: POST /batches com planned_qty=0 devolve 400 | POST /batches | Integração | Particionamento de Equivalência (planned_qty inválido) | 400 | Token Admin gerado. |
+| TI-25 | RF-07: PATCH /batches/1/close num lote ativo devolve 200 | PATCH /batches/{id}/close | Integração | Particionamento de Equivalência (lote ativo) | 200 com state="concluído" | Token Admin. Lote id=1 em estado ativo. |
+| TI-26 | RF-07: PATCH /batches/1/close num lote já concluído devolve 400 | PATCH /batches/{id}/close | Integração | Particionamento de Equivalência (estado terminal) | 400 | Token Admin. Lote id=1 fechado previamente no teste. |
+| TI-27 | RF-07: PATCH /batches/9999/close com id inexistente devolve 404 | PATCH /batches/{id}/close | Integração | Particionamento de Equivalência (id inexistente) | 404 | Token Admin gerado. |
+| TI-28 | RF-06: GET /batches com token devolve 200 | GET /batches | Integração | Particionamento de Equivalência (token válido) | 200 com campo batches | Token Admin gerado. |
+| TI-29 | RF-08: POST /tasks sem token devolve 401 | POST /tasks | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-30 | RF-08: POST /tasks com tipo válido devolve 201 | POST /tasks | Integração | Particionamento de Equivalência (tipo válido) | 201 | Token Admin gerado. |
+| TI-31 | RF-08: POST /tasks com tipo inválido devolve 400 | POST /tasks | Integração | Particionamento de Equivalência (tipo inválido) | 400 | Token Admin gerado. |
+| TI-32 | RF-08: POST /tasks sem batch_id devolve 400 | POST /tasks | Integração | Particionamento de Equivalência (batch_id ausente) | 400 | Token Admin gerado. |
+| TI-33 | RF-08: GET /tasks com token devolve 200 | GET /tasks | Integração | Particionamento de Equivalência (token válido) | 200 | Token Admin gerado. |
+| TI-34 | RF-08: DELETE /tasks devolve 405 | DELETE /tasks | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
+| TI-35 | RF-09: POST /measurements sem token devolve 401 | POST /measurements | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-36 | RF-09: POST /measurements com leituras dentro dos limites — sem alerta | POST /measurements | Integração | Particionamento de Equivalência (leituras normais) | 201 com alert=null | Token Admin. Lote id=1 em estado ativo. |
+| TI-37 | RF-09: POST /measurements com temp fora dos limites — alerta Aviso | POST /measurements | Integração | Particionamento de Equivalência (leitura fora dos limites) | 201 com alert.level="Aviso" | Token Admin. Lote id=1 em estado ativo. |
+| TI-38 | RF-09: POST /measurements com sensor_ok=False — sem alerta | POST /measurements | Integração | Particionamento de Equivalência (sensor desligado) | 201 com alert=null | Token Admin. Lote id=1 em estado ativo. |
+| TI-39 | RF-09: GET /measurements com token devolve 200 | GET /measurements | Integração | Particionamento de Equivalência (token válido) | 200 | Token Admin gerado. |
+| TI-40 | RF-09: POST /measurements com campos em falta devolve 400 ou 422 | POST /measurements | Integração | Particionamento de Equivalência (campos obrigatórios em falta) | 400 ou 422 | Token Admin gerado. |
+| TI-41 | RF-10: PATCH /alerts/{id} sem token devolve 401 | PATCH /alerts/{id} | Integração | Particionamento de Equivalência (sem token) | 401 | Alerta pendente em memória. |
+| TI-42 | RF-10: GET /alerts com token devolve 200 | GET /alerts | Integração | Particionamento de Equivalência (token válido) | 200 com campo alerts | Token Admin gerado. |
+| TI-43 | RF-10: PATCH /alerts/{id} resolvido sem justificação devolve 200 | PATCH /alerts/{id} | Integração | Particionamento de Equivalência (resolvido sem justificação) | 200 com state="resolvido" | Token Admin. Alerta pendente em memória. |
+| TI-44 | RF-10: PATCH /alerts/{id} ignorado com justificação válida devolve 200 | PATCH /alerts/{id} | Integração | Particionamento de Equivalência (ignorado com justificação válida) | 200 com state="ignorado" | Token Admin. Alerta pendente em memória. |
+| TI-45 | RF-10: PATCH /alerts/{id} ignorado sem justificação devolve 422 | PATCH /alerts/{id} | Integração | Particionamento de Equivalência (ignorado sem justificação) | 422 | Token Admin. Alerta pendente em memória. |
+| TI-46 | RF-10: PATCH /alerts/{id} ignorado com justificação de 9 chars devolve 422 | PATCH /alerts/{id} | Integração | Análise de Valores Limite (len=9, abaixo do mínimo 10) | 422 | Token Admin. Alerta pendente em memória. |
+| TI-47 | RF-10: PATCH /alerts/{id} ignorado com justificação de 501 chars devolve 422 | PATCH /alerts/{id} | Integração | Análise de Valores Limite (len=501, acima do máximo 500) | 422 | Token Admin. Alerta pendente em memória. |
+| TI-48 | RF-10: PATCH /alerts/9999 com id inexistente devolve 404 | PATCH /alerts/{id} | Integração | Particionamento de Equivalência (id inexistente) | 404 | Token Admin gerado. |
+| TI-49 | RF-11: POST /automation/evaluate sem token devolve 401 | POST /automation/evaluate | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-50 | RF-11: POST /automation/evaluate modo Automático devolve 200 executada | POST /automation/evaluate | Integração | Particionamento de Equivalência (modo Automático) | 200 com decision="executada" | Token Admin gerado. |
+| TI-51 | RF-11: POST /automation/evaluate modo Manual devolve 200 sugerida | POST /automation/evaluate | Integração | Particionamento de Equivalência (modo Manual) | 200 com decision="sugerida" | Token Admin gerado. |
+| TI-52 | RF-11: POST /automation/evaluate regra inativa devolve 200 ignorada | POST /automation/evaluate | Integração | Particionamento de Equivalência (regra inativa) | 200 com decision="ignorada" | Token Admin gerado. |
+| TI-53 | RF-12: POST /users sem token devolve 401 | POST /users | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-54 | RF-12: POST /users com perfil Técnico devolve 403 | POST /users | Integração | Particionamento de Equivalência (perfil sem permissão) | 403 | Token Técnico gerado. |
+| TI-55 | RF-12: POST /users com perfil Admin devolve 201 | POST /users | Integração | Particionamento de Equivalência (perfil Admin) | 201 com username e role | Token Admin gerado. |
+| TI-56 | RF-12: GET /users com token devolve 200 | GET /users | Integração | Particionamento de Equivalência (token válido) | 200 com campo users | Token Admin gerado. |
+| TI-57 | RF-13: GET /reports sem token devolve 401 | GET /reports | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-58 | RF-13: GET /reports?format=CSV com token devolve 200 | GET /reports | Integração | Particionamento de Equivalência (formato CSV válido) | 200 | Token Admin gerado. |
+| TI-59 | RF-13: GET /reports?format=Excel com token devolve 200 | GET /reports | Integração | Particionamento de Equivalência (formato Excel válido) | 200 | Token Admin gerado. |
+| TI-60 | RF-13: GET /reports?format=PDF com token devolve 400 | GET /reports | Integração | Particionamento de Equivalência (formato inválido) | 400 | Token Admin gerado. |
+| TI-61 | RF-14: GET /audit sem token devolve 401 | GET /audit | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-62 | RF-14: GET /audit com perfil Técnico devolve 403 | GET /audit | Integração | Particionamento de Equivalência (perfil sem permissão) | 403 | Token Técnico gerado. |
+| TI-63 | RF-14: GET /audit com perfil Admin devolve 200 | GET /audit | Integração | Particionamento de Equivalência (perfil Admin) | 200 | Token Admin gerado. |
+| TI-64 | RF-14: POST /audit devolve 405 | POST /audit | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
+| TU-152 | RN-152: tipo regular + parâmetros válidos — validação aceita (base MC/DC) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C1=T C2=F C4=T C5=T C6=T | validate_plan não lança | type="regular", temp_min=23, humidity_min=60, luminosity_min=15000. |
+| TU-153 | RN-153: tipo inválido — validação rejeita (C1=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C1=F; par de C1 com TU-152 | Lança PlanValidationError | type="invalido". |
+| TU-154 | RN-154: temperatura fora do intervalo — validação rejeita (C4=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C4=F; par de C4 com TU-152 | Lança PlanValidationError | type="regular", temp_min=17 (abaixo de 18). |
+| TU-155 | RN-155: humidade fora do intervalo — validação rejeita (C5=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C5=F; par de C5 com TU-152 | Lança PlanValidationError | type="regular", humidity_min=35 (abaixo de 40). |
+| TU-156 | RN-156: luminosidade fora do intervalo — validação rejeita (C6=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C6=F; par de C6 com TU-152 | Lança PlanValidationError | type="regular", luminosity_min=4000 (abaixo de 5000). |
+| TU-157 | RN-157: pontual sem authorized_by — validação rejeita (C2=T C3=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C2=T C3=F; par de C2 com TU-152 | Lança PlanValidationError | type="pontual", authorized_by=None. |
+| TU-158 | RN-158: pontual com authorized_by — validação aceita (C2=T C3=T) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C2=T C3=T; par de C3 com TU-157 | validate_plan não lança | type="pontual", authorized_by="responsavel". |
+
 ## Tabela Inversa Requisito -> Testes
 
 | Requisito / Regra | Testes |
@@ -309,3 +381,74 @@
 | RN-149 | TU-149 |
 | RN-150 | TU-150 |
 | RN-151 | TU-151 |
+| RF-01: login credenciais válidas | TI-01 |
+| RF-01: login password errada | TI-02 |
+| RF-01: login username inexistente | TI-03 |
+| RF-01: login payload vazio | TI-04 |
+| RF-02: refresh token válido | TI-05 |
+| RF-02: refresh token malformado | TI-06 |
+| RF-01: método errado GET /auth/login | TI-07 |
+| RF-03: GET /herbs sem token | TI-08 |
+| RF-03: GET /herbs com token | TI-09 |
+| RF-04: POST /herbs/import sem token | TI-10 |
+| RF-04: POST /herbs/import Técnico proibido | TI-11 |
+| RF-04: POST /herbs/import Admin CSV válido | TI-12 |
+| RF-04: POST /herbs/import CSV vazio | TI-13 |
+| RF-05: POST /plans sem token | TI-14 |
+| RF-05: POST /plans tipo regular | TI-15 |
+| RF-05: POST /plans tipo inválido | TI-16 |
+| RF-05: POST /plans pontual sem autorização | TI-17 |
+| RF-05: POST /plans pontual com autorização | TI-18 |
+| RF-05: GET /plans com token | TI-19 |
+| RF-05: DELETE /plans método errado | TI-20 |
+| RF-06: POST /batches sem token | TI-21 |
+| RF-06: POST /batches payload válido | TI-22 |
+| RF-06: POST /batches sem herb_id | TI-23 |
+| RF-06: POST /batches planned_qty=0 | TI-24 |
+| RF-07: PATCH /batches/close lote ativo | TI-25 |
+| RF-07: PATCH /batches/close lote concluído | TI-26 |
+| RF-07: PATCH /batches/close id inexistente | TI-27 |
+| RF-06: GET /batches com token | TI-28 |
+| RF-08: POST /tasks sem token | TI-29 |
+| RF-08: POST /tasks tipo válido | TI-30 |
+| RF-08: POST /tasks tipo inválido | TI-31 |
+| RF-08: POST /tasks sem batch_id | TI-32 |
+| RF-08: GET /tasks com token | TI-33 |
+| RF-08: DELETE /tasks método errado | TI-34 |
+| RF-09: POST /measurements sem token | TI-35 |
+| RF-09: POST /measurements leituras normais | TI-36 |
+| RF-09: POST /measurements temp fora dos limites | TI-37 |
+| RF-09: POST /measurements sensor off | TI-38 |
+| RF-09: GET /measurements com token | TI-39 |
+| RF-09: POST /measurements campos em falta | TI-40 |
+| RF-10: PATCH /alerts sem token | TI-41 |
+| RF-10: GET /alerts com token | TI-42 |
+| RF-10: PATCH /alerts resolvido sem justificação | TI-43 |
+| RF-10: PATCH /alerts ignorado com justificação válida | TI-44 |
+| RF-10: PATCH /alerts ignorado sem justificação | TI-45 |
+| RF-10: PATCH /alerts justificação 9 chars | TI-46 |
+| RF-10: PATCH /alerts justificação 501 chars | TI-47 |
+| RF-10: PATCH /alerts id inexistente | TI-48 |
+| RF-11: POST /automation/evaluate sem token | TI-49 |
+| RF-11: POST /automation/evaluate Automático | TI-50 |
+| RF-11: POST /automation/evaluate Manual | TI-51 |
+| RF-11: POST /automation/evaluate regra inativa | TI-52 |
+| RF-12: POST /users sem token | TI-53 |
+| RF-12: POST /users Técnico proibido | TI-54 |
+| RF-12: POST /users Admin cria | TI-55 |
+| RF-12: GET /users com token | TI-56 |
+| RF-13: GET /reports sem token | TI-57 |
+| RF-13: GET /reports format=CSV | TI-58 |
+| RF-13: GET /reports format=Excel | TI-59 |
+| RF-13: GET /reports format=PDF inválido | TI-60 |
+| RF-14: GET /audit sem token | TI-61 |
+| RF-14: GET /audit Técnico proibido | TI-62 |
+| RF-14: GET /audit Admin aceite | TI-63 |
+| RF-14: POST /audit método errado | TI-64 |
+| RN-152: validate_plan base MC/DC | TU-152 |
+| RN-153: validate_plan C1=F (tipo inválido) | TU-153 |
+| RN-154: validate_plan C4=F (temp fora) | TU-154 |
+| RN-155: validate_plan C5=F (hum fora) | TU-155 |
+| RN-156: validate_plan C6=F (lux fora) | TU-156 |
+| RN-157: validate_plan C2=T C3=F (pontual sem auth) | TU-157 |
+| RN-158: validate_plan C2=T C3=T (pontual com auth) | TU-158 |

@@ -4,6 +4,7 @@ from api.services.batch_service import (
     BatchCalculationError,
     BatchNotFoundError,
     BatchStateError,
+    BatchValidationError,
     close_batch,
     create_batch,
     list_batches,
@@ -15,7 +16,10 @@ def get_batches():
 
 
 def post_batch(payload: dict):
-    return create_batch(payload)
+    try:
+        return create_batch(payload)
+    except BatchValidationError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
 
 def patch_close_batch(batch_id: int, payload: dict):

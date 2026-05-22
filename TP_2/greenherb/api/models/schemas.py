@@ -22,10 +22,17 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
 
 
+class UserCreate(BaseModel):
+    username: str
+    password: str
+    full_name: str | None = None
+    role: str
+
+
 class UserResponse(BaseModel):
     id: int
     username: str
-    full_name: str
+    full_name: str | None = None
     role: str
 
 

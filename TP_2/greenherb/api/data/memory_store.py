@@ -15,6 +15,16 @@ USERS = [
 
 REFRESH_TOKENS = {}
 
+_next_user_id = len(USERS) + 1
+
+
+def add_user(data):
+    global _next_user_id
+    user = {"id": _next_user_id, **data}
+    _next_user_id += 1
+    USERS.append(user)
+    return deepcopy(user)
+
 
 def find_user_by_username(username):
     for user in USERS:

@@ -30,5 +30,19 @@ def validate_user(payload):
         )
 
 
+def create_user(payload):
+    """Create a new user after validation."""
+    validate_user(payload)
+    if memory_store.find_user_by_username(payload["username"]):
+        raise UserValidationError("Username already exists.")
+    user = memory_store.add_user({
+        "username":  payload["username"],
+        "password":  payload["password"],
+        "full_name": payload.get("full_name") or "",
+        "role":      payload["role"],
+    })
+    return memory_store.public_user(user)
+
+
 def list_users():
     return [memory_store.public_user(user) for user in memory_store.USERS]
