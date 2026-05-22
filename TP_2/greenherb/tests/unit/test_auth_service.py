@@ -100,7 +100,8 @@ def test_generate_token(user, token_type, esperado):
         (lambda: "", None, "erro"),
         (lambda: None, None, "erro"),
         (
-            lambda: generate_token(_admin_user(), token_type="access")[:-1] + "x",
+            # Adultera 10 caracteres do meio da assinatura — garantidamente quebra o HMAC
+            lambda: generate_token(_admin_user(), token_type="access")[:-10] + "AAAAAAAAAA",
             None,
             "erro",
         ),

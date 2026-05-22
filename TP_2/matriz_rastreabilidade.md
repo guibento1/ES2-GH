@@ -218,9 +218,6 @@
 | TI-62 | RF-14: GET /audit com perfil Técnico devolve 403 | GET /audit | Integração | Particionamento de Equivalência (perfil sem permissão) | 403 | Token Técnico gerado. |
 | TI-63 | RF-14: GET /audit com perfil Admin devolve 200 | GET /audit | Integração | Particionamento de Equivalência (perfil Admin) | 200 | Token Admin gerado. |
 | TI-64 | RF-14: POST /audit devolve 405 | POST /audit | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
-<<<<<<< Updated upstream
-| --- | --- | --- | --- | --- | --- | --- |
-=======
 | TI-65 | RF-05: POST /plans com token malformado é rejeitado | POST /plans | Integração | Particionamento de Equivalência (token inválido) | 401 | Header Authorization: Bearer token-invalido. |
 | TI-66 | RF-05: POST /plans devolve schema completo do PlanResponse | POST /plans | Integração | Particionamento de Equivalência (verificação de schema de resposta) | 201 com campos id, type, temp_min, temp_max, humidity_min, humidity_max, luminosity_min, luminosity_max, duration_days | Token Admin gerado. |
 | TI-67 | RF-06: POST /batches devolve schema completo do BatchResponse | POST /batches | Integração | Particionamento de Equivalência (verificação de schema de resposta) | 201 com campos id, herb_id, plan_id, state, planned_qty, actual_qty, losses, productivity | Token Admin gerado. |
@@ -242,7 +239,6 @@
 | TI-83 | RF-01: pedido autenticado com token de assinatura adulterada é rejeitado | GET /plans | Integração | Particionamento de Equivalência (token adulterado) | 401 | Token válido com últimos 5 chars da assinatura alterados. |
 | TI-84 | RF-02: POST /auth/refresh com access token em vez de refresh é rejeitado | POST /auth/refresh | Integração | Particionamento de Equivalência (tipo de token errado) | 401 | Access token válido gerado para o admin. |
 | TI-85 | RF-01: pedido autenticado com token válido devolve 200 | GET /plans | Integração | Particionamento de Equivalência (token válido) | 200 com campo plans | Token Admin válido (access, não expirado, assinatura íntegra). |
->>>>>>> Stashed changes
 | TU-152 | RN-152: tipo regular + parâmetros válidos — validação aceita (base MC/DC) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C1=T C2=F C4=T C5=T C6=T | validate_plan não lança | type="regular", temp_min=23, humidity_min=60, luminosity_min=15000. |
 | TU-153 | RN-153: tipo inválido — validação rejeita (C1=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C1=F; par de C1 com TU-152 | Lança PlanValidationError | type="invalido". |
 | TU-154 | RN-154: temperatura fora do intervalo — validação rejeita (C4=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C4=F; par de C4 com TU-152 | Lança PlanValidationError | type="regular", temp_min=17 (abaixo de 18). |
