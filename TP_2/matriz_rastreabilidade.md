@@ -185,7 +185,7 @@
 | TI-29 | RF-08: POST /tasks sem token devolve 401 | POST /tasks | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
 | TI-30 | RF-08: POST /tasks com tipo válido devolve 201 | POST /tasks | Integração | Particionamento de Equivalência (tipo válido) | 201 | Token Admin gerado. |
 | TI-31 | RF-08: POST /tasks com tipo inválido devolve 400 | POST /tasks | Integração | Particionamento de Equivalência (tipo inválido) | 400 | Token Admin gerado. |
-| TI-32 | RF-08: POST /tasks sem batch_id devolve 400 | POST /tasks | Integração | Particionamento de Equivalência (batch_id ausente) | 400 | Token Admin gerado. |
+| TI-32 | RF-08: POST /tasks sem batch_id devolve 422 | POST /tasks | Integração | Particionamento de Equivalência (batch_id ausente) | 422 (validação Pydantic) | Token Admin gerado. |
 | TI-33 | RF-08: GET /tasks com token devolve 200 | GET /tasks | Integração | Particionamento de Equivalência (token válido) | 200 | Token Admin gerado. |
 | TI-34 | RF-08: DELETE /tasks devolve 405 | DELETE /tasks | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
 | TI-35 | RF-09: POST /measurements sem token devolve 401 | POST /measurements | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
@@ -218,7 +218,31 @@
 | TI-62 | RF-14: GET /audit com perfil Técnico devolve 403 | GET /audit | Integração | Particionamento de Equivalência (perfil sem permissão) | 403 | Token Técnico gerado. |
 | TI-63 | RF-14: GET /audit com perfil Admin devolve 200 | GET /audit | Integração | Particionamento de Equivalência (perfil Admin) | 200 | Token Admin gerado. |
 | TI-64 | RF-14: POST /audit devolve 405 | POST /audit | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
+<<<<<<< Updated upstream
 | --- | --- | --- | --- | --- | --- | --- |
+=======
+| TI-65 | RF-05: POST /plans com token malformado é rejeitado | POST /plans | Integração | Particionamento de Equivalência (token inválido) | 401 | Header Authorization: Bearer token-invalido. |
+| TI-66 | RF-05: POST /plans devolve schema completo do PlanResponse | POST /plans | Integração | Particionamento de Equivalência (verificação de schema de resposta) | 201 com campos id, type, temp_min, temp_max, humidity_min, humidity_max, luminosity_min, luminosity_max, duration_days | Token Admin gerado. |
+| TI-67 | RF-06: POST /batches devolve schema completo do BatchResponse | POST /batches | Integração | Particionamento de Equivalência (verificação de schema de resposta) | 201 com campos id, herb_id, plan_id, state, planned_qty, actual_qty, losses, productivity | Token Admin gerado. |
+| TI-68 | RF-08: POST /tasks devolve schema completo do TaskResponse | POST /tasks | Integração | Particionamento de Equivalência (verificação de schema de resposta) | 201 com campos id, batch_id, task_type, scheduled_date | Token Admin gerado. |
+| TI-69 | RF-09: POST /measurements devolve schema completo do MeasurementResponse | POST /measurements | Integração | Particionamento de Equivalência (verificação de schema de resposta) | 201 com campos id, batch_id, temp, humidity, luminosity, sensor_ok, alert | Token Admin gerado. Lote ativo id=1. |
+| TI-70 | RF-10: PATCH /alerts/{id} devolve schema completo do AlertResponse | PATCH /alerts/{id} | Integração | Particionamento de Equivalência (verificação de schema de resposta) | 200 com campos id, batch_id, level, state, justification | Alerta pendente em memória. Token Admin gerado. |
+| TI-71 | RF-13: POST /reports devolve 405 | POST /reports | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
+| TI-72 | RF-10: DELETE /alerts/{id} devolve 405 | DELETE /alerts/{id} | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Alerta pendente em memória. Token Admin gerado. |
+| TI-73 | RF-09: DELETE /measurements devolve 405 | DELETE /measurements | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
+| TI-74 | RF-05: POST /plans com temp_min como string devolve 422 | POST /plans | Integração | Particionamento de Equivalência (tipo errado no payload) | 422 (validação Pydantic) | Token Admin gerado. |
+| TI-75 | RF-06: POST /batches com herb_id como string devolve 422 | POST /batches | Integração | Particionamento de Equivalência (tipo errado no payload) | 422 (validação Pydantic) | Token Admin gerado. |
+| TI-76 | RF-11: POST /automation/evaluate com modo inválido devolve 400 | POST /automation/evaluate | Integração | Particionamento de Equivalência (modo inválido) | 400 | Token Admin gerado. |
+| TI-77 | RF-12: POST /users com role inválida devolve 400 | POST /users | Integração | Particionamento de Equivalência (role inválida) | 400 | Token Admin gerado. |
+| TI-78 | RF-08: POST /tasks com scheduled_date em formato inválido devolve 400 | POST /tasks | Integração | Particionamento de Equivalência (formato de data inválido) | 400 | Token Admin gerado. |
+| TI-79 | RF-10: GET /alerts sem token devolve 401 | GET /alerts | Integração | Particionamento de Equivalência (sem token) | 401 | Nenhuma. |
+| TI-80 | RF-11: GET /automation/evaluate devolve 405 | GET /automation/evaluate | Integração | Particionamento de Equivalência (método HTTP errado) | 405 | Token Admin gerado. |
+| TI-81 | RF-01: pedido autenticado com token expirado é rejeitado | GET /plans | Integração | Particionamento de Equivalência (token expirado) | 401 | Token gerado com exp no passado, SECRET_KEY válida. |
+| TI-82 | RF-01: pedido autenticado com Authorization vazio é rejeitado | GET /plans | Integração | Particionamento de Equivalência (token vazio) | 401 | Header Authorization='Bearer ' (sem token). |
+| TI-83 | RF-01: pedido autenticado com token de assinatura adulterada é rejeitado | GET /plans | Integração | Particionamento de Equivalência (token adulterado) | 401 | Token válido com últimos 5 chars da assinatura alterados. |
+| TI-84 | RF-02: POST /auth/refresh com access token em vez de refresh é rejeitado | POST /auth/refresh | Integração | Particionamento de Equivalência (tipo de token errado) | 401 | Access token válido gerado para o admin. |
+| TI-85 | RF-01: pedido autenticado com token válido devolve 200 | GET /plans | Integração | Particionamento de Equivalência (token válido) | 200 com campo plans | Token Admin válido (access, não expirado, assinatura íntegra). |
+>>>>>>> Stashed changes
 | TU-152 | RN-152: tipo regular + parâmetros válidos — validação aceita (base MC/DC) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C1=T C2=F C4=T C5=T C6=T | validate_plan não lança | type="regular", temp_min=23, humidity_min=60, luminosity_min=15000. |
 | TU-153 | RN-153: tipo inválido — validação rejeita (C1=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C1=F; par de C1 com TU-152 | Lança PlanValidationError | type="invalido". |
 | TU-154 | RN-154: temperatura fora do intervalo — validação rejeita (C4=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C4=F; par de C4 com TU-152 | Lança PlanValidationError | type="regular", temp_min=17 (abaixo de 18). |
@@ -226,6 +250,11 @@
 | TU-156 | RN-156: luminosidade fora do intervalo — validação rejeita (C6=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C6=F; par de C6 com TU-152 | Lança PlanValidationError | type="regular", luminosity_min=4000 (abaixo de 5000). |
 | TU-157 | RN-157: pontual sem authorized_by — validação rejeita (C2=T C3=F) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C2=T C3=F; par de C2 com TU-152 | Lança PlanValidationError | type="pontual", authorized_by=None. |
 | TU-158 | RN-158: pontual com authorized_by — validação aceita (C2=T C3=T) | POST /plans; plan_service.validate_plan | Unidade | Condições Múltiplas (MC/DC) — C2=T C3=T; par de C3 com TU-157 | validate_plan não lança | type="pontual", authorized_by="responsavel". |
+| TU-159 | RN-159: validate_plan com payload não-dict é rejeitado | POST /plans; plan_service.validate_plan | Unidade | White-box (branch coverage — guard clause inicial) | Lança PlanValidationError; 400 | Nenhuma. Teste isolado com payload=None. |
+| TU-160 | RN-160: validate_plan rejeita temp_min com tipo errado (string) | POST /plans; plan_service.validate_plan | Unidade | White-box (branch coverage — _check_numeric_range type-check) | Lança PlanValidationError; 400 | Nenhuma. payload={"type":"regular","temp_min":"muito"}. |
+| TU-161 | RN-161: validate_plan rejeita temp_max < temp_min | POST /plans; plan_service.validate_plan | Unidade | White-box (branch coverage — consistência max/min temperatura) | Lança PlanValidationError; 400 | Nenhuma. temp_min=26, temp_max=22. |
+| TU-162 | RN-162: validate_plan rejeita humidity_max < humidity_min | POST /plans; plan_service.validate_plan | Unidade | White-box (branch coverage — consistência max/min humidade) | Lança PlanValidationError; 400 | Nenhuma. humidity_min=70, humidity_max=50. |
+| TU-163 | RN-163: validate_plan rejeita luminosity_max < luminosity_min | POST /plans; plan_service.validate_plan | Unidade | White-box (branch coverage — consistência max/min luminosidade) | Lança PlanValidationError; 400 | Nenhuma. luminosity_min=20000, luminosity_max=10000. |
 
 ## Tabela Inversa Requisito -> Testes
 
@@ -453,3 +482,29 @@
 | RN-156: validate_plan C6=F (lux fora) | TU-156 |
 | RN-157: validate_plan C2=T C3=F (pontual sem auth) | TU-157 |
 | RN-158: validate_plan C2=T C3=T (pontual com auth) | TU-158 |
+| RF-05: POST /plans token malformado | TI-65 |
+| RF-05: POST /plans schema PlanResponse completo | TI-66 |
+| RF-06: POST /batches schema BatchResponse completo | TI-67 |
+| RF-08: POST /tasks schema TaskResponse completo | TI-68 |
+| RF-09: POST /measurements schema MeasurementResponse completo | TI-69 |
+| RF-10: PATCH /alerts schema AlertResponse completo | TI-70 |
+| RF-13: POST /reports método errado | TI-71 |
+| RF-10: DELETE /alerts método errado | TI-72 |
+| RF-09: DELETE /measurements método errado | TI-73 |
+| RF-05: POST /plans tipo errado no payload | TI-74 |
+| RF-06: POST /batches tipo errado no payload | TI-75 |
+| RF-11: POST /automation/evaluate modo inválido | TI-76 |
+| RF-12: POST /users role inválida | TI-77 |
+| RF-08: POST /tasks data inválida | TI-78 |
+| RF-10: GET /alerts sem token | TI-79 |
+| RF-11: GET /automation/evaluate método errado | TI-80 |
+| RF-01: token expirado | TI-81 |
+| RF-01: token vazio | TI-82 |
+| RF-01: token adulterado | TI-83 |
+| RF-02: refresh com access token | TI-84 |
+| RN-159: validate_plan payload não-dict | TU-159 |
+| RN-160: validate_plan temp_min tipo errado | TU-160 |
+| RN-161: validate_plan temp_max < temp_min | TU-161 |
+| RN-162: validate_plan humidity_max < humidity_min | TU-162 |
+| RN-163: validate_plan luminosity_max < luminosity_min | TU-163 |
+| RF-01: token válido devolve 200 | TI-85 |
