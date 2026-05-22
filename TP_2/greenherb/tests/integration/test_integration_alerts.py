@@ -70,6 +70,32 @@ def test_patch_alert_justificacao_501_chars(client, admin_h, alert_id):
     assert r.status_code == 422
 
 
+def test_patch_alert_schema_resposta_completo(client, admin_h, alert_id):
+    """TI-70: PATCH /alerts/{id} resolvido devolve JSON com todos os campos do AlertResponse."""
+    r = client.patch(f"/alerts/{alert_id}",
+                     json={"action": "resolvido"},
+                     headers=admin_h)
+    assert r.status_code == 200
+    body = r.json()
+    for field in ("id", "batch_id", "level", "state", "justification"):
+        assert field in body
+    assert body["id"] == alert_id
+    assert body["state"] == "resolvido"
+    assert body["level"] == "Aviso"
+
+
+def test_delete_alert_metodo_errado(client, admin_h, alert_id):
+    """TI-72: DELETE /alerts/{id} devolve 405."""
+    r = client.delete(f"/alerts/{alert_id}", headers=admin_h)
+    assert r.status_code == 405
+
+
+def test_get_alerts_sem_token(client):
+    """TI-79: GET /alerts sem token devolve 401."""
+    r = client.get("/alerts")
+    assert r.status_code == 401
+
+
 def test_patch_alert_id_inexistente(client, admin_h):
     """TI-48: PATCH /alerts/9999 com id inexistente devolve 404."""
     r = client.patch("/alerts/9999",

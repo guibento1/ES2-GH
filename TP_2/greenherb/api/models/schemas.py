@@ -1,3 +1,9 @@
+# Schemas Pydantic — validação de input (corpo de pedidos) e serialização de output
+# (response_model) dos endpoints HTTP.
+#
+# A persistência fica em `api/data/memory_store.py` (em produção seria SQLAlchemy).
+# Os endpoints devem usar SEMPRE estes schemas — nunca os dicionários do store.
+
 from typing import Any
 
 from pydantic import BaseModel
@@ -178,10 +184,17 @@ class AutomationEvaluateResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Legacy mock response (outros endpoints ainda em scaffold)
+# Tasks
 # ---------------------------------------------------------------------------
 
-class MockResourceResponse(BaseModel):
-    resource: str
-    status: str
-    data: Any
+class TaskCreate(BaseModel):
+    batch_id: int
+    task_type: str                          # "rega" | "fertilização" | "colheita" | "monitorização"
+    scheduled_date: str | None = None       # ISO format YYYY-MM-DD
+
+
+class TaskResponse(BaseModel):
+    id: int
+    batch_id: int
+    task_type: str
+    scheduled_date: str | None = None

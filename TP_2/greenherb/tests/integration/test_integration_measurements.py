@@ -60,3 +60,22 @@ def test_post_measurements_campos_em_falta(client, admin_h):
                     json={"batch_id": 1, "temp": 23.0, "humidity": 60.0},
                     headers=admin_h)
     assert r.status_code in (400, 422)
+
+
+def test_post_measurements_schema_resposta_completo(client, admin_h):
+    """TI-69: POST /measurements devolve JSON com todos os campos do MeasurementResponse."""
+    r = client.post("/measurements", json=_PAYLOAD_NORMAL, headers=admin_h)
+    assert r.status_code == 201
+    body = r.json()
+    for field in ("id", "batch_id", "temp", "humidity", "luminosity", "sensor_ok", "alert"):
+        assert field in body
+    assert body["batch_id"] == 1
+    assert body["temp"] == 23.0
+    assert body["sensor_ok"] is True
+    assert body["alert"] is None
+
+
+def test_delete_measurements_metodo_errado(client, admin_h):
+    """TI-73: DELETE /measurements devolve 405."""
+    r = client.delete("/measurements", headers=admin_h)
+    assert r.status_code == 405

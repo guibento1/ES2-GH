@@ -1,5 +1,12 @@
+# API
 fastapi
 uvicorn
+pydantic
+
+# Autenticação
 pyjwt
+
+# Testes
 pytest
 pytest-cov
+httpx

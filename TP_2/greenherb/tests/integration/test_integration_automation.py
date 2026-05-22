@@ -37,3 +37,17 @@ def test_automation_regra_inativa_ignorada(client, admin_h):
                     headers=admin_h)
     assert r.status_code == 200
     assert r.json()["decision"] == "ignorada"
+
+
+def test_automation_modo_invalido(client, admin_h):
+    """TI-76: POST /automation/evaluate com modo inválido devolve 400."""
+    r = client.post("/automation/evaluate",
+                    json={"mode": "Híbrido", "rule_active": True, "measurement_recent": True},
+                    headers=admin_h)
+    assert r.status_code == 400
+
+
+def test_get_automation_evaluate_metodo_errado(client, admin_h):
+    """TI-80: GET /automation/evaluate devolve 405."""
+    r = client.get("/automation/evaluate", headers=admin_h)
+    assert r.status_code == 405

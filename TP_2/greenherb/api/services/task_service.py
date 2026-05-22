@@ -1,4 +1,3 @@
-from api.services.mock_service import create_mock, list_mock
 from api.utils.date_validator import DateValidationError, validate_date
 
 
@@ -7,6 +6,10 @@ VALID_TASK_TYPES = {"rega", "fertilização", "colheita", "monitorização"}
 
 class TaskValidationError(ValueError):
     status_code = 400
+
+
+_TASKS = []
+_next_task_id = 1
 
 
 def validate_task(payload):
@@ -32,9 +35,18 @@ def validate_task(payload):
 
 
 def list_tasks():
-    return list_mock("tasks")
+    return list(_TASKS)
 
 
 def create_task(payload):
+    global _next_task_id
     validate_task(payload)
-    return create_mock("tasks", payload)
+    task = {
+        "id":             _next_task_id,
+        "batch_id":       payload["batch_id"],
+        "task_type":      payload["task_type"],
+        "scheduled_date": payload.get("scheduled_date"),
+    }
+    _next_task_id += 1
+    _TASKS.append(task)
+    return dict(task)

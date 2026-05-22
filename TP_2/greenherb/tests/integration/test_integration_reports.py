@@ -27,3 +27,9 @@ def test_get_reports_format_invalido(client, admin_h):
     """TI-60: GET /reports?format=PDF com token devolve 400."""
     r = client.get("/reports?format=PDF", headers=admin_h)
     assert r.status_code == 400
+
+
+def test_post_reports_metodo_errado(client, admin_h):
+    """TI-71: POST /reports devolve 405."""
+    r = client.post("/reports", json={}, headers=admin_h)
+    assert r.status_code == 405

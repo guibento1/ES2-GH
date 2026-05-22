@@ -34,6 +34,13 @@ def test_post_users_admin_cria(client, admin_h):
     assert body["role"] == "Técnico"
 
 
+def test_post_users_role_invalida(client, admin_h):
+    """TI-77: POST /users com role inválida devolve 400."""
+    payload = {**_USER_PAYLOAD, "username": "outro", "role": "Gestor"}
+    r = client.post("/users", json=payload, headers=admin_h)
+    assert r.status_code == 400
+
+
 def test_get_users_com_token(client, admin_h):
     """TI-56: GET /users com token devolve 200."""
     r = client.get("/users", headers=admin_h)

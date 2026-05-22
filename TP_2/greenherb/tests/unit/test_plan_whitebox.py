@@ -1,38 +1,3 @@
-"""
-Sprint 5 — Cobertura de Condições Múltiplas (MC/DC)
-Módulo: api.services.plan_service.validate_plan
-
-Expressão lógica da decisão composta:
-  resultado = C1 AND C4 AND C5 AND C6 AND (NOT C2 OR C3)
-
-Condições atómicas:
-  C1: plan["type"] in {"regular", "emergência", "pontual"}
-  C2: plan["type"] == "pontual"
-  C3: plan.get("authorized_by") é não-vazio
-  C4: temp_min in [18, 28] °C          (None ≡ não avaliado = OK)
-  C5: humidity_min in [40, 80] %       (None ≡ não avaliado = OK)
-  C6: luminosity_min in [5000, 25000]  (None ≡ não avaliado = OK)
-
-Tabela MC/DC (subconjunto mínimo — 7 casos cobrem 6 condições):
-
-  ID     type       authorized_by  temp_min  hum_min  lux_min  C1  C2  C3  C4  C5  C6  Resultado  Pair
-  TU-152 regular    —              23        60       15000    T   F   —   T   T   T   Válido     base
-  TU-153 invalido   —              23        60       15000    F   F   —   T   T   T   Erro       C1↕
-  TU-154 regular    —              17        60       15000    T   F   —   F   T   T   Erro       C4↕
-  TU-155 regular    —              23        35       15000    T   F   —   T   F   T   Erro       C5↕
-  TU-156 regular    —              23        60       4000     T   F   —   T   T   F   Erro       C6↕
-  TU-157 pontual    None           23        60       15000    T   T   F   T   T   T   Erro       C2↕ C3↕
-  TU-158 pontual    "responsavel"  23        60       15000    T   T   T   T   T   T   Válido     C3↕
-
-Pares MC/DC:
-  C1: TU-152 (C1=T → Válido) vs TU-153 (C1=F → Erro)             — apenas C1 muda
-  C4: TU-152 (C4=T → Válido) vs TU-154 (C4=F → Erro)             — apenas C4 muda
-  C5: TU-152 (C5=T → Válido) vs TU-155 (C5=F → Erro)             — apenas C5 muda
-  C6: TU-152 (C6=T → Válido) vs TU-156 (C6=F → Erro)             — apenas C6 muda
-  C2: TU-152 (C2=F → Válido) vs TU-157 (C2=T, C3=F → Erro)       — C2 muda, C3=F em ambos
-  C3: TU-157 (C3=F → Erro)   vs TU-158 (C3=T → Válido)           — apenas C3 muda
-"""
-
 import pytest
 
 from api.services.plan_service import PlanValidationError, validate_plan
@@ -85,4 +50,43 @@ def test_validate_plan_whitebox(test_id, payload, esperado):
         with pytest.raises(PlanValidationError):
             validate_plan(payload)
     else:
+        validate_plan(payload)
+
+
+# ---------------------------------------------------------------------------
+# TU-159 a TU-163 — White-box adicional: cobertura de ramos fora da decisão MC/DC
+# Atinge as linhas defensivas e regras max/min que não fazem parte da expressão
+# composta principal mas são branches do código real de validate_plan.
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize(
+    "test_id, payload, esperado",
+    [
+        # TU-159: payload não é dict → cobre o guard clause inicial
+        ("TU-159", None, "erro"),
+
+        # TU-160: temp_min com tipo errado (string) → cobre _check_numeric_range type-check
+        ("TU-160",
+         {"type": "regular", "temp_min": "muito"},
+         "erro"),
+
+        # TU-161: temp_max < temp_min → cobre o branch de consistência max/min
+        ("TU-161",
+         {"type": "regular", "temp_min": 26, "temp_max": 22},
+         "erro"),
+
+        # TU-162: humidity_max < humidity_min → cobre o branch de consistência max/min
+        ("TU-162",
+         {"type": "regular", "humidity_min": 70, "humidity_max": 50},
+         "erro"),
+
+        # TU-163: luminosity_max < luminosity_min → cobre o branch de consistência max/min
+        ("TU-163",
+         {"type": "regular", "luminosity_min": 20000, "luminosity_max": 10000},
+         "erro"),
+    ],
+)
+def test_validate_plan_whitebox_branches_adicionais(test_id, payload, esperado):
+    """White-box: ramos fora da decisão MC/DC principal (TU-159 a TU-163)."""
+    with pytest.raises(PlanValidationError):
         validate_plan(payload)
