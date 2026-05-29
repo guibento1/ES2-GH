@@ -283,16 +283,16 @@
 
 | ID | Requisito / Regra | Endpoint | Nível | Técnica | Resultado Esperado | Pré-condições |
 | --- | --- | --- | --- | --- | --- | --- |
-| TU-169 | RN-169: leitura de temperatura dentro dos limites não gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 23 °C | Serviço não gera alerta. | Stub configurado para devolver 23 °C. |
-| TU-170 | RN-170: temperatura abaixo do mínimo gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 5 °C | Serviço gera alerta Crítico. | Stub configurado para devolver 5 °C. |
-| TU-171 | RN-171: temperatura acima do máximo gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 31 °C | Serviço gera alerta Informativo. | Stub configurado para devolver 31 °C. |
-| TU-172 | RN-172: sensor indisponível não rebenta a aplicação | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor lança indisponibilidade | Serviço devolve estado "sensor indisponível" sem propagar exceção. | Stub configurado como indisponível. |
-| TU-173 | RN-173: alerta Crítico envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica chamada e parâmetros | Notificação enviada 1×, com destinatário, assunto ([CRÍTICO], lote) e corpo corretos. | Stub devolve 40 °C (Crítico). Mock de notificações ativo. |
-| TU-174 | RN-174: leitura dentro dos limites não envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica ausência de chamada | Nenhuma notificação enviada (mock sem chamadas). | Stub devolve 23 °C (sem alerta). Mock de notificações ativo. |
-| TU-175 | RN-175: alerta Informativo não envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica ausência de chamada | Nenhuma notificação enviada (mock sem chamadas). | Stub devolve 31 °C (Informativo). Mock de notificações ativo. |
-| TU-176 | RN-176: falha no envio de notificação não rebenta a aplicação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — configurado para falhar | Alerta gerado; notificação não confirmada, sem exceção propagada. | Stub devolve 40 °C (Crítico). Mock configurado para falhar. |
-| TU-177 | RN-177: desvio de 7 °C (35°C) classifica como Informativo e não notifica | (monitoring_service + Mock de notificações) | Unidade | Mock + Valores Limite (desvio = 7, fronteira inferior do Crítico) | Alerta Informativo; nenhuma notificação enviada. | Stub devolve 35 °C. Mock de notificações ativo. |
-| TU-178 | RN-178: desvio de 8 °C (36°C) classifica como Crítico e notifica | (monitoring_service + Mock de notificações) | Unidade | Mock + Valores Limite (desvio = 8, imediatamente acima do limiar) | Alerta Crítico; notificação enviada 1×. | Stub devolve 36 °C. Mock de notificações ativo. |
+| TU-170 | RN-170: leitura de temperatura dentro dos limites não gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 23 °C | Serviço não gera alerta. | Stub configurado para devolver 23 °C. |
+| TU-171 | RN-171: temperatura abaixo do mínimo gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 5 °C | Serviço gera alerta Crítico. | Stub configurado para devolver 5 °C. |
+| TU-172 | RN-172: temperatura acima do máximo gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 31 °C | Serviço gera alerta Informativo. | Stub configurado para devolver 31 °C. |
+| TU-173 | RN-173: sensor indisponível não rebenta a aplicação | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor lança indisponibilidade | Serviço devolve estado "sensor indisponível" sem propagar exceção. | Stub configurado como indisponível. |
+| TU-174 | RN-174: alerta Crítico envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica chamada e parâmetros | Notificação enviada 1×, com destinatário, assunto ([CRÍTICO], lote) e corpo corretos. | Stub devolve 40 °C (Crítico). Mock de notificações ativo. |
+| TU-175 | RN-175: leitura dentro dos limites não envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica ausência de chamada | Nenhuma notificação enviada (mock sem chamadas). | Stub devolve 23 °C (sem alerta). Mock de notificações ativo. |
+| TU-176 | RN-176: alerta Informativo não envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica ausência de chamada | Nenhuma notificação enviada (mock sem chamadas). | Stub devolve 31 °C (Informativo). Mock de notificações ativo. |
+| TU-177 | RN-177: falha no envio de notificação não rebenta a aplicação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — configurado para falhar | Alerta gerado; notificação não confirmada, sem exceção propagada. | Stub devolve 40 °C (Crítico). Mock configurado para falhar. |
+| TU-178 | RN-178: desvio de 7 °C (35°C) classifica como Informativo e não notifica | (monitoring_service + Mock de notificações) | Unidade | Mock + Valores Limite (desvio = 7, fronteira inferior do Crítico) | Alerta Informativo; nenhuma notificação enviada. | Stub devolve 35 °C. Mock de notificações ativo. |
+| TU-179 | RN-179: desvio de 8 °C (36°C) classifica como Crítico e notifica | (monitoring_service + Mock de notificações) | Unidade | Mock + Valores Limite (desvio = 8, imediatamente acima do limiar) | Alerta Crítico; notificação enviada 1×. | Stub devolve 36 °C. Mock de notificações ativo. |
 
 ## Testes de Sistema (nível obrigatório — secção 5.3)
 
@@ -474,16 +474,17 @@
 | RN-166: duração do ciclo num valor interior | TU-166 |
 | RN-167: duração do ciclo no limite superior | TU-167 |
 | RN-168: duração do ciclo acima do máximo | TU-168 |
-| RN-169: leitura de temperatura dentro dos limites não gera alerta | TU-169 |
-| RN-170: temperatura abaixo do mínimo gera alerta | TU-170 |
-| RN-171: temperatura acima do máximo gera alerta | TU-171 |
-| RN-172: sensor indisponível não rebenta a aplicação | TU-172 |
-| RN-173: alerta Crítico envia notificação | TU-173 |
-| RN-174: leitura dentro dos limites não envia notificação | TU-174 |
-| RN-175: alerta Informativo não envia notificação | TU-175 |
-| RN-176: falha no envio de notificação não rebenta a aplicação | TU-176 |
-| RN-177: desvio de 7 °C (35°C) → Informativo, não notifica | TU-177 |
-| RN-178: desvio de 8 °C (36°C) → Crítico, notifica | TU-178 |
+| RN-169: rejeita mês inexistente| TU-169 |
+| RN-170: leitura de temperatura dentro dos limites não gera alerta | TU-170 |
+| RN-171: temperatura abaixo do mínimo gera alerta | TU-171 |
+| RN-172: temperatura acima do máximo gera alerta | TU-172 |
+| RN-173: sensor indisponível não rebenta a aplicação | TU-173 |
+| RN-174: alerta Crítico envia notificação | TU-174 |
+| RN-175: leitura dentro dos limites não envia notificação | TU-175 |
+| RN-176: alerta Informativo não envia notificação | TU-176 |
+| RN-177: falha no envio de notificação não rebenta a aplicação | TU-177 |
+| RN-178: desvio de 7 °C (35°C) → Informativo, não notifica | TU-178 |
+| RN-179: desvio de 8 °C (36°C) → Crítico, notifica | TU-179 |
 | RF-01: autenticação de utilizador | TI-01 |
 | RF-01: autenticação rejeita password errada | TI-02 |
 | RF-01: autenticação rejeita utilizador inexistente | TI-03 |
