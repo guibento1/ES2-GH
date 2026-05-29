@@ -170,6 +170,7 @@
 | TU-166 | RN-166: duração do ciclo num valor interior | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 90 dias, valor nominal) | Validador aceita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
 | TU-167 | RN-167: duração do ciclo no limite superior | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 365 dias, limite superior exato) | Validador aceita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
 | TU-168 | RN-168: duração do ciclo acima do máximo | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 366 dias, acima de 365) | Validador rejeita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-169 | RN-169: rejeita mês inexistente | (validador de datas) | Unidade | Particionamento de Equivalência (mês 00: "2026-00-01") | Validador rejeita a data. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
 
 ## Sprint 4 — Testes de Integração (FastAPI TestClient)
 
