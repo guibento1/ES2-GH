@@ -80,97 +80,97 @@
 | TU-64 | RN-64: rejeita data por extenso | (validador de datas) | Unidade | Particionamento de Equivalência (por extenso: "16 maio 2026") | Validador rejeita a data. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
 | TU-65 | RN-65: rejeita mês inexistente | (validador de datas) | Unidade | Particionamento de Equivalência (mês 13: "2026-13-01") | Validador rejeita a data. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
 | TU-66 | RN-66: rejeita dia inexistente | (validador de datas) | Unidade | Particionamento de Equivalência (30 de fevereiro: "2026-02-30") | Validador rejeita a data. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-67 | RN-67: rejeita mês inexistente | (validador de datas) | Unidade | Particionamento de Equivalência (mês 00: "2026-00-01") | Validador rejeita a data. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-68 | RN-68: lote ativo sem perdas conclui-se | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (ativo, sem perdas, com data) | Lote transita para o estado "concluído". | Lote ativo, sem perdas registadas, com data de fim. |
-| TU-69 | RN-69: lote ativo com perdas fica comprometido | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (ativo, com perdas, com data) | Lote transita para o estado "comprometido". | Lote ativo, com perdas registadas, com data de fim. |
-| TU-70 | RN-70: não fecha lote sem data de conclusão | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (ativo, sem data de fim) | Rejeita a transição; equivale a 400 na API. | Lote ativo sem data de conclusão. |
-| TU-71 | RN-71: lote já concluído não pode voltar a transitar | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (estado terminal "concluído") | Rejeita a transição; equivale a 400 na API. | Lote no estado "concluído". |
-| TU-72 | RN-72: lote comprometido não pode voltar a transitar | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (estado terminal "comprometido") | Rejeita a transição; equivale a 400 na API. | Lote no estado "comprometido". |
-| TU-73 | RN-73: estado de lote desconhecido é rejeitado | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (estado inválido "suspenso") | Rejeita a transição; equivale a 400 na API. | Lote num estado fora dos previstos. |
-| TU-74 | RN-74: produtividade total sem perdas | (calculadora de produtividade) | Unidade | Particionamento de Equivalência (colheita total, sem perdas) | Calcula 100% de produtividade. | Planeado 100, colhido 100, perdas 0. |
-| TU-75 | RN-75: produtividade com perdas parciais | (calculadora de produtividade) | Unidade | Particionamento de Equivalência (colheita total, com perdas) | Calcula 80% de produtividade. | Planeado 100, colhido 100, perdas 20. |
-| TU-76 | RN-76: produtividade com colheita parcial | (calculadora de produtividade) | Unidade | Particionamento de Equivalência (colheita abaixo do planeado) | Calcula 60% de produtividade. | Planeado 100, colhido 60, perdas 0. |
-| TU-77 | RN-77: perdas não podem exceder a colheita | (calculadora de produtividade) | Unidade | Particionamento de Equivalência (perdas > colheita) | Rejeita o cálculo; equivale a 400 na API. | Planeado 100, colhido 50, perdas 60. |
-| TU-78 | RN-78: quantidade planeada não pode ser zero | (calculadora de produtividade) | Unidade | Valores Limite (planeado = 0, divisão por zero) | Rejeita o cálculo; equivale a 400 na API. | Planeado 0. |
-| TU-79 | RN-79: criação de lote com dados válidos | (validador de lotes) | Unidade | Particionamento de Equivalência (erva e quantidade válidas) | Validador aceita o lote. | Nenhuma. Erva id=1, quantidade planeada 100. |
-| TU-80 | RN-80: lote exige indicação da erva | (validador de lotes) | Unidade | Particionamento de Equivalência (erva ausente) | Validador rejeita o lote; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-81 | RN-81: quantidade planeada não pode ser zero | (validador de lotes) | Unidade | Valores Limite (quantidade planeada = 0) | Validador rejeita o lote; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-82 | RN-82: quantidade planeada não pode ser negativa | (validador de lotes) | Unidade | Valores Limite (quantidade planeada = -10) | Validador rejeita o lote; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-83 | RN-83: aceita tarefa de rega | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "rega", classe válida) | Validador aceita a tarefa. | Nenhuma. Tarefa associada ao lote id=1. |
-| TU-84 | RN-84: aceita tarefa de fertilização | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "fertilização", classe válida) | Validador aceita a tarefa. | Nenhuma. Tarefa associada ao lote id=1. |
-| TU-85 | RN-85: aceita tarefa de colheita | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "colheita", classe válida) | Validador aceita a tarefa. | Nenhuma. Tarefa associada ao lote id=1. |
-| TU-86 | RN-86: aceita tarefa de monitorização | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "monitorização", classe válida) | Validador aceita a tarefa. | Nenhuma. Tarefa associada ao lote id=1. |
-| TU-87 | RN-87: rejeita tarefa de tipo desconhecido | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "outro", classe inválida) | Validador rejeita a tarefa; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-88 | RN-88: tarefa exige indicação do lote | (validador de tarefas) | Unidade | Particionamento de Equivalência (lote ausente) | Validador rejeita a tarefa; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-89 | RN-89: tarefa exige indicação do tipo | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo ausente) | Validador rejeita a tarefa; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-90 | RN-90: tarefa rejeita data em formato inválido | (validador de tarefas) | Unidade | Particionamento de Equivalência (data "16-05-2026", formato errado) | Validador rejeita a tarefa; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-91 | RN-91: temperatura abaixo do mínimo gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 17 °C, abaixo de 18) | Regista a medição e gera um alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-92 | RN-92: temperatura no limite inferior não gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 18 °C, limite inferior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-93 | RN-93: temperatura interior não gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 23 °C, valor nominal) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-94 | RN-94: temperatura no limite superior não gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 28 °C, limite superior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-95 | RN-95: temperatura acima do máximo gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 29 °C, acima de 28) | Regista a medição e gera um alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-96 | RN-96: humidade abaixo do mínimo gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 39 %, abaixo de 40) | Regista a medição e gera um alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-97 | RN-97: humidade no limite inferior não gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 40 %, limite inferior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-98 | RN-98: humidade interior não gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 60 %, valor nominal) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-99 | RN-99: humidade no limite superior não gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 80 %, limite superior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-100 | RN-100: humidade acima do máximo gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 81 %, acima de 80) | Regista a medição e gera um alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-101 | RN-101: luminosidade abaixo do mínimo gera alerta informativo | (registo de medições) | Unidade | Valores Limite (luminosidade = 4999 lux, abaixo de 5000) | Regista a medição e gera um alerta de nível Informativo. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-102 | RN-102: luminosidade no limite inferior não gera alerta | (registo de medições) | Unidade | Valores Limite (luminosidade = 5000 lux, limite inferior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-103 | RN-103: luminosidade interior não gera alerta | (registo de medições) | Unidade | Valores Limite (luminosidade = 15000 lux, valor nominal) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-104 | RN-104: luminosidade no limite superior não gera alerta | (registo de medições) | Unidade | Valores Limite (luminosidade = 25000 lux, limite superior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-105 | RN-105: luminosidade acima do máximo gera alerta informativo | (registo de medições) | Unidade | Valores Limite (luminosidade = 25001 lux, acima de 25000) | Regista a medição e gera um alerta de nível Informativo. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-106 | RN-106: sensor desligado nunca gera alerta | (registo de medições) | Unidade | Particionamento de Equivalência (sensor inoperacional) | Regista a medição sem gerar alerta, mesmo com leituras fora dos limites. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
-| TU-107 | RN-107: estado do sensor tem de ser booleano | (registo de medições) | Unidade | Particionamento de Equivalência (sensor = texto em vez de sim/não) | Rejeita a medição como entrada inválida; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-108 | RN-108: leituras normais não geram alerta | (classificador de alertas) | Unidade | Particionamento de Equivalência (tudo dentro dos limites) | Não classifica nenhum alerta. | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
-| TU-109 | RN-109: temperatura alta gera Aviso | (classificador de alertas) | Unidade | Particionamento de Equivalência (só temperatura fora — 29 °C) | Classifica como "Aviso". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
-| TU-110 | RN-110: temperatura baixa gera Aviso | (classificador de alertas) | Unidade | Particionamento de Equivalência (só temperatura fora — 17 °C) | Classifica como "Aviso". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
-| TU-111 | RN-111: humidade alta gera Aviso | (classificador de alertas) | Unidade | Particionamento de Equivalência (só humidade fora — 85 %) | Classifica como "Aviso". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
-| TU-112 | RN-112: humidade baixa gera Aviso | (classificador de alertas) | Unidade | Particionamento de Equivalência (só humidade fora — 35 %) | Classifica como "Aviso". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
-| TU-113 | RN-113: temperatura e humidade fora geram Crítico | (classificador de alertas) | Unidade | Particionamento de Equivalência (duas leituras fora — 29 °C e 35 %) | Classifica como "Crítico". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
-| TU-114 | RN-114: só luminosidade fora gera Informativo | (classificador de alertas) | Unidade | Particionamento de Equivalência (só luminosidade fora — 26000 lux) | Classifica como "Informativo". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
-| TU-115 | RN-115: sensor desligado não gera alerta | (classificador de alertas) | Unidade | Particionamento de Equivalência (sensor inoperacional) | Não classifica alerta, mesmo com leituras fora dos limites. | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
-| TU-116 | RN-116: resolver alerta sem justificação é permitido | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "resolvido", justificação opcional) | Alerta passa ao estado "resolvido". | Alerta no estado "pendente" em memória. |
-| TU-117 | RN-117: resolver alerta com justificação é permitido | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "resolvido" com justificação) | Alerta passa ao estado "resolvido". | Alerta no estado "pendente" em memória. |
-| TU-118 | RN-118: ignorar alerta com justificação válida é permitido | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "ignorado" com justificação válida) | Alerta passa ao estado "ignorado". | Alerta no estado "pendente" em memória. |
-| TU-119 | RN-119: ignorar alerta exige justificação | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "ignorado" sem justificação) | Rejeita a operação; equivale a 422 na API. | Alerta no estado "pendente" em memória. |
-| TU-120 | RN-120: ação de resolução desconhecida é rejeitada | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "cancelado", fora do permitido) | Rejeita a operação; equivale a 422 na API. | Alerta no estado "pendente" em memória. |
-| TU-121 | RN-121: justificação para ignorar abaixo do mínimo | (resolução de alertas) | Unidade | Valores Limite (justificação = 9 caracteres, abaixo de 10) | Rejeita a operação; equivale a 422 na API. | Alerta no estado "pendente" em memória. |
-| TU-122 | RN-122: justificação no limite inferior é aceite | (resolução de alertas) | Unidade | Valores Limite (justificação = 10 caracteres, limite inferior exato) | Alerta passa ao estado "ignorado". | Alerta no estado "pendente" em memória. |
-| TU-123 | RN-123: justificação num tamanho interior é aceite | (resolução de alertas) | Unidade | Valores Limite (justificação = 250 caracteres, valor nominal) | Alerta passa ao estado "ignorado". | Alerta no estado "pendente" em memória. |
-| TU-124 | RN-124: justificação no limite superior é aceite | (resolução de alertas) | Unidade | Valores Limite (justificação = 500 caracteres, limite superior exato) | Alerta passa ao estado "ignorado". | Alerta no estado "pendente" em memória. |
-| TU-125 | RN-125: justificação acima do máximo é rejeitada | (resolução de alertas) | Unidade | Valores Limite (justificação = 501 caracteres, acima de 500) | Rejeita a operação; equivale a 422 na API. | Alerta no estado "pendente" em memória. |
-| TU-126 | RN-126: resolver alerta inexistente é rejeitado | (resolução de alertas) | Unidade | Particionamento de Equivalência (id de alerta inexistente) | Rejeita a operação; equivale a 404 na API. | Registo de alertas vazio. |
-| TU-127 | RN-127: alerta já tratado não pode ser alterado | (resolução de alertas) | Unidade | Particionamento de Equivalência (estado já não é "pendente") | Rejeita a operação; equivale a 422 na API. | Alerta já no estado "resolvido". |
-| TU-128 | RN-128: modo automático com tudo ativo executa a ação | (motor de automação) | Unidade | Particionamento de Equivalência (automático, regra ativa, medição recente) | Decide "executada". | Modo automático, regra ativa, medição recente. |
-| TU-129 | RN-129: modo manual com tudo ativo apenas sugere a ação | (motor de automação) | Unidade | Particionamento de Equivalência (manual, regra ativa, medição recente) | Decide "sugerida". | Modo manual, regra ativa, medição recente. |
-| TU-130 | RN-130: regra inativa faz ignorar a ação | (motor de automação) | Unidade | Particionamento de Equivalência (regra inativa) | Decide "ignorada", qualquer que seja o modo. | Regra de automação inativa. |
-| TU-131 | RN-131: medição não recente faz ignorar a ação | (motor de automação) | Unidade | Particionamento de Equivalência (medição desatualizada) | Decide "ignorada", qualquer que seja o modo. | Medição não recente. |
-| TU-132 | RN-132: modo de automação desconhecido é rejeitado | (motor de automação) | Unidade | Particionamento de Equivalência (modo fora de {Manual, Automático}) | Rejeita a decisão; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-133 | RN-133: aceita perfil Técnico | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil = "Técnico", classe válida) | Validador aceita o utilizador. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-134 | RN-134: aceita perfil Responsável Técnico | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil = "Responsável Técnico", classe válida) | Validador aceita o utilizador. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-135 | RN-135: aceita perfil Administrador | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil = "Administrador", classe válida) | Validador aceita o utilizador. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-136 | RN-136: rejeita perfil desconhecido | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil = "Gestor", classe inválida) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-137 | RN-137: perfil é obrigatório | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil ausente / null) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-138 | RN-138: aceita utilizador com todos os campos válidos | (validador de utilizadores) | Unidade | Particionamento de Equivalência (utilizador completo e válido) | Validador aceita o utilizador. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-139 | RN-139: nome de utilizador é obrigatório | (validador de utilizadores) | Unidade | Particionamento de Equivalência (username ausente) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-140 | RN-140: password é obrigatória | (validador de utilizadores) | Unidade | Particionamento de Equivalência (password ausente) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-141 | RN-141: perfil é obrigatório (campo em falta) | (validador de utilizadores) | Unidade | Particionamento de Equivalência (campo de perfil em falta) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-142 | RN-142: nome de utilizador não pode ser vazio | (validador de utilizadores) | Unidade | Particionamento de Equivalência (username = "") | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-143 | RN-143: aceita exportação em CSV | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato = "CSV", classe válida) | Validador aceita o formato. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-144 | RN-144: aceita exportação em Excel | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato = "Excel", classe válida) | Validador aceita o formato. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-145 | RN-145: rejeita exportação em PDF | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato = "PDF", classe inválida) | Validador rejeita o formato; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-146 | RN-146: rejeita exportação em JSON | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato = "JSON", classe inválida) | Validador rejeita o formato; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-147 | RN-147: formato de exportação é obrigatório | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato ausente / null) | Validador rejeita o formato; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-148 | RN-148: criação de lote é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de escrita) | Marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-149 | RN-149: resolução de alerta é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de escrita) | Marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-150 | RN-150: fecho de lote é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de escrita) | Marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-151 | RN-151: consulta de lotes não é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de leitura) | Não marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-152 | RN-152: consulta de ervas não é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de leitura) | Não marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-165 | RN-165: duração do ciclo abaixo do mínimo | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 0 dias, abaixo de 1) | Validador rejeita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-166 | RN-166: duração do ciclo no limite inferior | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 1 dia, limite inferior exato) | Validador aceita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-167 | RN-167: duração do ciclo num valor interior | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 90 dias, valor nominal) | Validador aceita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-168 | RN-168: duração do ciclo no limite superior | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 365 dias, limite superior exato) | Validador aceita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
-| TU-169 | RN-169: duração do ciclo acima do máximo | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 366 dias, acima de 365) | Validador rejeita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-67 | RN-67: lote ativo sem perdas conclui-se | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (ativo, sem perdas, com data) | Lote transita para o estado "concluído". | Lote ativo, sem perdas registadas, com data de fim. |
+| TU-68 | RN-68: lote ativo com perdas fica comprometido | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (ativo, com perdas, com data) | Lote transita para o estado "comprometido". | Lote ativo, com perdas registadas, com data de fim. |
+| TU-69 | RN-69: não fecha lote sem data de conclusão | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (ativo, sem data de fim) | Rejeita a transição; equivale a 400 na API. | Lote ativo sem data de conclusão. |
+| TU-70 | RN-70: lote já concluído não pode voltar a transitar | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (estado terminal "concluído") | Rejeita a transição; equivale a 400 na API. | Lote no estado "concluído". |
+| TU-71 | RN-71: lote comprometido não pode voltar a transitar | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (estado terminal "comprometido") | Rejeita a transição; equivale a 400 na API. | Lote no estado "comprometido". |
+| TU-72 | RN-72: estado de lote desconhecido é rejeitado | (máquina de estados de lote) | Unidade | Particionamento de Equivalência (estado inválido "suspenso") | Rejeita a transição; equivale a 400 na API. | Lote num estado fora dos previstos. |
+| TU-73 | RN-73: produtividade total sem perdas | (calculadora de produtividade) | Unidade | Particionamento de Equivalência (colheita total, sem perdas) | Calcula 100% de produtividade. | Planeado 100, colhido 100, perdas 0. |
+| TU-74 | RN-74: produtividade com perdas parciais | (calculadora de produtividade) | Unidade | Particionamento de Equivalência (colheita total, com perdas) | Calcula 80% de produtividade. | Planeado 100, colhido 100, perdas 20. |
+| TU-75 | RN-75: produtividade com colheita parcial | (calculadora de produtividade) | Unidade | Particionamento de Equivalência (colheita abaixo do planeado) | Calcula 60% de produtividade. | Planeado 100, colhido 60, perdas 0. |
+| TU-76 | RN-76: perdas não podem exceder a colheita | (calculadora de produtividade) | Unidade | Particionamento de Equivalência (perdas > colheita) | Rejeita o cálculo; equivale a 400 na API. | Planeado 100, colhido 50, perdas 60. |
+| TU-77 | RN-77: quantidade planeada não pode ser zero | (calculadora de produtividade) | Unidade | Valores Limite (planeado = 0, divisão por zero) | Rejeita o cálculo; equivale a 400 na API. | Planeado 0. |
+| TU-78 | RN-78: criação de lote com dados válidos | (validador de lotes) | Unidade | Particionamento de Equivalência (erva e quantidade válidas) | Validador aceita o lote. | Nenhuma. Erva id=1, quantidade planeada 100. |
+| TU-79 | RN-79: lote exige indicação da erva | (validador de lotes) | Unidade | Particionamento de Equivalência (erva ausente) | Validador rejeita o lote; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-80 | RN-80: quantidade planeada não pode ser zero | (validador de lotes) | Unidade | Valores Limite (quantidade planeada = 0) | Validador rejeita o lote; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-81 | RN-81: quantidade planeada não pode ser negativa | (validador de lotes) | Unidade | Valores Limite (quantidade planeada = -10) | Validador rejeita o lote; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-82 | RN-82: aceita tarefa de rega | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "rega", classe válida) | Validador aceita a tarefa. | Nenhuma. Tarefa associada ao lote id=1. |
+| TU-83 | RN-83: aceita tarefa de fertilização | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "fertilização", classe válida) | Validador aceita a tarefa. | Nenhuma. Tarefa associada ao lote id=1. |
+| TU-84 | RN-84: aceita tarefa de colheita | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "colheita", classe válida) | Validador aceita a tarefa. | Nenhuma. Tarefa associada ao lote id=1. |
+| TU-85 | RN-85: aceita tarefa de monitorização | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "monitorização", classe válida) | Validador aceita a tarefa. | Nenhuma. Tarefa associada ao lote id=1. |
+| TU-86 | RN-86: rejeita tarefa de tipo desconhecido | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo = "outro", classe inválida) | Validador rejeita a tarefa; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-87 | RN-87: tarefa exige indicação do lote | (validador de tarefas) | Unidade | Particionamento de Equivalência (lote ausente) | Validador rejeita a tarefa; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-88 | RN-88: tarefa exige indicação do tipo | (validador de tarefas) | Unidade | Particionamento de Equivalência (tipo ausente) | Validador rejeita a tarefa; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-89 | RN-89: tarefa rejeita data em formato inválido | (validador de tarefas) | Unidade | Particionamento de Equivalência (data "16-05-2026", formato errado) | Validador rejeita a tarefa; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-90 | RN-90: temperatura abaixo do mínimo gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 17 °C, abaixo de 18) | Regista a medição e gera um alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-91 | RN-91: temperatura no limite inferior não gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 18 °C, limite inferior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-92 | RN-92: temperatura interior não gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 23 °C, valor nominal) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-93 | RN-93: temperatura no limite superior não gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 28 °C, limite superior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-94 | RN-94: temperatura acima do máximo gera alerta | (registo de medições) | Unidade | Valores Limite (temperatura = 29 °C, acima de 28) | Regista a medição e gera um alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-95 | RN-95: humidade abaixo do mínimo gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 39 %, abaixo de 40) | Regista a medição e gera um alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-96 | RN-96: humidade no limite inferior não gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 40 %, limite inferior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-97 | RN-97: humidade interior não gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 60 %, valor nominal) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-98 | RN-98: humidade no limite superior não gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 80 %, limite superior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-99 | RN-99: humidade acima do máximo gera alerta | (registo de medições) | Unidade | Valores Limite (humidade = 81 %, acima de 80) | Regista a medição e gera um alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-100 | RN-100: luminosidade abaixo do mínimo gera alerta informativo | (registo de medições) | Unidade | Valores Limite (luminosidade = 4999 lux, abaixo de 5000) | Regista a medição e gera um alerta de nível Informativo. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-101 | RN-101: luminosidade no limite inferior não gera alerta | (registo de medições) | Unidade | Valores Limite (luminosidade = 5000 lux, limite inferior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-102 | RN-102: luminosidade interior não gera alerta | (registo de medições) | Unidade | Valores Limite (luminosidade = 15000 lux, valor nominal) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-103 | RN-103: luminosidade no limite superior não gera alerta | (registo de medições) | Unidade | Valores Limite (luminosidade = 25000 lux, limite superior exato) | Regista a medição sem gerar alerta. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-104 | RN-104: luminosidade acima do máximo gera alerta informativo | (registo de medições) | Unidade | Valores Limite (luminosidade = 25001 lux, acima de 25000) | Regista a medição e gera um alerta de nível Informativo. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-105 | RN-105: sensor desligado nunca gera alerta | (registo de medições) | Unidade | Particionamento de Equivalência (sensor inoperacional) | Regista a medição sem gerar alerta, mesmo com leituras fora dos limites. | Lote ativo (id=1) em memória, com limites padrão da estufa. |
+| TU-106 | RN-106: estado do sensor tem de ser booleano | (registo de medições) | Unidade | Particionamento de Equivalência (sensor = texto em vez de sim/não) | Rejeita a medição como entrada inválida; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-107 | RN-107: leituras normais não geram alerta | (classificador de alertas) | Unidade | Particionamento de Equivalência (tudo dentro dos limites) | Não classifica nenhum alerta. | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
+| TU-108 | RN-108: temperatura alta gera Aviso | (classificador de alertas) | Unidade | Particionamento de Equivalência (só temperatura fora — 29 °C) | Classifica como "Aviso". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
+| TU-109 | RN-109: temperatura baixa gera Aviso | (classificador de alertas) | Unidade | Particionamento de Equivalência (só temperatura fora — 17 °C) | Classifica como "Aviso". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
+| TU-110 | RN-110: humidade alta gera Aviso | (classificador de alertas) | Unidade | Particionamento de Equivalência (só humidade fora — 85 %) | Classifica como "Aviso". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
+| TU-111 | RN-111: humidade baixa gera Aviso | (classificador de alertas) | Unidade | Particionamento de Equivalência (só humidade fora — 35 %) | Classifica como "Aviso". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
+| TU-112 | RN-112: temperatura e humidade fora geram Crítico | (classificador de alertas) | Unidade | Particionamento de Equivalência (duas leituras fora — 29 °C e 35 %) | Classifica como "Crítico". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
+| TU-113 | RN-113: só luminosidade fora gera Informativo | (classificador de alertas) | Unidade | Particionamento de Equivalência (só luminosidade fora — 26000 lux) | Classifica como "Informativo". | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
+| TU-114 | RN-114: sensor desligado não gera alerta | (classificador de alertas) | Unidade | Particionamento de Equivalência (sensor inoperacional) | Não classifica alerta, mesmo com leituras fora dos limites. | Limites de referência: temp [18,28], humidade [40,80], luz [5000,25000]. |
+| TU-115 | RN-115: resolver alerta sem justificação é permitido | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "resolvido", justificação opcional) | Alerta passa ao estado "resolvido". | Alerta no estado "pendente" em memória. |
+| TU-116 | RN-116: resolver alerta com justificação é permitido | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "resolvido" com justificação) | Alerta passa ao estado "resolvido". | Alerta no estado "pendente" em memória. |
+| TU-117 | RN-117: ignorar alerta com justificação válida é permitido | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "ignorado" com justificação válida) | Alerta passa ao estado "ignorado". | Alerta no estado "pendente" em memória. |
+| TU-118 | RN-118: ignorar alerta exige justificação | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "ignorado" sem justificação) | Rejeita a operação; equivale a 422 na API. | Alerta no estado "pendente" em memória. |
+| TU-119 | RN-119: ação de resolução desconhecida é rejeitada | (resolução de alertas) | Unidade | Particionamento de Equivalência (ação "cancelado", fora do permitido) | Rejeita a operação; equivale a 422 na API. | Alerta no estado "pendente" em memória. |
+| TU-120 | RN-120: justificação para ignorar abaixo do mínimo | (resolução de alertas) | Unidade | Valores Limite (justificação = 9 caracteres, abaixo de 10) | Rejeita a operação; equivale a 422 na API. | Alerta no estado "pendente" em memória. |
+| TU-121 | RN-121: justificação no limite inferior é aceite | (resolução de alertas) | Unidade | Valores Limite (justificação = 10 caracteres, limite inferior exato) | Alerta passa ao estado "ignorado". | Alerta no estado "pendente" em memória. |
+| TU-122 | RN-122: justificação num tamanho interior é aceite | (resolução de alertas) | Unidade | Valores Limite (justificação = 250 caracteres, valor nominal) | Alerta passa ao estado "ignorado". | Alerta no estado "pendente" em memória. |
+| TU-123 | RN-123: justificação no limite superior é aceite | (resolução de alertas) | Unidade | Valores Limite (justificação = 500 caracteres, limite superior exato) | Alerta passa ao estado "ignorado". | Alerta no estado "pendente" em memória. |
+| TU-124 | RN-124: justificação acima do máximo é rejeitada | (resolução de alertas) | Unidade | Valores Limite (justificação = 501 caracteres, acima de 500) | Rejeita a operação; equivale a 422 na API. | Alerta no estado "pendente" em memória. |
+| TU-125 | RN-125: resolver alerta inexistente é rejeitado | (resolução de alertas) | Unidade | Particionamento de Equivalência (id de alerta inexistente) | Rejeita a operação; equivale a 404 na API. | Registo de alertas vazio. |
+| TU-126 | RN-126: alerta já tratado não pode ser alterado | (resolução de alertas) | Unidade | Particionamento de Equivalência (estado já não é "pendente") | Rejeita a operação; equivale a 422 na API. | Alerta já no estado "resolvido". |
+| TU-127 | RN-127: modo automático com tudo ativo executa a ação | (motor de automação) | Unidade | Particionamento de Equivalência (automático, regra ativa, medição recente) | Decide "executada". | Modo automático, regra ativa, medição recente. |
+| TU-128 | RN-128: modo manual com tudo ativo apenas sugere a ação | (motor de automação) | Unidade | Particionamento de Equivalência (manual, regra ativa, medição recente) | Decide "sugerida". | Modo manual, regra ativa, medição recente. |
+| TU-129 | RN-129: regra inativa faz ignorar a ação | (motor de automação) | Unidade | Particionamento de Equivalência (regra inativa) | Decide "ignorada", qualquer que seja o modo. | Regra de automação inativa. |
+| TU-130 | RN-130: medição não recente faz ignorar a ação | (motor de automação) | Unidade | Particionamento de Equivalência (medição desatualizada) | Decide "ignorada", qualquer que seja o modo. | Medição não recente. |
+| TU-131 | RN-131: modo de automação desconhecido é rejeitado | (motor de automação) | Unidade | Particionamento de Equivalência (modo fora de {Manual, Automático}) | Rejeita a decisão; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-132 | RN-132: aceita perfil Técnico | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil = "Técnico", classe válida) | Validador aceita o utilizador. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-133 | RN-133: aceita perfil Responsável Técnico | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil = "Responsável Técnico", classe válida) | Validador aceita o utilizador. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-134 | RN-134: aceita perfil Administrador | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil = "Administrador", classe válida) | Validador aceita o utilizador. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-135 | RN-135: rejeita perfil desconhecido | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil = "Gestor", classe inválida) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-136 | RN-136: perfil é obrigatório | (validador de utilizadores) | Unidade | Particionamento de Equivalência (perfil ausente / null) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-137 | RN-137: aceita utilizador com todos os campos válidos | (validador de utilizadores) | Unidade | Particionamento de Equivalência (utilizador completo e válido) | Validador aceita o utilizador. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-138 | RN-138: nome de utilizador é obrigatório | (validador de utilizadores) | Unidade | Particionamento de Equivalência (username ausente) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-139 | RN-139: password é obrigatória | (validador de utilizadores) | Unidade | Particionamento de Equivalência (password ausente) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-140 | RN-140: perfil é obrigatório (campo em falta) | (validador de utilizadores) | Unidade | Particionamento de Equivalência (campo de perfil em falta) | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-141 | RN-141: nome de utilizador não pode ser vazio | (validador de utilizadores) | Unidade | Particionamento de Equivalência (username = "") | Validador rejeita o utilizador; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-142 | RN-142: aceita exportação em CSV | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato = "CSV", classe válida) | Validador aceita o formato. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-143 | RN-143: aceita exportação em Excel | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato = "Excel", classe válida) | Validador aceita o formato. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-144 | RN-144: rejeita exportação em PDF | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato = "PDF", classe inválida) | Validador rejeita o formato; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-145 | RN-145: rejeita exportação em JSON | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato = "JSON", classe inválida) | Validador rejeita o formato; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-146 | RN-146: formato de exportação é obrigatório | (validador de formato de relatório) | Unidade | Particionamento de Equivalência (formato ausente / null) | Validador rejeita o formato; equivale a 400 na API. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-147 | RN-147: criação de lote é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de escrita) | Marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-148 | RN-148: resolução de alerta é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de escrita) | Marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-149 | RN-149: fecho de lote é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de escrita) | Marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-150 | RN-150: consulta de lotes não é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de leitura) | Não marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-151 | RN-151: consulta de ervas não é auditável | (registo de auditoria) | Unidade | Particionamento de Equivalência (operação de leitura) | Não marca a operação como auditável. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-164 | RN-164: duração do ciclo abaixo do mínimo | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 0 dias, abaixo de 1) | Validador rejeita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-165 | RN-165: duração do ciclo no limite inferior | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 1 dia, limite inferior exato) | Validador aceita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-166 | RN-166: duração do ciclo num valor interior | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 90 dias, valor nominal) | Validador aceita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-167 | RN-167: duração do ciclo no limite superior | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 365 dias, limite superior exato) | Validador aceita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-168 | RN-168: duração do ciclo acima do máximo | (validador de planos de cultivo) | Unidade | Valores Limite (duração = 366 dias, acima de 365) | Validador rejeita o plano. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
+| TU-169 | RN-169: rejeita mês inexistente | (validador de datas) | Unidade | Particionamento de Equivalência (mês 00: "2026-00-01") | Validador rejeita a data. | Nenhuma. Teste isolado sobre o serviço, sem BD nem rede. |
 
 ## Sprint 4 — Testes de Integração (FastAPI TestClient)
 
@@ -266,33 +266,40 @@
 
 | ID | Requisito / Regra | Endpoint | Nível | Técnica | Resultado Esperado | Pré-condições |
 | --- | --- | --- | --- | --- | --- | --- |
-| TU-153 | RN-153: plano regular completo é aceite (caso base) | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — caso de referência (todas as condições verdadeiras) | Validador aceita o plano. Serve de base aos pares MC/DC. | Plano regular com temperatura 23, humidade 60, luminosidade 15000. |
-| TU-154 | RN-154: tipo de plano determina a aceitação | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só o tipo (par com TU-153) | Validador rejeita o plano; prova que o tipo, por si só, muda o resultado. | Plano com tipo inválido, restantes parâmetros válidos. |
-| TU-155 | RN-155: temperatura determina a aceitação | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só a temperatura (par com TU-153) | Validador rejeita o plano; prova que a temperatura, por si só, muda o resultado. | Temperatura 17 (fora), restantes parâmetros válidos. |
-| TU-156 | RN-156: humidade determina a aceitação | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só a humidade (par com TU-153) | Validador rejeita o plano; prova que a humidade, por si só, muda o resultado. | Humidade 35 (fora), restantes parâmetros válidos. |
-| TU-157 | RN-157: luminosidade determina a aceitação | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só a luminosidade (par com TU-153) | Validador rejeita o plano; prova que a luminosidade, por si só, muda o resultado. | Luminosidade 4000 (fora), restantes parâmetros válidos. |
-| TU-158 | RN-158: ser pontual determina a exigência de autorização | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só o tipo pontual (par com TU-153) | Validador rejeita o plano pontual sem autorização; prova o efeito de ser pontual. | Plano pontual sem autorização, restantes parâmetros válidos. |
-| TU-159 | RN-159: a autorização desbloqueia o plano pontual | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só a autorização (par com TU-158) | Validador aceita o plano pontual; prova que a autorização, por si só, muda o resultado. | Plano pontual com autorização preenchida. |
-| TU-160 | RN-160: pedido de plano malformado é rejeitado | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — guarda de entrada) | Validador rejeita o pedido; equivale a 400 na API. | Nenhuma. Pedido sem corpo válido. |
-| TU-161 | RN-161: temperatura tem de ser numérica | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — verificação de tipo numérico) | Validador rejeita o plano; equivale a 400 na API. | Nenhuma. Temperatura como texto. |
-| TU-162 | RN-162: temperatura máxima não pode ser menor que a mínima | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — coerência mín/máx da temperatura) | Validador rejeita o plano; equivale a 400 na API. | Nenhuma. Temperatura mín 26, máx 22. |
-| TU-163 | RN-163: humidade máxima não pode ser menor que a mínima | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — coerência mín/máx da humidade) | Validador rejeita o plano; equivale a 400 na API. | Nenhuma. Humidade mín 70, máx 50. |
-| TU-164 | RN-164: luminosidade máxima não pode ser menor que a mínima | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — coerência mín/máx da luminosidade) | Validador rejeita o plano; equivale a 400 na API. | Nenhuma. Luminosidade mín 20000, máx 10000. |
+| TU-152 | RN-152: plano regular completo é aceite (caso base) | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — caso de referência (todas as condições verdadeiras) | Validador aceita o plano. Serve de base aos pares MC/DC. | Plano regular com temperatura 23, humidade 60, luminosidade 15000. |
+| TU-153 | RN-153: tipo de plano determina a aceitação | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só o tipo (par com TU-152) | Validador rejeita o plano; prova que o tipo, por si só, muda o resultado. | Plano com tipo inválido, restantes parâmetros válidos. |
+| TU-154 | RN-154: temperatura determina a aceitação | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só a temperatura (par com TU-152) | Validador rejeita o plano; prova que a temperatura, por si só, muda o resultado. | Temperatura 17 (fora), restantes parâmetros válidos. |
+| TU-155 | RN-155: humidade determina a aceitação | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só a humidade (par com TU-152) | Validador rejeita o plano; prova que a humidade, por si só, muda o resultado. | Humidade 35 (fora), restantes parâmetros válidos. |
+| TU-156 | RN-156: luminosidade determina a aceitação | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só a luminosidade (par com TU-152) | Validador rejeita o plano; prova que a luminosidade, por si só, muda o resultado. | Luminosidade 4000 (fora), restantes parâmetros válidos. |
+| TU-157 | RN-157: ser pontual determina a exigência de autorização | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só o tipo pontual (par com TU-152) | Validador rejeita o plano pontual sem autorização; prova o efeito de ser pontual. | Plano pontual sem autorização, restantes parâmetros válidos. |
+| TU-158 | RN-158: a autorização desbloqueia o plano pontual | (validador de planos de cultivo) | Unidade | Condições Múltiplas / MC/DC — varia só a autorização (par com TU-157) | Validador aceita o plano pontual; prova que a autorização, por si só, muda o resultado. | Plano pontual com autorização preenchida. |
+| TU-159 | RN-159: pedido de plano malformado é rejeitado | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — guarda de entrada) | Validador rejeita o pedido; equivale a 400 na API. | Nenhuma. Pedido sem corpo válido. |
+| TU-160 | RN-160: temperatura tem de ser numérica | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — verificação de tipo numérico) | Validador rejeita o plano; equivale a 400 na API. | Nenhuma. Temperatura como texto. |
+| TU-161 | RN-161: temperatura máxima não pode ser menor que a mínima | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — coerência mín/máx da temperatura) | Validador rejeita o plano; equivale a 400 na API. | Nenhuma. Temperatura mín 26, máx 22. |
+| TU-162 | RN-162: humidade máxima não pode ser menor que a mínima | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — coerência mín/máx da humidade) | Validador rejeita o plano; equivale a 400 na API. | Nenhuma. Humidade mín 70, máx 50. |
+| TU-163 | RN-163: luminosidade máxima não pode ser menor que a mínima | (validador de planos de cultivo) | Unidade | White-box (cobertura de ramos — coerência mín/máx da luminosidade) | Validador rejeita o plano; equivale a 400 na API. | Nenhuma. Luminosidade mín 20000, máx 10000. |
 
 ## Sprint 6 — Duplos de Teste (Stubs e Mocks)
 
 | ID | Requisito / Regra | Endpoint | Nível | Técnica | Resultado Esperado | Pré-condições |
 | --- | --- | --- | --- | --- | --- | --- |
-| TU-170 | RN-170: leitura de temperatura dentro dos limites não gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 23 °C | Serviço não gera alerta. | Stub configurado para devolver 23 °C. |
-| TU-171 | RN-171: temperatura abaixo do mínimo gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 5 °C | Serviço gera alerta Crítico. | Stub configurado para devolver 5 °C. |
-| TU-172 | RN-172: temperatura acima do máximo gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 31 °C | Serviço gera alerta Informativo. | Stub configurado para devolver 31 °C. |
-| TU-173 | RN-173: sensor indisponível não rebenta a aplicação | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor lança indisponibilidade | Serviço devolve estado "sensor indisponível" sem propagar exceção. | Stub configurado como indisponível. |
-| TU-174 | RN-174: alerta Crítico envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica chamada e parâmetros | Notificação enviada 1×, com destinatário, assunto ([CRÍTICO], lote) e corpo corretos. | Stub devolve 40 °C (Crítico). Mock de notificações ativo. |
-| TU-175 | RN-175: leitura dentro dos limites não envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica ausência de chamada | Nenhuma notificação enviada (mock sem chamadas). | Stub devolve 23 °C (sem alerta). Mock de notificações ativo. |
-| TU-176 | RN-176: alerta Informativo não envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica ausência de chamada | Nenhuma notificação enviada (mock sem chamadas). | Stub devolve 31 °C (Informativo). Mock de notificações ativo. |
-| TU-177 | RN-177: falha no envio de notificação não rebenta a aplicação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — configurado para falhar | Alerta gerado; notificação não confirmada, sem exceção propagada. | Stub devolve 40 °C (Crítico). Mock configurado para falhar. |
-| TU-178 | RN-178: desvio de 7 °C (35°C) classifica como Informativo e não notifica | (monitoring_service + Mock de notificações) | Unidade | Mock + Valores Limite (desvio = 7, fronteira inferior do Crítico) | Alerta Informativo; nenhuma notificação enviada. | Stub devolve 35 °C. Mock de notificações ativo. |
-| TU-179 | RN-179: desvio de 8 °C (36°C) classifica como Crítico e notifica | (monitoring_service + Mock de notificações) | Unidade | Mock + Valores Limite (desvio = 8, imediatamente acima do limiar) | Alerta Crítico; notificação enviada 1×. | Stub devolve 36 °C. Mock de notificações ativo. |
+| TU-169 | RN-169: leitura de temperatura dentro dos limites não gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 23 °C | Serviço não gera alerta. | Stub configurado para devolver 23 °C. |
+| TU-170 | RN-170: temperatura abaixo do mínimo gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 5 °C | Serviço gera alerta Crítico. | Stub configurado para devolver 5 °C. |
+| TU-171 | RN-171: temperatura acima do máximo gera alerta | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor devolve 31 °C | Serviço gera alerta Informativo. | Stub configurado para devolver 31 °C. |
+| TU-172 | RN-172: sensor indisponível não rebenta a aplicação | (monitoring_service + Stub do sensor) | Unidade | Stub (duplo de teste) — sensor lança indisponibilidade | Serviço devolve estado "sensor indisponível" sem propagar exceção. | Stub configurado como indisponível. |
+| TU-173 | RN-173: alerta Crítico envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica chamada e parâmetros | Notificação enviada 1×, com destinatário, assunto ([CRÍTICO], lote) e corpo corretos. | Stub devolve 40 °C (Crítico). Mock de notificações ativo. |
+| TU-174 | RN-174: leitura dentro dos limites não envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica ausência de chamada | Nenhuma notificação enviada (mock sem chamadas). | Stub devolve 23 °C (sem alerta). Mock de notificações ativo. |
+| TU-175 | RN-175: alerta Informativo não envia notificação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — verifica ausência de chamada | Nenhuma notificação enviada (mock sem chamadas). | Stub devolve 31 °C (Informativo). Mock de notificações ativo. |
+| TU-176 | RN-176: falha no envio de notificação não rebenta a aplicação | (monitoring_service + Mock de notificações) | Unidade | Mock (duplo de teste) — configurado para falhar | Alerta gerado; notificação não confirmada, sem exceção propagada. | Stub devolve 40 °C (Crítico). Mock configurado para falhar. |
+| TU-177 | RN-177: desvio de 7 °C (35°C) classifica como Informativo e não notifica | (monitoring_service + Mock de notificações) | Unidade | Mock + Valores Limite (desvio = 7, fronteira inferior do Crítico) | Alerta Informativo; nenhuma notificação enviada. | Stub devolve 35 °C. Mock de notificações ativo. |
+| TU-178 | RN-178: desvio de 8 °C (36°C) classifica como Crítico e notifica | (monitoring_service + Mock de notificações) | Unidade | Mock + Valores Limite (desvio = 8, imediatamente acima do limiar) | Alerta Crítico; notificação enviada 1×. | Stub devolve 36 °C. Mock de notificações ativo. |
+| TU-179 | RN-179: classe "frio moderado" (Informativo) | (monitoring_service + Stub + Mock) | Unidade | Particionamento de Equivalência (classe [11, 18), representante 15 °C) | Alerta Informativo; nenhuma notificação enviada (mock sem chamadas). | Stub devolve 15 °C. Mock de notificações ativo. |
+| TU-180 | RN-180: classe "calor crítico" — valor realista | (monitoring_service + Stub + Mock) | Unidade | Particionamento de Equivalência (classe (35, +∞), representante 38 °C) | Alerta Crítico; notificação enviada 1× com destinatário e assunto corretos. | Stub devolve 38 °C. Mock de notificações ativo. |
+| TU-181 | RN-181: classe "calor crítico" — valor extremo | (monitoring_service + Stub + Mock) | Unidade | Particionamento de Equivalência (classe (35, +∞), representante 50 °C) | Alerta Crítico; notificação enviada 1×. | Stub devolve 50 °C. Mock de notificações ativo. |
+| TU-182 | RN-182: classe "frio crítico" verifica notificação | (monitoring_service + Stub + Mock) | Unidade | Particionamento de Equivalência (classe (-∞, 11), representante 8 °C) | Alerta Crítico; notificação enviada 1× (complementa TU-170, que só valida o nível). | Stub devolve 8 °C. Mock de notificações ativo. |
+| TU-183 | RN-183: classe "frio crítico" — valor extremo profundo | (monitoring_service + Stub + Mock) | Unidade | Particionamento de Equivalência (classe (-∞, 11), representante -10 °C, abaixo de zero) | Alerta Crítico; notificação enviada 1×. | Stub devolve -10 °C. Mock de notificações ativo. |
+| TU-184 | RN-184: classe "calor moderado" — segundo representante | (monitoring_service + Stub + Mock) | Unidade | Particionamento de Equivalência (classe (28, 35], representante 33 °C) | Alerta Informativo; nenhuma notificação enviada. | Stub devolve 33 °C. Mock de notificações ativo. |
+| TU-185 | RN-185: classe "normal" — segundo representante na fronteira interior | (monitoring_service + Stub + Mock) | Unidade | Particionamento de Equivalência (classe [18, 28], representante 20 °C) | Sem alerta; nenhuma notificação enviada. | Stub devolve 20 °C. Mock de notificações ativo. |
 
 ## Testes de Sistema (nível obrigatório — secção 5.3)
 
@@ -372,119 +379,125 @@
 | RN-64: rejeita data por extenso | TU-64 |
 | RN-65: rejeita mês inexistente | TU-65 |
 | RN-66: rejeita dia inexistente | TU-66 |
-| RN-67: rejeita mês inexistente | TU-67 |
-| RN-68: lote ativo sem perdas conclui-se | TU-68 |
-| RN-69: lote ativo com perdas fica comprometido | TU-69 |
-| RN-70: não fecha lote sem data de conclusão | TU-70 |
-| RN-71: lote já concluído não pode voltar a transitar | TU-71 |
-| RN-72: lote comprometido não pode voltar a transitar | TU-72 |
-| RN-73: estado de lote desconhecido é rejeitado | TU-73 |
-| RN-74: produtividade total sem perdas | TU-74 |
-| RN-75: produtividade com perdas parciais | TU-75 |
-| RN-76: produtividade com colheita parcial | TU-76 |
-| RN-77: perdas não podem exceder a colheita | TU-77 |
-| RN-78: quantidade planeada não pode ser zero | TU-78 |
-| RN-79: criação de lote com dados válidos | TU-79 |
-| RN-80: lote exige indicação da erva | TU-80 |
-| RN-81: quantidade planeada não pode ser zero | TU-81 |
-| RN-82: quantidade planeada não pode ser negativa | TU-82 |
-| RN-83: aceita tarefa de rega | TU-83 |
-| RN-84: aceita tarefa de fertilização | TU-84 |
-| RN-85: aceita tarefa de colheita | TU-85 |
-| RN-86: aceita tarefa de monitorização | TU-86 |
-| RN-87: rejeita tarefa de tipo desconhecido | TU-87 |
-| RN-88: tarefa exige indicação do lote | TU-88 |
-| RN-89: tarefa exige indicação do tipo | TU-89 |
-| RN-90: tarefa rejeita data em formato inválido | TU-90 |
-| RN-91: temperatura abaixo do mínimo gera alerta | TU-91 |
-| RN-92: temperatura no limite inferior não gera alerta | TU-92 |
-| RN-93: temperatura interior não gera alerta | TU-93 |
-| RN-94: temperatura no limite superior não gera alerta | TU-94 |
-| RN-95: temperatura acima do máximo gera alerta | TU-95 |
-| RN-96: humidade abaixo do mínimo gera alerta | TU-96 |
-| RN-97: humidade no limite inferior não gera alerta | TU-97 |
-| RN-98: humidade interior não gera alerta | TU-98 |
-| RN-99: humidade no limite superior não gera alerta | TU-99 |
-| RN-100: humidade acima do máximo gera alerta | TU-100 |
-| RN-101: luminosidade abaixo do mínimo gera alerta informativo | TU-101 |
-| RN-102: luminosidade no limite inferior não gera alerta | TU-102 |
-| RN-103: luminosidade interior não gera alerta | TU-103 |
-| RN-104: luminosidade no limite superior não gera alerta | TU-104 |
-| RN-105: luminosidade acima do máximo gera alerta informativo | TU-105 |
-| RN-106: sensor desligado nunca gera alerta | TU-106 |
-| RN-107: estado do sensor tem de ser booleano | TU-107 |
-| RN-108: leituras normais não geram alerta | TU-108 |
-| RN-109: temperatura alta gera Aviso | TU-109 |
-| RN-110: temperatura baixa gera Aviso | TU-110 |
-| RN-111: humidade alta gera Aviso | TU-111 |
-| RN-112: humidade baixa gera Aviso | TU-112 |
-| RN-113: temperatura e humidade fora geram Crítico | TU-113 |
-| RN-114: só luminosidade fora gera Informativo | TU-114 |
-| RN-115: sensor desligado não gera alerta | TU-115 |
-| RN-116: resolver alerta sem justificação é permitido | TU-116 |
-| RN-117: resolver alerta com justificação é permitido | TU-117 |
-| RN-118: ignorar alerta com justificação válida é permitido | TU-118 |
-| RN-119: ignorar alerta exige justificação | TU-119 |
-| RN-120: ação de resolução desconhecida é rejeitada | TU-120 |
-| RN-121: justificação para ignorar abaixo do mínimo | TU-121 |
-| RN-122: justificação no limite inferior é aceite | TU-122 |
-| RN-123: justificação num tamanho interior é aceite | TU-123 |
-| RN-124: justificação no limite superior é aceite | TU-124 |
-| RN-125: justificação acima do máximo é rejeitada | TU-125 |
-| RN-126: resolver alerta inexistente é rejeitado | TU-126 |
-| RN-127: alerta já tratado não pode ser alterado | TU-127 |
-| RN-128: modo automático com tudo ativo executa a ação | TU-128 |
-| RN-129: modo manual com tudo ativo apenas sugere a ação | TU-129 |
-| RN-130: regra inativa faz ignorar a ação | TU-130 |
-| RN-131: medição não recente faz ignorar a ação | TU-131 |
-| RN-132: modo de automação desconhecido é rejeitado | TU-132 |
-| RN-133: aceita perfil Técnico | TU-133 |
-| RN-134: aceita perfil Responsável Técnico | TU-134 |
-| RN-135: aceita perfil Administrador | TU-135 |
-| RN-136: rejeita perfil desconhecido | TU-136 |
-| RN-137: perfil é obrigatório | TU-137 |
-| RN-138: aceita utilizador com todos os campos válidos | TU-138 |
-| RN-139: nome de utilizador é obrigatório | TU-139 |
-| RN-140: password é obrigatória | TU-140 |
-| RN-141: perfil é obrigatório (campo em falta) | TU-141 |
-| RN-142: nome de utilizador não pode ser vazio | TU-142 |
-| RN-143: aceita exportação em CSV | TU-143 |
-| RN-144: aceita exportação em Excel | TU-144 |
-| RN-145: rejeita exportação em PDF | TU-145 |
-| RN-146: rejeita exportação em JSON | TU-146 |
-| RN-147: formato de exportação é obrigatório | TU-147 |
-| RN-148: criação de lote é auditável | TU-148 |
-| RN-149: resolução de alerta é auditável | TU-149 |
-| RN-150: fecho de lote é auditável | TU-150 |
-| RN-151: consulta de lotes não é auditável | TU-151 |
-| RN-152: consulta de ervas não é auditável | TU-152 |
-| RN-153: plano regular completo é aceite (caso base) | TU-153 |
-| RN-154: tipo de plano determina a aceitação | TU-154 |
-| RN-155: temperatura determina a aceitação | TU-155 |
-| RN-156: humidade determina a aceitação | TU-156 |
-| RN-157: luminosidade determina a aceitação | TU-157 |
-| RN-158: ser pontual determina a exigência de autorização | TU-158 |
-| RN-159: a autorização desbloqueia o plano pontual | TU-159 |
-| RN-160: pedido de plano malformado é rejeitado | TU-160 |
-| RN-161: temperatura tem de ser numérica | TU-161 |
-| RN-162: temperatura máxima não pode ser menor que a mínima | TU-162 |
-| RN-163: humidade máxima não pode ser menor que a mínima | TU-163 |
-| RN-164: luminosidade máxima não pode ser menor que a mínima | TU-164 |
-| RN-165: duração do ciclo abaixo do mínimo | TU-165 |
-| RN-166: duração do ciclo no limite inferior | TU-166 |
-| RN-167: duração do ciclo num valor interior | TU-167 |
-| RN-168: duração do ciclo no limite superior | TU-168 |
-| RN-169: duração do ciclo acima do máximo | TU-169 |
-| RN-170: leitura de temperatura dentro dos limites não gera alerta | TU-170 |
-| RN-171: temperatura abaixo do mínimo gera alerta | TU-171 |
-| RN-172: temperatura acima do máximo gera alerta | TU-172 |
-| RN-173: sensor indisponível não rebenta a aplicação | TU-173 |
-| RN-174: alerta Crítico envia notificação | TU-174 |
-| RN-175: leitura dentro dos limites não envia notificação | TU-175 |
-| RN-176: alerta Informativo não envia notificação | TU-176 |
-| RN-177: falha no envio de notificação não rebenta a aplicação | TU-177 |
-| RN-178: desvio de 7 °C (35°C) classifica como Informativo e não notifica | TU-178 |
-| RN-179: desvio de 8 °C (36°C) classifica como Crítico e notifica | TU-179 |
+| RN-67: lote ativo sem perdas conclui-se | TU-67 |
+| RN-68: lote ativo com perdas fica comprometido | TU-68 |
+| RN-69: não fecha lote sem data de conclusão | TU-69 |
+| RN-70: lote já concluído não pode voltar a transitar | TU-70 |
+| RN-71: lote comprometido não pode voltar a transitar | TU-71 |
+| RN-72: estado de lote desconhecido é rejeitado | TU-72 |
+| RN-73: produtividade total sem perdas | TU-73 |
+| RN-74: produtividade com perdas parciais | TU-74 |
+| RN-75: produtividade com colheita parcial | TU-75 |
+| RN-76: perdas não podem exceder a colheita | TU-76 |
+| RN-77: quantidade planeada não pode ser zero | TU-77 |
+| RN-78: criação de lote com dados válidos | TU-78 |
+| RN-79: lote exige indicação da erva | TU-79 |
+| RN-80: quantidade planeada não pode ser zero | TU-80 |
+| RN-81: quantidade planeada não pode ser negativa | TU-81 |
+| RN-82: aceita tarefa de rega | TU-82 |
+| RN-83: aceita tarefa de fertilização | TU-83 |
+| RN-84: aceita tarefa de colheita | TU-84 |
+| RN-85: aceita tarefa de monitorização | TU-85 |
+| RN-86: rejeita tarefa de tipo desconhecido | TU-86 |
+| RN-87: tarefa exige indicação do lote | TU-87 |
+| RN-88: tarefa exige indicação do tipo | TU-88 |
+| RN-89: tarefa rejeita data em formato inválido | TU-89 |
+| RN-90: temperatura abaixo do mínimo gera alerta | TU-90 |
+| RN-91: temperatura no limite inferior não gera alerta | TU-91 |
+| RN-92: temperatura interior não gera alerta | TU-92 |
+| RN-93: temperatura no limite superior não gera alerta | TU-93 |
+| RN-94: temperatura acima do máximo gera alerta | TU-94 |
+| RN-95: humidade abaixo do mínimo gera alerta | TU-95 |
+| RN-96: humidade no limite inferior não gera alerta | TU-96 |
+| RN-97: humidade interior não gera alerta | TU-97 |
+| RN-98: humidade no limite superior não gera alerta | TU-98 |
+| RN-99: humidade acima do máximo gera alerta | TU-99 |
+| RN-100: luminosidade abaixo do mínimo gera alerta informativo | TU-100 |
+| RN-101: luminosidade no limite inferior não gera alerta | TU-101 |
+| RN-102: luminosidade interior não gera alerta | TU-102 |
+| RN-103: luminosidade no limite superior não gera alerta | TU-103 |
+| RN-104: luminosidade acima do máximo gera alerta informativo | TU-104 |
+| RN-105: sensor desligado nunca gera alerta | TU-105 |
+| RN-106: estado do sensor tem de ser booleano | TU-106 |
+| RN-107: leituras normais não geram alerta | TU-107 |
+| RN-108: temperatura alta gera Aviso | TU-108 |
+| RN-109: temperatura baixa gera Aviso | TU-109 |
+| RN-110: humidade alta gera Aviso | TU-110 |
+| RN-111: humidade baixa gera Aviso | TU-111 |
+| RN-112: temperatura e humidade fora geram Crítico | TU-112 |
+| RN-113: só luminosidade fora gera Informativo | TU-113 |
+| RN-114: sensor desligado não gera alerta | TU-114 |
+| RN-115: resolver alerta sem justificação é permitido | TU-115 |
+| RN-116: resolver alerta com justificação é permitido | TU-116 |
+| RN-117: ignorar alerta com justificação válida é permitido | TU-117 |
+| RN-118: ignorar alerta exige justificação | TU-118 |
+| RN-119: ação de resolução desconhecida é rejeitada | TU-119 |
+| RN-120: justificação para ignorar abaixo do mínimo | TU-120 |
+| RN-121: justificação no limite inferior é aceite | TU-121 |
+| RN-122: justificação num tamanho interior é aceite | TU-122 |
+| RN-123: justificação no limite superior é aceite | TU-123 |
+| RN-124: justificação acima do máximo é rejeitada | TU-124 |
+| RN-125: resolver alerta inexistente é rejeitado | TU-125 |
+| RN-126: alerta já tratado não pode ser alterado | TU-126 |
+| RN-127: modo automático com tudo ativo executa a ação | TU-127 |
+| RN-128: modo manual com tudo ativo apenas sugere a ação | TU-128 |
+| RN-129: regra inativa faz ignorar a ação | TU-129 |
+| RN-130: medição não recente faz ignorar a ação | TU-130 |
+| RN-131: modo de automação desconhecido é rejeitado | TU-131 |
+| RN-132: aceita perfil Técnico | TU-132 |
+| RN-133: aceita perfil Responsável Técnico | TU-133 |
+| RN-134: aceita perfil Administrador | TU-134 |
+| RN-135: rejeita perfil desconhecido | TU-135 |
+| RN-136: perfil é obrigatório | TU-136 |
+| RN-137: aceita utilizador com todos os campos válidos | TU-137 |
+| RN-138: nome de utilizador é obrigatório | TU-138 |
+| RN-139: password é obrigatória | TU-139 |
+| RN-140: perfil é obrigatório (campo em falta) | TU-140 |
+| RN-141: nome de utilizador não pode ser vazio | TU-141 |
+| RN-142: aceita exportação em CSV | TU-142 |
+| RN-143: aceita exportação em Excel | TU-143 |
+| RN-144: rejeita exportação em PDF | TU-144 |
+| RN-145: rejeita exportação em JSON | TU-145 |
+| RN-146: formato de exportação é obrigatório | TU-146 |
+| RN-147: criação de lote é auditável | TU-147 |
+| RN-148: resolução de alerta é auditável | TU-148 |
+| RN-149: fecho de lote é auditável | TU-149 |
+| RN-150: consulta de lotes não é auditável | TU-150 |
+| RN-151: consulta de ervas não é auditável | TU-151 |
+| RN-152: plano regular completo é aceite (caso base) | TU-152 |
+| RN-153: tipo de plano determina a aceitação | TU-153 |
+| RN-154: temperatura determina a aceitação | TU-154 |
+| RN-155: humidade determina a aceitação | TU-155 |
+| RN-156: luminosidade determina a aceitação | TU-156 |
+| RN-157: ser pontual determina a exigência de autorização | TU-157 |
+| RN-158: a autorização desbloqueia o plano pontual | TU-158 |
+| RN-159: pedido de plano malformado é rejeitado | TU-159 |
+| RN-160: temperatura tem de ser numérica | TU-160 |
+| RN-161: temperatura máxima não pode ser menor que a mínima | TU-161 |
+| RN-162: humidade máxima não pode ser menor que a mínima | TU-162 |
+| RN-163: luminosidade máxima não pode ser menor que a mínima | TU-163 |
+| RN-164: duração do ciclo abaixo do mínimo | TU-164 |
+| RN-165: duração do ciclo no limite inferior | TU-165 |
+| RN-166: duração do ciclo num valor interior | TU-166 |
+| RN-167: duração do ciclo no limite superior | TU-167 |
+| RN-168: duração do ciclo acima do máximo | TU-168 |
+| RN-169: leitura de temperatura dentro dos limites não gera alerta | TU-169 |
+| RN-170: temperatura abaixo do mínimo gera alerta | TU-170 |
+| RN-171: temperatura acima do máximo gera alerta | TU-171 |
+| RN-172: sensor indisponível não rebenta a aplicação | TU-172 |
+| RN-173: alerta Crítico envia notificação | TU-173 |
+| RN-174: leitura dentro dos limites não envia notificação | TU-174 |
+| RN-175: alerta Informativo não envia notificação | TU-175 |
+| RN-176: falha no envio de notificação não rebenta a aplicação | TU-176 |
+| RN-177: desvio de 7 °C (35°C) → Informativo, não notifica | TU-177 |
+| RN-178: desvio de 8 °C (36°C) → Crítico, notifica | TU-178 |
+| RN-179: classe "frio moderado" (Informativo) | TU-179 |
+| RN-180: classe "calor crítico" — valor realista | TU-180 |
+| RN-181: classe "calor crítico" — valor extremo | TU-181 |
+| RN-182: classe "frio crítico" verifica notificação | TU-182 |
+| RN-183: classe "frio crítico" — valor extremo profundo | TU-183 |
+| RN-184: classe "calor moderado" — segundo representante | TU-184 |
+| RN-185: classe "normal" — segundo representante na fronteira interior | TU-185 |
 | RF-01: autenticação de utilizador | TI-01 |
 | RF-01: autenticação rejeita password errada | TI-02 |
 | RF-01: autenticação rejeita utilizador inexistente | TI-03 |
