@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="pghkCzfv9uoPuoTPdiWN" name="Diagrama de Classes">
-    <mxGraphModel dx="3938" dy="2563" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2774" dy="1830" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -317,7 +317,7 @@
           <mxGeometry height="42" width="230" y="50" as="geometry" />
         </mxCell>
         <mxCell id="-2lF0r67wbDBVYw4HKTe-98" parent="1" style="swimlane;rounded=1;arcSize=6;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;html=1;fillColor=#E1D5E7;strokeColor=default;" value="«mock»&#xa;NotificationGatewayMock" vertex="1">
-          <mxGeometry height="156" width="260" x="-210" y="1080" as="geometry" />
+          <mxGeometry height="156" width="260" x="-190" y="1080" as="geometry" />
         </mxCell>
         <mxCell id="-2lF0r67wbDBVYw4HKTe-99" parent="-2lF0r67wbDBVYw4HKTe-98" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;spacingTop=2;overflow=hidden;rotatable=0;whiteSpace=wrap;html=1;" value="-calls: list&#xa;-should_fail: bool&#xa;+send(recipient,subject,body): bool&#xa;+send_count(): int&#xa;+was_called(): bool&#xa;+last_call(): dict" vertex="1">
           <mxGeometry height="106" width="260" y="50" as="geometry" />
@@ -461,7 +461,7 @@
           <mxGeometry relative="1" x="0.1308" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="-50" y="870" />
+              <mxPoint x="-30" y="870" />
               <mxPoint x="175" y="870" />
             </Array>
             <mxPoint x="-50" y="1109.95" as="sourcePoint" />

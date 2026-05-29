@@ -40,43 +40,43 @@ def alerta_resolvido():
 
 
 # ---------------------------------------------------------------------------
-# TU-107 a TU-114 — PE: classificação de alertas
+# TU-108 a TU-115 — PE: classificação de alertas
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize(
     "test_id, temp, hum, lux, sensor_ok, esperado",
     [
-        ("TU-107", 23.0, 60.0, 15000, True,  None),           # PE: tudo normal → sem alerta
-        ("TU-108", 29.0, 60.0, 15000, True,  "Aviso"),        # PE: temperatura alta
-        ("TU-109", 17.0, 60.0, 15000, True,  "Aviso"),        # PE: temperatura baixa
-        ("TU-110", 23.0, 85.0, 15000, True,  "Aviso"),        # PE: humidade alta
-        ("TU-111", 23.0, 35.0, 15000, True,  "Aviso"),        # PE: humidade baixa
-        ("TU-112", 29.0, 35.0, 15000, True,  "Crítico"),      # PE: temp + hum ambas fora
-        ("TU-113", 23.0, 60.0, 26000, True,  "Informativo"),  # PE: luminosidade fora
-        ("TU-114", 29.0, 35.0, 26000, False, None),           # PE: sensor off → sem alerta
+        ("TU-108", 23.0, 60.0, 15000, True,  None),           # PE: tudo normal → sem alerta
+        ("TU-109", 29.0, 60.0, 15000, True,  "Aviso"),        # PE: temperatura alta
+        ("TU-110", 17.0, 60.0, 15000, True,  "Aviso"),        # PE: temperatura baixa
+        ("TU-111", 23.0, 85.0, 15000, True,  "Aviso"),        # PE: humidade alta
+        ("TU-112", 23.0, 35.0, 15000, True,  "Aviso"),        # PE: humidade baixa
+        ("TU-113", 29.0, 35.0, 15000, True,  "Crítico"),      # PE: temp + hum ambas fora
+        ("TU-114", 23.0, 60.0, 26000, True,  "Informativo"),  # PE: luminosidade fora
+        ("TU-115", 29.0, 35.0, 26000, False, None),           # PE: sensor off → sem alerta
     ],
 )
 def test_classify_alert(test_id, temp, hum, lux, sensor_ok, esperado):
-    """PE: classify_alert — classes None / Aviso / Crítico / Informativo (TU-107 a TU-114)."""
+    """PE: classify_alert — classes None / Aviso / Crítico / Informativo (TU-108 a TU-115)."""
     assert classify_alert(temp, hum, lux, LIMITS, sensor_ok) == esperado
 
 
 # ---------------------------------------------------------------------------
-# TU-115 a TU-119 — PE: resolução de alerta — ação
+# TU-116 a TU-120 — PE: resolução de alerta — ação
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize(
     "test_id, action, justification, esperado",
     [
-        ("TU-115", "resolvido", None,      "ok"),    # PE: resolvido sem justificação (opcional)
-        ("TU-116", "resolvido", "J" * 50,  "ok"),    # PE: resolvido com justificação (aceite)
-        ("TU-117", "ignorado",  "J" * 50,  "ok"),    # PE: ignorado com justificação válida
-        ("TU-118", "ignorado",  None,      "erro"),  # PE: ignorado sem justificação obrigatória
-        ("TU-119", "cancelado", None,      "erro"),  # PE: ação inválida
+        ("TU-116", "resolvido", None,      "ok"),    # PE: resolvido sem justificação (opcional)
+        ("TU-117", "resolvido", "J" * 50,  "ok"),    # PE: resolvido com justificação (aceite)
+        ("TU-118", "ignorado",  "J" * 50,  "ok"),    # PE: ignorado com justificação válida
+        ("TU-119", "ignorado",  None,      "erro"),  # PE: ignorado sem justificação obrigatória
+        ("TU-120", "cancelado", None,      "erro"),  # PE: ação inválida
     ],
 )
 def test_resolve_alert_acao(test_id, action, justification, esperado, alerta_pendente):
-    """PE: resolve_alert — classes de ação (TU-115 a TU-119)."""
+    """PE: resolve_alert — classes de ação (TU-116 a TU-120)."""
     if esperado == "erro":
         with pytest.raises(AlertActionError):
             resolve_alert(alerta_pendente["id"], action, justification)
@@ -86,21 +86,21 @@ def test_resolve_alert_acao(test_id, action, justification, esperado, alerta_pen
 
 
 # ---------------------------------------------------------------------------
-# TU-120 a TU-124 — VL: comprimento da justificação [10, 500] chars
+# TU-121 a TU-125 — VL: comprimento da justificação [10, 500] chars
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize(
     "test_id, length, esperado",
     [
-        ("TU-120",   9, "erro"),   # VL: abaixo do limite inferior (9 < 10)
-        ("TU-121",  10, "ok"),     # VL: limite inferior exacto
-        ("TU-122", 250, "ok"),     # VL: valor nominal interior
-        ("TU-123", 500, "ok"),     # VL: limite superior exacto
-        ("TU-124", 501, "erro"),   # VL: acima do limite superior (501 > 500)
+        ("TU-121",   9, "erro"),   # VL: abaixo do limite inferior (9 < 10)
+        ("TU-122",  10, "ok"),     # VL: limite inferior exacto
+        ("TU-123", 250, "ok"),     # VL: valor nominal interior
+        ("TU-124", 500, "ok"),     # VL: limite superior exacto
+        ("TU-125", 501, "erro"),   # VL: acima do limite superior (501 > 500)
     ],
 )
 def test_resolve_alert_justificacao_vl(test_id, length, esperado, alerta_pendente):
-    """VL: justificação para 'ignorado' no intervalo [10, 500] chars (TU-120 a TU-124)."""
+    """VL: justificação para 'ignorado' no intervalo [10, 500] chars (TU-121 a TU-125)."""
     justification = "A" * length
     if esperado == "erro":
         with pytest.raises(AlertActionError):
@@ -111,11 +111,11 @@ def test_resolve_alert_justificacao_vl(test_id, length, esperado, alerta_pendent
 
 
 # ---------------------------------------------------------------------------
-# TU-125 — PE: alerta não encontrado
+# TU-126 — PE: alerta não encontrado
 # ---------------------------------------------------------------------------
 
 def test_resolve_alert_nao_encontrado():
-    """PE: id inexistente lança AlertNotFoundError (TU-125)."""
+    """PE: id inexistente lança AlertNotFoundError (TU-126)."""
     memory_store.reset_alerts()
     with pytest.raises(AlertNotFoundError):
         resolve_alert(9999, "resolvido")
@@ -123,10 +123,10 @@ def test_resolve_alert_nao_encontrado():
 
 
 # ---------------------------------------------------------------------------
-# TU-126 — PE: alerta já resolvido
+# TU-127 — PE: alerta já resolvido
 # ---------------------------------------------------------------------------
 
 def test_resolve_alert_ja_resolvido(alerta_resolvido):
-    """PE: alerta não pendente lança AlertActionError (TU-126)."""
+    """PE: alerta não pendente lança AlertActionError (TU-127)."""
     with pytest.raises(AlertActionError):
         resolve_alert(alerta_resolvido["id"], "resolvido")

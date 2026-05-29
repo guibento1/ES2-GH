@@ -77,7 +77,7 @@ def test_falha_no_envio_nao_rebenta():
 # ---------------------------------------------------------------------------
 
 def test_fronteira_desvio_7_informativo_nao_notifica():
-    """TU-177 (Mock + VL): desvio = 7 °C (35°C) → Informativo → notificação NÃO enviada."""
+    """TU-178 (Mock + VL): desvio = 7 °C (35°C) → Informativo → notificação NÃO enviada."""
     sensor = TemperatureSensorStub(temperature=35.0)   # 35-28 = 7; 7 não é > 7 → Informativo
     notifier = NotificationGatewayMock()
     service = MonitoringService(sensor, notifier)
@@ -91,7 +91,7 @@ def test_fronteira_desvio_7_informativo_nao_notifica():
 
 
 def test_fronteira_desvio_8_critico_notifica():
-    """TU-178 (Mock + VL): desvio = 8 °C (36°C) → Crítico → notificação enviada."""
+    """TU-179 (Mock + VL): desvio = 8 °C (36°C) → Crítico → notificação enviada."""
     sensor = TemperatureSensorStub(temperature=36.0)   # 36-28 = 8; 8 > 7 → Crítico
     notifier = NotificationGatewayMock()
     service = MonitoringService(sensor, notifier)
