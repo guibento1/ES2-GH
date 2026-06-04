@@ -4,7 +4,7 @@ from api.utils.date_validator import DateValidationError, validate_date
 
 
 # ---------------------------------------------------------------------------
-# TU-57 a TU-66 — PE: formatos de data em /plans, /batches, /tasks
+# TU-57 a TU-67 — PE: formatos de data em /plans, /batches, /tasks
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize(
@@ -20,10 +20,11 @@ from api.utils.date_validator import DateValidationError, validate_date
         ("TU-64", "16 maio 2026","erro"),  # PE: data por extenso
         ("TU-65", "2026-13-01",  "erro"),  # PE: mês inexistente (13)
         ("TU-66", "2026-02-30",  "erro"),  # PE: dia inexistente (fev 30)
+        ("TU-67", "2026-00-01",  "erro"),  # PE: mês inexistente (00)
     ],
 )
 def test_validate_date(test_id, date_str, esperado):
-    """PE: validate_date — formato YYYY-MM-DD válido; outros formatos e datas inexistentes rejeitados (TU-57 a TU-66)."""
+    """PE: validate_date — formato YYYY-MM-DD válido; outros formatos e datas inexistentes rejeitados (TU-57 a TU-67)."""
     if esperado == "erro":
         with pytest.raises(DateValidationError):
             validate_date(date_str)

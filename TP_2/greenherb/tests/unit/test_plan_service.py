@@ -109,21 +109,21 @@ def test_pontual_autorizacao(test_id, authorized_by, esperado):
 
 
 # ---------------------------------------------------------------------------
-# TU-165 a TU-169 — Duração do ciclo [1, 365] dias
+# TU-153 a TU-157 — Duração do ciclo [1, 365] dias
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize(
     "test_id, dias, esperado",
     [
-        ("TU-165",   0, "erro"),   # VL: abaixo do limite inferior (0 < 1)
-        ("TU-166",   1, "ok"),     # VL: limite inferior exacto
-        ("TU-167",  90, "ok"),     # VL: valor nominal interior
-        ("TU-168", 365, "ok"),     # VL: limite superior exacto
-        ("TU-169", 366, "erro"),   # VL: acima do limite superior (366 > 365)
+        ("TU-153",   0, "erro"),   # VL: abaixo do limite inferior (0 < 1)
+        ("TU-154",   1, "ok"),     # VL: limite inferior exacto
+        ("TU-155",  90, "ok"),     # VL: valor nominal interior
+        ("TU-156", 365, "ok"),     # VL: limite superior exacto
+        ("TU-157", 366, "erro"),   # VL: acima do limite superior (366 > 365)
     ],
 )
 def test_duracao_ciclo(test_id, dias, esperado):
-    """VL: duration_days no intervalo [1, 365] dias (TU-165 a TU-169)."""
+    """VL: duration_days no intervalo [1, 365] dias (TU-153 a TU-157)."""
     payload = _plano(duration_days=dias)
     if esperado == "erro":
         with pytest.raises(PlanValidationError):
