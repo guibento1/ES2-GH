@@ -1,0 +1,60 @@
+package com.es2.logging;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class LogConfig {
+    private static final LogConfig instance = new LogConfig();
+    private LogLevel globalLevel;
+    private List<LogDestination> destinations;
+    private String formatPatterns;
+
+    private LogConfig() {
+        this.globalLevel = LogLevel.INFO; // Default log level
+        this.destinations = new ArrayList<>(); // Default to no destinations
+        this.formatPatterns = "[%level] %message"; // Default format
+    }
+
+    public static LogConfig getInstance() {
+        return instance;
+    }
+
+    public LogLevel getGlobalLevel() {
+        return globalLevel;
+    }
+
+    public void setGlobalLevel(LogLevel globalLevel) {
+        this.globalLevel = globalLevel;
+    }
+
+    public List<LogDestination> getDestinations() {
+        return destinations;
+    }
+
+    public void setDestinations(List<LogDestination> destinations) {
+        this.destinations = destinations;
+    }
+
+    public void addDestination(LogDestination destination) {
+        this.destinations.add(destination);
+    }
+
+    public LogConfigMemento createMemento() {
+        return new LogConfigMemento(globalLevel, destinations, formatPatterns);
+    }
+
+    public void restoreMemento(LogConfigMemento memento) {
+        this.globalLevel    = memento.getGlobalLevel();
+        this.destinations   = new ArrayList<>(memento.getDestinations());
+        this.formatPatterns = memento.getFormatPatterns();
+    }
+
+    public String getFormatPatterns() {
+        return formatPatterns;
+    }
+
+    public void setFormatPatterns(String formatPatterns) {
+        this.formatPatterns = formatPatterns;
+    }
+}
+

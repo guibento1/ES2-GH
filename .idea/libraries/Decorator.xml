@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Decorator">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Patterns/DecoratorPattern/out/artifacts/Decorator/Decorator.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

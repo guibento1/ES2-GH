@@ -1,0 +1,34 @@
+GREENHERB - COMANDOS DE EXECUCAO
+================================
+
+1. Entrar na pasta do projeto
+-----------------------------
+cd C:\Users\bento\Documents\GitHub\ES2-GH\TP_2\greenherb
+
+
+2. Correr a API
+---------------
+uvicorn api.main:api --reload
+
+Swagger:
+http://127.0.0.1:8000/docs
+
+OpenAPI JSON:
+http://127.0.0.1:8000/openapi.json
+
+Redoc:
+http://127.0.0.1:8000/redoc
+
+
+Antes de correr a API, configure `GREENHERB_JWT_SECRET` e
+`GREENHERB_USERS_JSON` no ambiente. Nunca coloque estes valores no Git.
+
+
+4. Executar apenas o ficheiro de testes unitarios
+-------------------------------------------------
+pytest tests/unit/test_auth_service.py
+
+
+5. Executar testes com cobertura, como pedido no enunciado
+----------------------------------------------------------
+pytest tests/ --cov=api --cov-report=term-missing
